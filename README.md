@@ -4,7 +4,7 @@ Here's my very first personal portfolio!
 
 ## Demo
 
-To view the portfolio, click [here]()!
+To view the portfolio, click [here](https://loganprit.github.io/personal-portfolio/)!
 
 ![Screenshot of Portfolio](/images/screenshot.png)
 
