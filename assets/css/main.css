@@ -1320,10 +1320,14 @@ body.is-preload #header .content .inner {
     flex-direction: column;
     min-width: 10rem;
     max-width: 100%;
+    width: calc(100% - 2rem);
+    margin: 0 1rem;
   }
   #header nav ul li {
     border-left: 0;
     border-top: solid 1px #ffffff;
+    width: 100%;
+    margin: 0;
   }
   #header nav ul li:first-child {
     border-top: 0;
@@ -1333,6 +1337,7 @@ body.is-preload #header .content .inner {
     line-height: 3rem;
     min-width: 0;
     width: 100%;
+    padding: 0;
   }
   #header nav.use-middle:after {
     display: none;
