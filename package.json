@@ -1,0 +1,9 @@
+{
+  "name": "thinkful-portfolio-default",
+  "scripts": {
+    "sass": "sass assets/sass/main.scss assets/css/main.css --watch"
+  },
+  "dependencies": {
+    "sass": "^1.69.0"
+  }
+} 
