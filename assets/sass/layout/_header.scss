@@ -74,6 +74,11 @@
 			border-top-width: _size(border-width);
 			border-bottom-width: _size(border-width);
 			max-width: 100%;
+			overflow-y: auto;
+			overflow-x: hidden;
+			scrollbar-gutter: stable;
+			max-height: 80vh;
+			scroll-behavior: smooth;
 
 			// Add scrollbar styles
 			overflow-y: auto;
