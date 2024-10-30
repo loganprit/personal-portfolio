@@ -75,6 +75,40 @@
 			border-bottom-width: _size(border-width);
 			max-width: 100%;
 
+			// Add scrollbar styles
+			overflow-y: auto;
+			scrollbar-gutter: stable;
+			max-height: 80vh;  // Match article max-height
+
+			// Hide default scrollbar and use custom styling
+			&::-webkit-scrollbar {
+				width: 8px;
+			}
+
+			&::-webkit-scrollbar-thumb {
+				background-color: rgba(255, 255, 255, 0.3);
+				border-radius: 4px;
+				
+				&:hover {
+					background-color: rgba(255, 255, 255, 0.4);
+				}
+			}
+
+			&::-webkit-scrollbar-track {
+				background: rgba(255, 255, 255, 0.1);
+			}
+
+			// Firefox scrollbar
+			scrollbar-width: thin;
+			scrollbar-color: rgba(255, 255, 255, 0.2) transparent;
+
+			// Ensure content doesn't shift
+			margin-right: -8px;  // Compensate for scrollbar width
+			padding-right: calc(2rem + 8px);  // Add scrollbar width to padding
+
+			// Add smooth scrolling
+			scroll-behavior: smooth;
+
 			.inner {
 				@include vendor('transition', (
 					'max-height #{_duration(intro)} ease',
@@ -83,7 +117,7 @@
 				));
 				@include vendor('transition-delay', '0.25s');
 				padding: 3rem 2rem;
-				max-height: 40rem;
+				max-height: none;
 				overflow: hidden;
 
 				> :last-child {

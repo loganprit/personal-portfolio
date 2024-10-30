@@ -46,4 +46,33 @@ html, body {
   width: 100vw;
   margin: 0;
   padding: 0;
+  overflow: hidden;
+}
+
+#wrapper {
+  height: 100vh;
+  overflow-y: auto;
+  scrollbar-width: thin;
+  scrollbar-color: rgba(255, 255, 255, 0.2) transparent;
+  
+  // Hide default scrollbar and use custom styling
+  &::-webkit-scrollbar {
+    width: 8px;
+  }
+
+  &::-webkit-scrollbar-thumb {
+    background-color: rgba(255, 255, 255, 0.3);
+    border-radius: 4px;
+    
+    &:hover {
+      background-color: rgba(255, 255, 255, 0.4);
+    }
+  }
+
+  &::-webkit-scrollbar-track {
+    background: rgba(255, 255, 255, 0.1);
+  }
+
+  // Add smooth scrolling
+  scroll-behavior: smooth;
 }
