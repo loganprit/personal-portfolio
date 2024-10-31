@@ -16,4 +16,4 @@ To view the portfolio, click [here](https://loganprit.github.io/personal-portfol
 
 ## Credits
 
-Created by Logan Pritchett. Guidance by Thinkful and Chegg Study.
+Created by Logan Pritchett. Guidance by Thinkful and Chegg Skills.
