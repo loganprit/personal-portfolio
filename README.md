@@ -19,7 +19,7 @@ Free for personal and commercial use under the CCA 3.0 license (html5up.net/lice
 
 ### Background Image
 
-[Unsplash](https://unsplash.com) - Laptop and coffee on wooden table  
+[Unsplash](https://unsplash.com) 
 Photo by [Nick Silliman](https://unsplash.com/@noahsilliman)
 
 ### Icons
