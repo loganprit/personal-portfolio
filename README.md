@@ -33,5 +33,4 @@ Photo by [Nick Silliman](https://unsplash.com/@noahsilliman)
 
 ## License
 
-[Creative Commons Attribution 3.0 Unported](./LICENSE.txt)  
-https://creativecommons.org/licenses/by/3.0/
+[Creative Commons Attribution 3.0 Unported](./LICENSE.txt)
