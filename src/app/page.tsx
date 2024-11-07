@@ -1,16 +1,21 @@
-import { GlassCard } from "@/components/ui/GlassCard";
-import { ThemeToggle } from "@/components/theme/ThemeToggle";
-
 export default function Home() {
   return (
-    <div className="flex min-h-screen items-center justify-center p-4 sm:p-8">
-      <GlassCard className="w-full min-h-[calc(100vh-2rem)] sm:min-h-[calc(100vh-4rem)] p-8 relative">
-        <div className="absolute top-8 right-8">
-          <ThemeToggle />
-        </div>
-        {/* Your content goes here */}
-        <h1 className="text-3xl font-bold">Your Content</h1>
-      </GlassCard>
+    <div className="flex flex-col gap-8">
+      {/* Top section */}
+      <div className="rounded-lg border p-8">
+        <h1 className="text-2xl font-bold">Welcome to my portfolio</h1>
+        <p className="mt-4 text-muted-foreground">
+          I'm a software engineer focused on building robust and scalable applications.
+        </p>
+      </div>
+
+      {/* Bottom section */} 
+      <div className="rounded-lg border p-8">
+        <h2 className="text-xl font-semibold">Featured Projects</h2>
+        <p className="mt-4 text-muted-foreground">
+          Check out some of my recent work in the projects section.
+        </p>
+      </div>
     </div>
   );
 }

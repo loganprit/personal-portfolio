@@ -3,22 +3,53 @@
 import Link from "next/link";
 import { FiFile, FiGithub, FiLinkedin, FiMail } from "react-icons/fi";
 
+interface SocialLinkProps {
+  href: string;
+  icon: React.ReactNode;
+  label: string;
+}
+
+/**
+ * Individual social link component
+ */
+function SocialLink({ href, icon, label }: SocialLinkProps) {
+  return (
+    <Link 
+      href={href}
+      className="p-2 hover:bg-foreground/10 rounded-full transition-colors"
+      aria-label={label}
+    >
+      {icon}
+    </Link>
+  );
+}
+
+/**
+ * Social links component displaying various platform links
+ */
 export function Socials() {
   return (
-    <div>
-      <Link href="https://github.com/yourusername">
-        <FiGithub />
-      </Link>
-      <Link href="https://linkedin.com/in/yourusername">
-        <FiLinkedin />
-      </Link>
-      <Link href="mailto:your.email@example.com">
-        <FiMail />
-      </Link>
-      <Link href="/resume.pdf">
-        <FiFile />
-      </Link>
+    <div className="flex gap-2">
+      <SocialLink 
+        href="https://github.com/loganprit"
+        icon={<FiGithub size={20} />}
+        label="GitHub Profile"
+      />
+      <SocialLink 
+        href="https://linkedin.com/in/logan-pritchett"
+        icon={<FiLinkedin size={20} />}
+        label="LinkedIn Profile"
+      />
+      <SocialLink 
+        href="mailto:hares.pill.0n@icloud.com"
+        icon={<FiMail size={20} />}
+        label="Email Contact"
+      />
+      <SocialLink 
+        href="https://docs.google.com/uc?export=download&id=1tyxpk-D8_QJhQNbYOUl21BlSxH_twZnt"
+        icon={<FiFile size={20} />}
+        label="Download Resume"
+      />
     </div>
   );
-
 }
