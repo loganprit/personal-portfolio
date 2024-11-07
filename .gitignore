@@ -12,6 +12,8 @@
 
 # testing
 /coverage
+Instructions.md
+README_default.md
 
 # next.js
 /.next/

@@ -3,19 +3,65 @@
 @tailwind utilities;
 
 :root {
-  --background: #ffffff;
+  --background-start: #dbe7ec;
+  --background-end: #bbd3dd;
   --foreground: #171717;
+  --card-background: rgba(236, 239, 243, 0.7);
+  --card-border: rgba(0, 0, 0, 0.08);
 }
 
-@media (prefers-color-scheme: dark) {
-  :root {
-    --background: #0a0a0a;
-    --foreground: #ededed;
-  }
+.dark {
+  --background-start: #5f7f8e;
+  --background-end: #4e6b7a;
+  --foreground: #ffffff;
+  --card-background: rgba(0, 0, 0, 0.3);
+  --card-border: rgba(255, 255, 255, 0.08);
 }
 
 body {
   color: var(--foreground);
-  background: var(--background);
-  font-family: Arial, Helvetica, sans-serif;
+  min-height: 100vh;
+}
+
+/* Update noise texture opacity based on theme */
+body::before {
+  content: "";
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noise' x='0' y='0'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.65' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%' height='100%' filter='url(%23noise)' opacity='0.05'/%3E%3C/svg%3E");
+  pointer-events: none;
+  opacity: 0.4;
+  z-index: 1;
+}
+
+.dark body::before {
+  opacity: 0.15;
+}
+
+@media (max-width: 640px) {
+  .theme-swipe-overlay {
+    transform: translateY(-100%) !important;
+  }
+
+  .theme-swipe-overlay[data-theme="dark"] {
+    transform: translateY(100%) !important;
+  }
+
+  .theme-transition {
+    transform: rotate(45deg) scale(2);
+  }
+}
+
+@media (min-width: 641px) {
+  .theme-transition {
+    transform: rotate(-45deg) scale(2);
+  }
+}
+
+/* Add transition class */
+.theme-transition {
+  transition: background 0.5s ease-in-out;
 }

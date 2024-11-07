@@ -12,8 +12,12 @@ const config: Config = {
         background: "var(--background)",
         foreground: "var(--foreground)",
       },
+      backdropBlur: {
+        xl: "20px",
+      },
     },
   },
   plugins: [],
 };
+
 export default config;
