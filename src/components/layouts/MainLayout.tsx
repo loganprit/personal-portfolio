@@ -18,7 +18,7 @@ export function MainLayout({ children }: MainLayoutProps) {
         </div>
         <div className="flex h-full gap-8">
           {/* Left Side - Static Content */}
-          <div className="flex flex-col w-[300px] shrink-0">
+          <div className="flex flex-col w-1/2 shrink-0">
             <div>
               <Header
                 name="Logan Pritchett"
@@ -36,7 +36,7 @@ export function MainLayout({ children }: MainLayoutProps) {
           </div>
           
           {/* Right Side - Dynamic Content */}
-          <div className="flex-1 overflow-auto">
+          <div className="flex-1 w-1/2 overflow-auto">
             <PageTransition>
               {children}
             </PageTransition>
