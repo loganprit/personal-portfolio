@@ -17,7 +17,7 @@ function NavItem({ href, children, isActive }: NavItemProps) {
   return (
     <Link 
       href={href}
-      className={`text-lg transition-colors py-2 relative ${
+      className={`text-2xl font-semibold transition-colors py-3 relative ${
         isActive ? "text-foreground" : "text-foreground/60 hover:text-foreground/80"
       }`}
     >

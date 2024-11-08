@@ -13,7 +13,7 @@ interface GlassCardProps {
 export function GlassCard({ children, className = "" }: GlassCardProps) {
   return (
     <div
-      className={`relative rounded-3xl border backdrop-blur-xl ${className}`}
+      className={`relative rounded-3xl border backdrop-blur-xl glass-card-noise ${className}`}
       style={{
         backgroundColor: "var(--card-background)",
         borderColor: "var(--card-border)",

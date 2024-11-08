@@ -1,4 +1,5 @@
 import { FiExternalLink } from "react-icons/fi";
+import { FiGithub } from "react-icons/fi";
 import Link from "next/link";
 
 interface Technology {
@@ -29,16 +30,16 @@ function TechnologyBadge({ name, className = "" }: Technology) {
 /**
  * Individual project card component
  */
-function ProjectCard({ title, company, period, description, technologies, link }: Project) {
+function ProjectCard({ title, period, description, technologies, deploy_link, github_link }: Project) {
   return (
     <div className="rounded-lg p-6 transition-colors hover:bg-foreground/5">
       <div className="flex items-start justify-between">
         <div>
           <div className="flex items-center gap-2">
             <h3 className="text-xl font-semibold">{title}</h3>
-            {link && (
+            {deploy_link && (
               <Link 
-                href={link} 
+                href={deploy_link} 
                 target="_blank" 
                 className="text-foreground/60 hover:text-foreground transition-colors"
                 aria-label={`Visit ${title} project`}
@@ -47,8 +48,18 @@ function ProjectCard({ title, company, period, description, technologies, link }
               </Link>
             )}
           </div>
-          <p className="text-foreground/60 mt-1">{company}</p>
           <p className="text-sm text-foreground/40 mt-0.5">{period}</p>
+          {github_link && (
+            <Link
+              href={github_link}
+              target="_blank"
+              className="text-foreground/60 hover:text-foreground transition-colors inline-flex items-center gap-1.5 text-sm mt-1" 
+              aria-label={`View ${title} source code on GitHub`}
+            >
+              <FiGithub size={14} />
+              <span>View repo</span>
+            </Link>
+          )}
         </div>
       </div>
       

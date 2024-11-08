@@ -16,7 +16,7 @@ function SocialLink({ href, icon, label }: SocialLinkProps) {
   return (
     <Link 
       href={href}
-      className="p-2 hover:bg-foreground/10 rounded-full transition-colors"
+      className="p-3 hover:bg-foreground/10 rounded-full transition-colors"
       aria-label={label}
     >
       {icon}
@@ -29,25 +29,25 @@ function SocialLink({ href, icon, label }: SocialLinkProps) {
  */
 export function Socials() {
   return (
-    <div className="flex gap-2">
+    <div className="flex gap-3">
       <SocialLink 
         href="https://github.com/loganprit"
-        icon={<FiGithub size={20} />}
+        icon={<FiGithub size={30} />}
         label="GitHub Profile"
       />
       <SocialLink 
         href="https://linkedin.com/in/logan-pritchett"
-        icon={<FiLinkedin size={20} />}
+        icon={<FiLinkedin size={30} />}
         label="LinkedIn Profile"
       />
       <SocialLink 
         href="mailto:hares.pill.0n@icloud.com"
-        icon={<FiMail size={20} />}
+        icon={<FiMail size={30} />}
         label="Email Contact"
       />
       <SocialLink 
         href="https://docs.google.com/uc?export=download&id=1tyxpk-D8_QJhQNbYOUl21BlSxH_twZnt"
-        icon={<FiFile size={20} />}
+        icon={<FiFile size={30} />}
         label="Download Resume"
       />
     </div>

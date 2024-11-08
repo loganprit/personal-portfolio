@@ -12,25 +12,23 @@ interface MainLayoutProps {
 export function MainLayout({ children }: MainLayoutProps) {
   return (
     <div className="flex min-h-screen items-center justify-center p-4 sm:p-8">
-      <GlassCard className="w-full min-h-[calc(100vh-2rem)] sm:min-h-[calc(100vh-4rem)] p-8 relative">
+      <GlassCard className="w-full min-h-[calc(100vh-2rem)] sm:min-h-[calc(100vh-4rem)] p-8 relative flex flex-col">
         <div className="absolute top-8 right-8">
           <ThemeToggle />
         </div>
-        <div className="flex h-full gap-8">
+        <div className="flex flex-1 gap-8">
           {/* Left Side - Static Content */}
-          <div className="flex flex-col w-1/2 shrink-0">
-            <div>
+          <div className="flex flex-col w-1/2 shrink-0 relative">
+            <div className="flex flex-col h-full">
               <Header
                 name="Logan Pritchett"
                 title="Software Engineer // Bringing Engineering Precision to Every Line of Code"
                 avatarUrl="/images/profile.jpg"
                 initials="LP"
               />
-            </div>
-            <div className="mt-8">
-              <Nav />
-            </div>
-            <div className="mt-auto pt-8">
+              <div className="flex-1 flex items-center">
+                <Nav />
+              </div>
               <Socials />
             </div>
           </div>

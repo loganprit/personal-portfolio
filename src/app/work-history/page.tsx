@@ -1,6 +1,3 @@
-import { FiExternalLink } from "react-icons/fi";
-import Link from "next/link";
-
 interface Technology {
   name: string;
   className?: string;
@@ -9,7 +6,6 @@ interface Technology {
 interface WorkExperience {
   title: string;
   company: string;
-  companyUrl?: string;
   location: string;
   period: string;
   description: string;
@@ -33,8 +29,7 @@ function TechnologyBadge({ name, className = "" }: Technology) {
  */
 function WorkCard({ 
   title, 
-  company, 
-  companyUrl, 
+  company,
   location, 
   period, 
   description, 
@@ -47,16 +42,6 @@ function WorkCard({
         <div>
           <div className="flex items-center gap-2">
             <h3 className="text-xl font-semibold">{title}</h3>
-            {companyUrl && (
-              <Link 
-                href={companyUrl} 
-                target="_blank" 
-                className="text-foreground/60 hover:text-foreground transition-colors"
-                aria-label={`Visit ${company} website`}
-              >
-                <FiExternalLink size={16} />
-              </Link>
-            )}
           </div>
           <p className="text-foreground/60 mt-1">{company} • {location}</p>
           <p className="text-sm text-foreground/40 mt-0.5">{period}</p>
@@ -94,7 +79,6 @@ export default function WorkHistoryPage() {
     {
       title: "Full Stack Engineer",
       company: "Company Name",
-      companyUrl: "https://company.com",
       location: "Remote",
       period: "NOVEMBER 2021 — PRESENT",
       description: "Description of role and responsibilities.",
@@ -112,7 +96,7 @@ export default function WorkHistoryPage() {
       ]
     },
     {
-      title: "Software Engineer",
+      title: "Software Engineer", 
       company: "Previous Company Name",
       location: "City, State",
       period: "JANUARY 2020 — OCTOBER 2021",
