@@ -15,13 +15,20 @@ export function ThemeToggle() {
   useEffect(() => setMounted(true), []);
   if (!mounted) return null;
 
+  const otherMode = theme === "dark" ? "light" : "dark";
+
   return (
-    <button
-      onClick={() => setTheme(theme === "dark" ? "light" : "dark")}
-      className="rounded-full p-2 hover:bg-foreground/10 transition-colors relative z-[51]"
-      aria-label="Toggle theme"
-    >
-      {theme === "dark" ? <FiSun size={20} /> : <FiMoon size={20} />}
-    </button>
+    <div className="flex items-center gap-2">
+      <button
+        onClick={() => setTheme(otherMode)}
+        className="rounded-full p-2 hover:bg-foreground/10 transition-colors relative z-[51]"
+        aria-label={`Switch to ${otherMode} mode`}
+      >
+        {theme === "dark" ? <FiSun size={20} /> : <FiMoon size={20} />}
+      </button>
+      <span className="text-sm text-foreground/60">
+        Prefer {otherMode} mode?
+      </span>
+    </div>
   );
 } 
