@@ -20,9 +20,6 @@ export function ThemeToggle() {
 
   return (
     <div className="flex items-center gap-2">
-      <span className="text-sm text-foreground/60">
-        Prefer {otherMode} mode?
-      </span>
       <button
         onClick={() => setTheme(otherMode)}
         className="rounded-full p-2 hover:bg-foreground/10 transition-colors relative z-[51]"
@@ -30,6 +27,9 @@ export function ThemeToggle() {
       >
         {currentTheme === "dark" ? <FiSun size={20} /> : <FiMoon size={20} />}
       </button>
+      <span className="text-sm text-foreground/60">
+        Prefer {otherMode} mode?
+      </span>
     </div>
   );
 } 
