@@ -1,19 +1,11 @@
 import { FiExternalLink } from "react-icons/fi";
 import { FiGithub } from "react-icons/fi";
 import Link from "next/link";
+import { projects, type Project } from "@/data/projects";
 
 interface Technology {
   name: string;
   className?: string;
-}
-
-interface Project {
-  title: string;
-  period: string;
-  description: string;
-  technologies: Technology[];
-  deploy_link?: string;
-  github_link?: string;
 }
 
 /**
@@ -30,7 +22,7 @@ function TechnologyBadge({ name, className = "" }: Technology) {
 /**
  * Individual project card component
  */
-function ProjectCard({ title, period, description, technologies, deploy_link, github_link }: Project) {
+function ProjectCard({ title, period, description, updates, technologies, deploy_link, github_link }: Project) {
   return (
     <div className="rounded-lg p-6 transition-colors hover:bg-foreground/5">
       <div className="flex items-start justify-between">
@@ -67,6 +59,32 @@ function ProjectCard({ title, period, description, technologies, deploy_link, gi
         {description}
       </p>
 
+      {updates && (
+        <div className="mt-4 space-y-4">
+          {updates.completed && updates.completed.length > 0 && (
+            <div>
+              <h4 className="text-sm font-semibold text-foreground/60 mb-2">Completed Updates</h4>
+              <ul className="list-disc list-inside space-y-1">
+                {updates.completed.map((update, index) => (
+                  <li key={index} className="text-foreground/80 text-sm">{update}</li>
+                ))}
+              </ul>
+            </div>
+          )}
+          
+          {updates.planned && updates.planned.length > 0 && (
+            <div>
+              <h4 className="text-sm font-semibold text-foreground/60 mb-2">Planned Updates</h4>
+              <ul className="list-disc list-inside space-y-1">
+                {updates.planned.map((update, index) => (
+                  <li key={index} className="text-foreground/80 text-sm">{update}</li>
+                ))}
+              </ul>
+            </div>
+          )}
+        </div>
+      )}
+
       <div className="mt-6 flex flex-wrap gap-2">
         {technologies.map((tech) => (
           <TechnologyBadge key={tech.name} {...tech} />
@@ -80,39 +98,6 @@ function ProjectCard({ title, period, description, technologies, deploy_link, gi
  * Projects page component displaying multiple project cards
  */
 export default function ProjectsPage() {
-  const projects: Project[] = [
-    {
-        title: "Portfolio V3",
-        period: "2024",
-        description: "Modern portfolio website built with Next.js 14, TypeScript, and Tailwind CSS. Features a responsive design with dark mode support, smooth page transitions, and a glass-morphism UI effect.",
-        technologies: [
-          { name: "Next.js" },
-          { name: "TypeScript" },
-          { name: "Tailwind CSS" },
-          { name: "Framer Motion" }
-        ],
-        deploy_link: "You're looking at it!",
-      github_link: "https://github.com/loganprit/portfolio-v3"
-    },
-    {
-      title: "Project Name",
-      period: "NOVEMBER 2021 — PRESENT",
-      description: "Description of project.",
-      technologies: [
-        { name: "Technology 1" },
-        { name: "Technology 2" },
-        { name: "Technology 3" },
-        { name: "Technology 4" },
-        { name: "Technology 5" },
-        { name: "Technology 6" },
-        { name: "Technology 7" }
-      ],
-      deploy_link: "https://example.com",
-      github_link: "https://github.com/loganprit/project-name"
-    },
-
-  ];
-
   return (
     <div className="flex flex-col gap-8">
       <div>
