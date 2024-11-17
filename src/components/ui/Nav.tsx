@@ -2,7 +2,7 @@
 
 import Link from "next/link";
 import { usePathname } from "next/navigation";
-import { motion, AnimatePresence } from "framer-motion";
+import { motion } from "framer-motion";
 
 interface NavItemProps {
   href: string;
@@ -11,7 +11,7 @@ interface NavItemProps {
 }
 
 /**
- * Individual navigation item component with active state styling
+ * Individual navigation item component with active state styling and underline animation
  */
 function NavItem({ href, children, isActive }: NavItemProps) {
   return (
@@ -25,7 +25,7 @@ function NavItem({ href, children, isActive }: NavItemProps) {
       {isActive && (
         <motion.div
           layoutId="activeNavIndicator"
-          className="absolute -left-4 top-1/2 -translate-y-1/2 w-2 h-2 rounded-full bg-foreground"
+          className="absolute bottom-0 left-0 right-0 h-0.5 bg-foreground"
           transition={{ type: "spring", stiffness: 380, damping: 30 }}
         />
       )}
@@ -33,14 +33,18 @@ function NavItem({ href, children, isActive }: NavItemProps) {
   );
 }
 
+interface NavProps {
+  className?: string;
+}
+
 /**
- * Navigation component with vertically spaced links and active state indicators
+ * Navigation component with horizontally spaced links and active state indicators
  */
-export function Nav() {
+export function Nav({ className = "" }: NavProps) {
   const pathname = usePathname();
 
   return (
-    <nav className="flex flex-col gap-4">
+    <nav className={`flex gap-8 ${className}`}>
       <NavItem href="/" isActive={pathname === "/"}>
         Home
       </NavItem>

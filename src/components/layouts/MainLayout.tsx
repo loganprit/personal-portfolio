@@ -1,5 +1,4 @@
 import { GlassCard } from "@/components/ui/GlassCard";
-import { ThemeToggle } from "@/components/theme/ThemeToggle";
 import { Header } from "@/components/ui/Header";
 import { Nav } from "@/components/ui/Nav";
 import { Socials } from "@/components/ui/Socials";
@@ -12,12 +11,8 @@ interface MainLayoutProps {
 export function MainLayout({ children }: MainLayoutProps) {
   return (
     <div className="fixed inset-0 p-4 sm:p-8 overflow-hidden">
-      {/* Updated ThemeToggle positioning */}
-      <div className="absolute top-4 right-4 sm:top-8 sm:right-8 z-50">
-        <ThemeToggle />
-      </div>
 
-      <GlassCard className="w-full h-full p-8 relative flex flex-col">
+      <GlassCard className="w-full h-full p-12 sm:p-16 relative flex flex-col">
         <div className="flex flex-1 gap-8 h-full">
           {/* Left Side - Static Content */}
           <div className="flex flex-col w-1/2 shrink-0 relative">
@@ -28,10 +23,10 @@ export function MainLayout({ children }: MainLayoutProps) {
                 avatarUrl="/images/profile.jpg"
                 initials="LP"
               />
-              <div className="flex-1 flex items-center">
-                <Nav />
+              <Nav className="mt-12 mx-auto" />
+              <div className="mt-auto mx-auto">
+                <Socials />
               </div>
-              <Socials />
             </div>
           </div>
           
