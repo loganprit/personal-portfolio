@@ -9,26 +9,27 @@ import { FiMoon, FiSun } from "react-icons/fi";
  */
 export function ThemeToggle() {
   const [mounted, setMounted] = useState(false);
-  const { theme, setTheme } = useTheme();
+  const { theme, setTheme, systemTheme } = useTheme();
 
   // Prevent hydration mismatch
   useEffect(() => setMounted(true), []);
   if (!mounted) return null;
 
-  const otherMode = theme === "dark" ? "light" : "dark";
+  const currentTheme = theme === "system" ? systemTheme : theme;
+  const otherMode = currentTheme === "dark" ? "light" : "dark";
 
   return (
     <div className="flex items-center gap-2">
+      <span className="text-sm text-foreground/60">
+        Prefer {otherMode} mode?
+      </span>
       <button
         onClick={() => setTheme(otherMode)}
         className="rounded-full p-2 hover:bg-foreground/10 transition-colors relative z-[51]"
         aria-label={`Switch to ${otherMode} mode`}
       >
-        {theme === "dark" ? <FiSun size={20} /> : <FiMoon size={20} />}
+        {currentTheme === "dark" ? <FiSun size={20} /> : <FiMoon size={20} />}
       </button>
-      <span className="text-sm text-foreground/60">
-        Prefer {otherMode} mode?
-      </span>
     </div>
   );
 } 
