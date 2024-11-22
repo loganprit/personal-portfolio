@@ -19,7 +19,7 @@ export function ThemeToggle() {
   const otherMode = currentTheme === "dark" ? "light" : "dark";
 
   return (
-    <div className="flex items-center gap-2">
+    <div className="flex items-center gap-2 -ml-2">
       <button
         onClick={() => setTheme(otherMode)}
         className="rounded-full p-2 hover:bg-foreground/10 transition-colors relative z-[51]"

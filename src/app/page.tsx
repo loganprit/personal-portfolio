@@ -24,7 +24,7 @@ export default function Home() {
     <div className="flex flex-col gap-8">
       {/* Top section */}
       <div className="rounded-lg">
-        <h1 className="text-2xl font-bold">Welcome to my portfolio</h1>
+        <h1 className="text-2xl font-bold">Welcome to my portfolio!</h1>
         <p className="mt-4 text-foreground/80 leading-relaxed">
           I'm a software engineer with a background in chemical engineering, bringing a unique blend of analytical thinking and technical expertise to software development. My experience spans from process optimization in refineries to building full-stack web applications, always focusing on creating efficient, scalable solutions.
         </p>

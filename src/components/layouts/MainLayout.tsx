@@ -11,11 +11,10 @@ interface MainLayoutProps {
 export function MainLayout({ children }: MainLayoutProps) {
   return (
     <div className="fixed inset-0 p-4 sm:p-8 overflow-hidden">
-
-      <GlassCard className="w-full h-full p-12 sm:p-16 relative flex flex-col">
-        <div className="flex flex-1 gap-8 h-full">
+      <GlassCard className="w-full h-full p-6 sm:p-12 lg:p-16 relative flex flex-col">
+        <div className="flex flex-col lg:flex-row flex-1 gap-8 h-full">
           {/* Left Side - Static Content */}
-          <div className="flex flex-col w-1/2 shrink-0 relative">
+          <div className="flex flex-col lg:w-[40%] shrink-0 relative">
             <div className="flex flex-col h-full">
               <Header
                 name="Logan Pritchett"
@@ -23,15 +22,15 @@ export function MainLayout({ children }: MainLayoutProps) {
                 avatarUrl="/images/profile.jpg"
                 initials="LP"
               />
-              <Nav className="mt-12 mx-auto" />
-              <div className="mt-auto mx-auto">
+              <Nav className="mt-8 lg:mt-12 mx-auto" />
+              <div className="mt-8 lg:mt-auto mx-auto">
                 <Socials />
               </div>
             </div>
           </div>
           
           {/* Right Side - Dynamic Content */}
-          <div className="flex-1 w-1/2 overflow-y-auto custom-scrollbar">
+          <div className="flex-1 lg:w-[60%] overflow-y-auto custom-scrollbar">
             <PageTransition>
               {children}
             </PageTransition>

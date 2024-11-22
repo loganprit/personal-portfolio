@@ -26,7 +26,7 @@ export const projects = [
       { name: "JavaScript" },
       { name: "jQuery" }
     ],
-    deploy_link: "https://loganprit.github.io/personal-portfolio/",
+    deploy_link: "https://loganprit.github.io/personal-portfolio/", // TODO: Update with actual deploy link (deploy it)
     github_link: "https://github.com/loganprit/personal-portfolio/tree/backup/v2"
   },
   {

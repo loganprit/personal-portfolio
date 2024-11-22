@@ -17,14 +17,14 @@ interface HeaderProps {
  */
 export function Header({ name, title, avatarUrl, initials }: HeaderProps) {
   return (
-    <div className="flex items-start gap-6">
-      <Avatar className="h-32 w-32">
+    <div className="flex flex-col sm:flex-row items-center sm:items-start gap-4 sm:gap-6">
+      <Avatar className="h-24 w-24 sm:h-32 sm:w-32">
         <AvatarImage src={avatarUrl} alt={name} />
         <AvatarFallback>{initials}</AvatarFallback>
       </Avatar>
-      <div className="flex flex-col gap-2">
-        <h1 className="text-5xl font-bold tracking-tight">{name}</h1>
-        <p className="text-xl text-muted-foreground">{title}</p>
+      <div className="flex flex-col gap-2 text-center sm:text-left">
+        <h1 className="text-3xl sm:text-4xl lg:text-5xl font-bold tracking-tight">{name}</h1>
+        <p className="text-lg sm:text-xl text-muted-foreground">{title}</p>
         <div className="mt-2">
           <ThemeToggle />
         </div>

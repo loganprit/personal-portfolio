@@ -44,7 +44,7 @@ export function Nav({ className = "" }: NavProps) {
   const pathname = usePathname();
 
   return (
-    <nav className={`flex gap-8 ${className}`}>
+    <nav className={`flex flex-col sm:flex-row gap-4 sm:gap-8 items-center ${className}`}>
       <NavItem href="/" isActive={pathname === "/"}>
         Home
       </NavItem>
