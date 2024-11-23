@@ -20,7 +20,7 @@ function NavItem({ href, children, isActive, itemRef }: NavItemProps) {
     <Link 
       ref={itemRef}
       href={href}
-      className={`text-lg portrait:text-xl landscape:text-2xl font-semibold transition-colors py-2 px-2 portrait:px-2 landscape:px-3 relative ${
+      className={`text-base portrait:text-md landscape:text-2xl font-semibold transition-colors py-2 px-2 portrait:px-1.5 landscape:px-3 relative ${
         isActive ? "text-foreground" : "text-foreground/60 hover:text-foreground/80"
       }`}
     >
@@ -52,7 +52,7 @@ export function Nav({ className = "" }: NavProps) {
   }, [pathname]);
 
   return (
-    <nav className={`flex flex-row gap-4 items-center relative ${className}`}>
+    <nav className={`flex flex-row gap-2 portrait:gap-1 items-center relative portrait:justify-center ${className}`}>
       <NavItem href="/" isActive={pathname === "/"} itemRef={homeRef}>
         Home
       </NavItem>

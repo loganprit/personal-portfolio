@@ -29,7 +29,7 @@ function ProjectCard({ title, period, description, updates, technologies, deploy
         <div>
           <div className="flex items-center gap-2">
             <h3 className="text-xl font-semibold">{title}</h3>
-            {deploy_link && (
+            {deploy_link && deploy_link !== "You're looking at it!" && (
               <Link 
                 href={deploy_link} 
                 target="_blank" 
@@ -38,6 +38,11 @@ function ProjectCard({ title, period, description, updates, technologies, deploy
               >
                 <FiExternalLink size={16} />
               </Link>
+            )}
+            {deploy_link === "You're looking at it!" && (
+              <span className="text-sm text-foreground/60 italic">
+                (You're looking at it!)
+              </span>
             )}
           </div>
           <p className="text-sm text-foreground/40 mt-0.5">{period}</p>
