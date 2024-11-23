@@ -6,16 +6,23 @@ import { useEffect, useState } from "react";
 
 export function ThemeTransition() {
   const [mounted, setMounted] = useState(false);
+  const [isInitialLoad, setIsInitialLoad] = useState(true);
   const { theme } = useTheme();
 
-  useEffect(() => setMounted(true), []);
+  useEffect(() => {
+    setMounted(true);
+    // Remove initial load state after a brief delay
+    const timer = setTimeout(() => setIsInitialLoad(false), 100);
+    return () => clearTimeout(timer);
+  }, []);
+
   if (!mounted) return null;
 
   return (
     <AnimatePresence mode="wait">
       <motion.div
         key={theme}
-        initial={{ opacity: 0 }}
+        initial={isInitialLoad ? { opacity: 1 } : { opacity: 0 }}
         animate={{ opacity: 1 }}
         exit={{ opacity: 0 }}
         transition={{ duration: 0.5, ease: "easeInOut" }}

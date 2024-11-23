@@ -12,7 +12,10 @@ export function ThemeToggle() {
   const { theme, setTheme, systemTheme } = useTheme();
 
   // Prevent hydration mismatch
-  useEffect(() => setMounted(true), []);
+  useEffect(() => {
+    setMounted(true);
+  }, []);
+
   if (!mounted) return null;
 
   const currentTheme = theme === "system" ? systemTheme : theme;
@@ -22,14 +25,28 @@ export function ThemeToggle() {
     <div className="flex items-center gap-2 -ml-2">
       <button
         onClick={() => setTheme(otherMode)}
-        className="rounded-full p-2 hover:bg-foreground/10 transition-colors relative z-[51]"
+        className={`
+          rounded-full px-3 py-2 
+          transition-colors relative z-[51] 
+          flex items-center gap-2
+          ${currentTheme === "dark" 
+            ? "bg-foreground/15 backdrop-blur-sm" 
+            : "bg-gray-300"
+          }
+        `}
         aria-label={`Switch to ${otherMode} mode`}
       >
         {currentTheme === "dark" ? <FiSun size={20} /> : <FiMoon size={20} />}
+        <span className={`
+          text-lg
+          ${currentTheme === "dark" 
+            ? "text-foreground/80" 
+            : "text-gray-700"
+          }
+        `}>
+          Prefer {otherMode} mode?
+        </span>
       </button>
-      <span className="text-sm text-foreground/60">
-        Prefer {otherMode} mode?
-      </span>
     </div>
   );
 } 

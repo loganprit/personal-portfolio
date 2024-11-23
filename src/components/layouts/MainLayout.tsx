@@ -10,9 +10,36 @@ interface MainLayoutProps {
 
 export function MainLayout({ children }: MainLayoutProps) {
   return (
-    <div className="fixed inset-0 p-4 sm:p-8 overflow-hidden">
-      <GlassCard className="w-full h-full p-6 sm:p-12 lg:p-16 relative flex flex-col">
-        <div className="flex flex-col lg:flex-row flex-1 gap-8 h-full">
+    <div className="fixed inset-0 landscape:p-8 portrait:p-4 overflow-y-auto landscape:overflow-hidden">
+      <GlassCard className="w-full portrait:min-h-[98vh] landscape:h-[calc(100vh-4rem)] p-4 landscape:p-8 lg:p-12 relative flex flex-col">
+        {/* Portrait Layout */}
+        <div className="flex flex-col landscape:hidden gap-6">
+          {/* Static Content */}
+          <div className="flex flex-col gap-6">
+            <Header
+              name="Logan Pritchett"
+              title="Software Engineer // Bringing Engineering Precision to Every Line of Code"
+              avatarUrl="/images/profile.jpg"
+              initials="LP"
+            />
+            <Nav className="mx-auto" />
+          </div>
+
+          {/* Dynamic Content */}
+          <div className="flex-1">
+            <PageTransition>
+              {children}
+            </PageTransition>
+          </div>
+
+          {/* Footer with Socials */}
+          <div className="mt-12 mx-auto">
+            <Socials />
+          </div>
+        </div>
+
+        {/* Landscape Layout */}
+        <div className="hidden landscape:flex flex-col lg:flex-row flex-1 gap-8 h-full">
           {/* Left Side - Static Content */}
           <div className="flex flex-col lg:w-[40%] shrink-0 relative">
             <div className="flex flex-col h-full">
