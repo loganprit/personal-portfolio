@@ -22,7 +22,7 @@ export function MainLayout({ children }: MainLayoutProps) {
               avatarUrl="/images/profile.jpg"
               initials="LP"
             />
-            <Nav />
+            <Nav className="mx-auto" />
           </div>
 
           {/* Dynamic Content */}
@@ -55,6 +55,9 @@ export function MainLayout({ children }: MainLayoutProps) {
               </div>
             </div>
           </div>
+          
+          {/* Separator */}
+          <div className="lg:block w-px bg-gradient-to-b from-transparent via-foreground/10 to-transparent" />
           
           {/* Right Side - Dynamic Content */}
           <div className="flex-1 lg:w-[60%] overflow-y-auto custom-scrollbar">

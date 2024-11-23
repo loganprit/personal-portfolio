@@ -1,5 +1,9 @@
+"use client";
+
+import { motion } from "framer-motion";
 import { experiences, type WorkExperience } from "@/data/work-history";
 import { TechnologyBadge } from "@/components/ui/TechnologyBadge";
+import { animations } from "@/lib/animations";
 
 /**
  * Individual achievement component that handles both regular text and hyperlinks
@@ -26,7 +30,7 @@ function Achievement({ achievement }: { achievement: string }) {
 }
 
 /**
- * Individual work experience card component
+ * Individual work experience card component with animations
  */
 function WorkCard({ 
   title, 
@@ -36,91 +40,120 @@ function WorkCard({
   description, 
   achievements,
   technologies,
-  updates 
-}: WorkExperience) {
+  updates,
+  index 
+}: WorkExperience & { index: number }) {
   return (
-    <div className="rounded-lg p-6 transition-colors hover:bg-foreground/5">
-      <div className="flex items-start justify-between">
-        <div>
-          <div className="flex items-center gap-2">
-            <h3 className="text-xl font-semibold">{title}</h3>
+    <motion.div {...animations.cardList(index)}>
+      <div className="rounded-lg p-6 transition-colors hover:bg-foreground/5">
+        <div className="flex items-start justify-between">
+          <div>
+            <div className="flex items-center gap-2">
+              <h3 className="text-xl font-semibold">{title}</h3>
+            </div>
+            <p className="text-foreground/60 mt-1">{company} • {location}</p>
+            <p className="text-sm text-foreground/40 mt-0.5">{period}</p>
           </div>
-          <p className="text-foreground/60 mt-1">{company} • {location}</p>
-          <p className="text-sm text-foreground/40 mt-0.5">{period}</p>
         </div>
-      </div>
-      
-      <p className="mt-4 text-foreground/80 leading-relaxed">
-        {description}
-      </p>
+        
+        <p className="mt-4 text-foreground/80 leading-relaxed">
+          {description}
+        </p>
 
-      {achievements.length > 0 && (
-        <ul className="mt-4 list-disc list-inside space-y-2">
-          {achievements.map((achievement, index) => (
-            <li key={index} className="text-foreground/80 leading-relaxed">
-              <Achievement achievement={achievement} />
-            </li>
+        {achievements.length > 0 && (
+          <ul className="mt-4 list-disc list-inside space-y-2">
+            {achievements.map((achievement, index) => (
+              <li 
+                key={index} 
+                className="text-foreground/80 leading-relaxed"
+              >
+                <Achievement achievement={achievement} />
+              </li>
+            ))}
+          </ul>
+        )}
+
+        {updates && (
+          <div className="mt-4 space-y-4">
+            {updates.completed && updates.completed.length > 0 && (
+              <motion.div {...animations.updates.container}>
+                <h4 className="text-sm font-semibold text-foreground/60 mb-2">Completed Updates</h4>
+                <ul className="list-disc list-inside space-y-1">
+                  {updates.completed.map((update, index) => (
+                    <motion.li 
+                      key={index}
+                      className="text-foreground/80 text-sm"
+                      {...animations.updates.item(index)}
+                    >
+                      {update}
+                    </motion.li>
+                  ))}
+                </ul>
+              </motion.div>
+            )}
+            
+            {updates.planned && updates.planned.length > 0 && (
+              <motion.div {...animations.updates.container}>
+                <h4 className="text-sm font-semibold text-foreground/60 mb-2">Planned Updates</h4>
+                <ul className="list-disc list-inside space-y-1">
+                  {updates.planned.map((update, index) => (
+                    <motion.li 
+                      key={index}
+                      className="text-foreground/80 text-sm"
+                      {...animations.updates.item(index)}
+                    >
+                      {update}
+                    </motion.li>
+                  ))}
+                </ul>
+              </motion.div>
+            )}
+          </div>
+        )}
+
+        <div className="mt-6 flex flex-wrap gap-2">
+          {technologies.map((tech, techIndex) => (
+            <motion.div
+              key={tech.name}
+              {...animations.badge(techIndex)}
+            >
+              <TechnologyBadge {...tech} />
+            </motion.div>
           ))}
-        </ul>
-      )}
-
-      {updates && (
-        <div className="mt-4 space-y-4">
-          {updates.completed && updates.completed.length > 0 && (
-            <div>
-              <h4 className="text-sm font-semibold text-foreground/60 mb-2">Completed Updates</h4>
-              <ul className="list-disc list-inside space-y-1">
-                {updates.completed.map((update, index) => (
-                  <li key={index} className="text-foreground/80 text-sm">{update}</li>
-                ))}
-              </ul>
-            </div>
-          )}
-          
-          {updates.planned && updates.planned.length > 0 && (
-            <div>
-              <h4 className="text-sm font-semibold text-foreground/60 mb-2">Planned Updates</h4>
-              <ul className="list-disc list-inside space-y-1">
-                {updates.planned.map((update, index) => (
-                  <li key={index} className="text-foreground/80 text-sm">{update}</li>
-                ))}
-              </ul>
-            </div>
-          )}
         </div>
-      )}
-
-      <div className="mt-6 flex flex-wrap gap-2">
-        {technologies.map((tech) => (
-          <TechnologyBadge key={tech.name} {...tech} />
-        ))}
       </div>
-    </div>
+    </motion.div>
   );
 }
 
 /**
- * Work history page component displaying multiple work experience cards
+ * Work history page component displaying multiple work experience cards with animations
  */
 export default function WorkHistoryPage() {
   return (
     <div className="flex flex-col gap-8">
-      <div>
+      <motion.div 
+        className="flex flex-col gap-2"
+        {...animations.pageSection}
+      >
         <h1 className="text-2xl font-bold">Work History</h1>
-        <p className="mt-2 text-foreground/60">
+        <motion.p 
+          className="text-foreground/60"
+          {...animations.delayedContent}
+        >
           A comprehensive overview of my professional experience and achievements.
-        </p>
-      </div>
+        </motion.p>
+      </motion.div>
 
       <div className="flex flex-col gap-6">
-        {experiences.map((experience) => (
+        {experiences.map((experience, index) => (
           <WorkCard 
             key={`${experience.company}-${experience.period}`} 
             {...experience} 
+            index={index}
           />
         ))}
       </div>
     </div>
   );
 }
-

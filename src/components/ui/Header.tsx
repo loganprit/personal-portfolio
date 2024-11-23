@@ -17,7 +17,7 @@ interface HeaderProps {
  */
 export function Header({ name, title, avatarUrl, initials }: HeaderProps) {
   return (
-    <div className="flex flex-col portrait:items-center landscape:flex-row portrait:items-center landscape:items-start w-full landscape:w-auto gap-4 landscape:gap-6">
+    <div className="flex flex-col items-center landscape:flex-row landscape:items-start w-full landscape:w-auto gap-4 landscape:gap-6">
       <Avatar className="h-24 w-24 landscape:h-32 landscape:w-32">
         <AvatarImage src={avatarUrl} alt={name} />
         <AvatarFallback>{initials}</AvatarFallback>

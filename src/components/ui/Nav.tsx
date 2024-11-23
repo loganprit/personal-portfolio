@@ -3,7 +3,7 @@
 import Link from "next/link";
 import { usePathname } from "next/navigation";
 import { motion } from "framer-motion";
-import { useRef, useMemo } from "react";
+import { useRef, useMemo, useEffect, useState } from "react";
 
 interface NavItemProps {
   href: string;
@@ -41,6 +41,7 @@ export function Nav({ className = "" }: NavProps) {
   const homeRef = useRef<HTMLAnchorElement>(null);
   const projectsRef = useRef<HTMLAnchorElement>(null);
   const workHistoryRef = useRef<HTMLAnchorElement>(null);
+  const [dimensions, setDimensions] = useState({ width: 0, left: 0 });
 
   const activeRef = useMemo(() => {
     switch (pathname) {
@@ -50,6 +51,16 @@ export function Nav({ className = "" }: NavProps) {
       default: return homeRef;
     }
   }, [pathname]);
+
+  // Update dimensions when refs are available and on pathname change
+  useEffect(() => {
+    if (activeRef.current) {
+      setDimensions({
+        width: activeRef.current.offsetWidth,
+        left: activeRef.current.offsetLeft,
+      });
+    }
+  }, [pathname, activeRef]);
 
   return (
     <nav className={`flex flex-row gap-2 portrait:gap-1 items-center relative portrait:justify-center ${className}`}>
@@ -65,12 +76,12 @@ export function Nav({ className = "" }: NavProps) {
 
       <motion.div
         className="absolute bottom-0 h-0.5 bg-foreground"
-        layout
-        transition={{ type: "spring", bounce: 0.2, duration: 0.4 }}
-        style={{
-          width: activeRef.current?.offsetWidth || 0,
-          left: activeRef.current?.offsetLeft || 0,
+        initial={false}
+        animate={{
+          width: dimensions.width,
+          left: dimensions.left,
         }}
+        transition={{ type: "spring", bounce: 0.2, duration: 0.4 }}
       />
     </nav>
   );
