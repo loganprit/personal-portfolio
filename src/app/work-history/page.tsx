@@ -1,20 +1,5 @@
 import { experiences, type WorkExperience } from "@/data/work-history";
-
-interface Technology {
-  name: string;
-  className?: string;
-}
-
-/**
- * Individual technology badge component
- */
-function TechnologyBadge({ name, className = "" }: Technology) {
-  return (
-    <span className={`px-4 py-1.5 rounded-full bg-foreground/10 text-sm ${className}`}>
-      {name}
-    </span>
-  );
-}
+import { TechnologyBadge } from "@/components/ui/TechnologyBadge";
 
 /**
  * Individual achievement component that handles both regular text and hyperlinks

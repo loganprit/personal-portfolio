@@ -100,6 +100,7 @@ export const experiences: WorkExperience[] = [
 interface Technology {
   name: string;
   className?: string;
+  darkMode?: boolean;
 }
 
 interface WorkUpdates {

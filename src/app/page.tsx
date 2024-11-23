@@ -1,20 +1,5 @@
 import { currentRole } from "@/data/current-role";
-
-interface Technology {
-  name: string;
-  className?: string;
-}
-
-/**
- * Individual technology badge component
- */
-function TechnologyBadge({ name, className = "" }: Technology) {
-  return (
-    <span className={`px-4 py-1.5 rounded-full bg-foreground/10 text-sm ${className}`}>
-      {name}
-    </span>
-  );
-}
+import { TechnologyBadge } from "@/components/ui/TechnologyBadge";
 
 /**
  * Home page component displaying welcome message and current role

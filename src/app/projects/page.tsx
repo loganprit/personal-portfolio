@@ -1,23 +1,7 @@
-import { FiExternalLink } from "react-icons/fi";
-import { FiGithub } from "react-icons/fi";
+import { FiExternalLink, FiGithub } from "react-icons/fi";
 import Link from "next/link";
 import { projects, type Project } from "@/data/projects";
-
-interface Technology {
-  name: string;
-  className?: string;
-}
-
-/**
- * Individual technology badge component
- */
-function TechnologyBadge({ name, className = "" }: Technology) {
-  return (
-    <span className={`px-4 py-1.5 rounded-full bg-foreground/10 text-sm ${className}`}>
-      {name}
-    </span>
-  );
-}
+import { TechnologyBadge } from "@/components/ui/TechnologyBadge";
 
 /**
  * Individual project card component

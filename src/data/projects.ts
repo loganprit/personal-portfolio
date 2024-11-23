@@ -230,6 +230,8 @@ export const projects = [
 // Type definitions
 interface Technology {
   name: string;
+  className?: string;
+  darkMode?: boolean;
 }
 
 interface ProjectUpdates {
