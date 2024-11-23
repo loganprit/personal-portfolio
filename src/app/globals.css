@@ -8,6 +8,12 @@
   --foreground: #171717;
   --card-background: rgba(236, 239, 243, 0.7);
   --card-border: rgba(0, 0, 0, 0.08);
+  --card-gradient: linear-gradient(
+    90deg,
+    rgba(236, 239, 243, 0.7) 0%,
+    rgba(236, 239, 243, 0.7) 40%,
+    rgba(190, 195, 205, 0.7) 100%
+  );
 }
 
 .dark {
@@ -16,6 +22,12 @@
   --foreground: #ffffff;
   --card-background: rgba(0, 0, 0, 0.3);
   --card-border: rgba(255, 255, 255, 0.08);
+  --card-gradient: linear-gradient(
+    90deg,
+    rgba(0, 0, 0, 0.3) 0%,
+    rgba(0, 0, 0, 0.3) 40%,
+    rgba(30, 30, 30, 0.15) 100%
+  );
 }
 
 body {
@@ -97,4 +109,15 @@ body::before {
 .custom-scrollbar::-webkit-scrollbar-thumb:hover {
   background-color: var(--foreground);
   opacity: 0.4;
+}
+
+/* Add this new media query for landscape mode */
+@media (orientation: portrait) {
+  :root {
+    --card-gradient: var(--card-background);
+  }
+
+  .dark {
+    --card-gradient: var(--card-background);
+  }
 }

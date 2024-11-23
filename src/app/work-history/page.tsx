@@ -133,12 +133,12 @@ export default function WorkHistoryPage() {
   return (
     <div className="flex flex-col gap-8">
       <motion.div 
-        className="flex flex-col gap-2"
+        className="rounded-lg"
         {...animations.pageSection}
       >
-        <h1 className="text-2xl font-bold">Work History</h1>
+        <h1 className="text-3xl font-bold">Work History</h1>
         <motion.p 
-          className="text-foreground/60"
+          className="mt-6 text-lg text-foreground/80 leading-relaxed max-w-[65ch]"
           {...animations.delayedContent}
         >
           A comprehensive overview of my professional experience and achievements.

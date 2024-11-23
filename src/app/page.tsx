@@ -35,7 +35,7 @@ export default function Home() {
           <h2 className="text-2xl font-bold">
             Current Role
           </h2>
-          <StatusBadge status="seeking" />
+          <StatusBadge status={currentRole.isActive} />
         </div>
 
         <div className="space-y-6">
