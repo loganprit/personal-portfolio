@@ -2,6 +2,7 @@
 
 import { motion } from "framer-motion";
 import { useTheme } from "next-themes";
+import { useEffect, useState } from "react";
 
 interface StatusBadgeProps {
   status: boolean;
@@ -14,7 +15,16 @@ interface StatusBadgeProps {
  * @param {string} className - Optional additional CSS classes
  */
 export function StatusBadge({ status, className = "" }: StatusBadgeProps) {
+  const [mounted, setMounted] = useState(false);
   const { theme, systemTheme } = useTheme();
+
+  // Prevent hydration mismatch
+  useEffect(() => {
+    setMounted(true);
+  }, []);
+
+  if (!mounted) return null;
+
   const currentTheme = theme === "system" ? systemTheme : theme;
 
   return (
