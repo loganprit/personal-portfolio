@@ -38,7 +38,7 @@ export function TechnologyBadge({
         flex items-center gap-2
         ${currentTheme === "dark" 
           ? "bg-[#2E3C43] backdrop-blur-sm" 
-          : "bg-gray-300/50 backdrop-blur-sm"
+          : "bg-gray-300 backdrop-blur-sm"
         }
         ${className}
       `}
