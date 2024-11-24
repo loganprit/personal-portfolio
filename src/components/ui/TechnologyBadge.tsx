@@ -4,6 +4,7 @@ import { type ReactNode } from "react";
 import { motion } from "framer-motion";
 import { animations } from "@/lib/animations";
 import { useTheme } from "next-themes";
+import { useEffect, useState } from "react";
 
 interface TechnologyBadgeProps {
   name: string;
@@ -25,7 +26,16 @@ export function TechnologyBadge({
   icon,
   index = 0 
 }: TechnologyBadgeProps) {
+  const [mounted, setMounted] = useState(false);
   const { theme, systemTheme } = useTheme();
+
+  // Prevent hydration mismatch
+  useEffect(() => {
+    setMounted(true);
+  }, []);
+
+  if (!mounted) return null;
+
   const currentTheme = theme === "system" ? systemTheme : theme;
 
   return (
