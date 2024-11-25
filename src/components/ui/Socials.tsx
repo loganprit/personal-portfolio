@@ -49,7 +49,7 @@ function SocialLink({ href, icon, label, onClick }: SocialLinkProps) {
   return (
     <Link 
       href={href}
-      className="p-3 hover:bg-foreground/10 rounded-full transition-colors"
+      className="p-3 hover:bg-foreground/10 rounded-full transition-colors inline-flex items-center gap-2"
       aria-label={label}
       onClick={onClick ? (e) => {
         e.preventDefault();
@@ -57,6 +57,7 @@ function SocialLink({ href, icon, label, onClick }: SocialLinkProps) {
       } : undefined}
     >
       {icon}
+      <span className="sr-only">{label}</span>
     </Link>
   );
 }
