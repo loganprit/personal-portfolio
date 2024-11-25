@@ -28,22 +28,14 @@ function ProjectCard({
             <div className="flex items-center gap-2">
               <h3 className="text-xl font-semibold">{title}</h3>
               {deploy_link && (
-                <>
-                  {deploy_link !== "You&apos;re looking at it!" ? (
-                    <Link 
-                      href={deploy_link} 
-                      target="_blank" 
-                      className="text-foreground/60 hover:text-foreground transition-colors"
-                      aria-label={`Visit ${title} project`}
-                    >
-                      <FiExternalLink size={16} />
-                    </Link>
-                  ) : (
-                    <span className="text-sm text-foreground/60 italic">
-                      (You&apos;re looking at it!)
-                    </span>
-                  )}
-                </>
+                <Link 
+                  href={deploy_link} 
+                  target="_blank" 
+                  className="text-foreground/60 hover:text-foreground transition-colors"
+                  aria-label={`Visit ${title} project`}
+                >
+                  <FiExternalLink size={16} />
+                </Link>
               )}
             </div>
             <p className="text-sm text-foreground/40 mt-0.5">{period}</p>

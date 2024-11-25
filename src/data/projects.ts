@@ -6,14 +6,13 @@ export const projects = [
   {
     title: "Portfolio V3",
     period: "OCTOBER 2024 - PRESENT",
-    description: "Modern portfolio website built with Next.js 14, TypeScript, and Tailwind CSS. Features a responsive design with dark mode support, smooth page transitions, and a glass-morphism UI effect.",
+    description: "You&apos;re looking at it! Modern portfolio website built with Next.js 15, TypeScript, and Tailwind CSS. Features a responsive design with dark mode support, smooth page transitions, and a glass-morphism UI effect.",
     technologies: [
       { name: "Next.js" },
       { name: "TypeScript" },
       { name: "Tailwind CSS" },
       { name: "Framer Motion" }
     ],
-    deploy_link: "You're looking at it!",
     github_link: "https://github.com/loganprit/personal-portfolio"
   },
   {
