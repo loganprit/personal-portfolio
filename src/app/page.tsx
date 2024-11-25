@@ -49,10 +49,10 @@ export default function Home() {
         >
           <Image
             src="/images/about-me.jpg"
-            alt="Professional photo or relevant image"
-            fill
-            className="object-cover object-left"
-            sizes="(max-width: 768px) 100vw, 50vw"
+            alt="Logan presenting at a conference"
+            width={800}
+            height={600}
+            className="object-cover object-left w-full h-full"
             priority
           />
         </motion.div>

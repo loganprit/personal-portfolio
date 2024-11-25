@@ -10,23 +10,27 @@ import { animations } from "@/lib/animations";
  */
 function Achievement({ achievement }: { achievement: string }) {
   // Check if the achievement contains a markdown link pattern [text](url)
-  const linkMatch = achievement.match(/\[(.*?)\]\((.*?)\)/);
+  const linkPattern = /\[([^\]]+)\]\(([^)]+)\)/;
+  const match = achievement.match(linkPattern);
   
-  if (linkMatch) {
-    const [text, url] = linkMatch;
+  if (match) {
+    // match[0] is the full match, match[1] is the text, match[2] is the URL
+    const [, text, url] = match;
     return (
-      <a 
-        href={url}
-        target="_blank"
-        rel="noopener noreferrer"
-        className="text-foreground/80 hover:text-foreground transition-colors underline"
-      >
-        {text}
-      </a>
+      <li className="text-foreground/80">
+        <a 
+          href={url}
+          target="_blank"
+          rel="noopener noreferrer"
+          className="text-foreground/80 hover:text-foreground underline transition-colors"
+        >
+          {text}
+        </a>
+      </li>
     );
   }
   
-  return <span className="text-foreground/80">{achievement}</span>;
+  return <li className="text-foreground/80">{achievement}</li>;
 }
 
 /**
@@ -60,15 +64,10 @@ function WorkCard({
           {description}
         </p>
 
-        {achievements.length > 0 && (
+        {achievements && achievements.length > 0 && (
           <ul className="mt-4 list-disc list-inside space-y-2">
             {achievements.map((achievement, index) => (
-              <li 
-                key={index} 
-                className="text-foreground/80 leading-relaxed"
-              >
-                <Achievement achievement={achievement} />
-              </li>
+              <Achievement key={index} achievement={achievement} />
             ))}
           </ul>
         )}

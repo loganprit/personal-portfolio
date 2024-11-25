@@ -34,8 +34,9 @@ export function AvatarImage({ src, alt }: AvatarImageProps) {
     <Image
       src={src}
       alt={alt}
+      width={96}
+      height={96}
       className="aspect-square h-full w-full object-cover"
-      fill
     />
   );
 }
