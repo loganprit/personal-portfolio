@@ -3,6 +3,7 @@ import { Header } from "@/components/ui/Header";
 import { Nav } from "@/components/ui/Nav";
 import { Socials } from "@/components/ui/Socials";
 import { PageTransition } from "./PageTransition";
+import { ThemeToggle } from "@/components/theme/ThemeToggle";
 
 interface MainLayoutProps {
   children: React.ReactNode;
@@ -23,7 +24,10 @@ export function MainLayout({ children }: MainLayoutProps) {
               avatarUrl="/images/profile.jpg"
               initials="LP"
             />
-            <Nav className="mx-auto" />
+            <div className="flex flex-col items-center gap-4">
+              <ThemeToggle />
+              <Nav className="mx-auto" />
+            </div>
           </div>
 
           {/* Dynamic Content */}
@@ -43,7 +47,7 @@ export function MainLayout({ children }: MainLayoutProps) {
         <div className="hidden landscape:flex flex-col lg:flex-row flex-1 gap-8 h-full">
           {/* Left Side - Static Content */}
           <div className="flex flex-col lg:w-[40%] shrink-0 relative">
-            <div className="flex flex-col h-full">
+            <div className="flex flex-col h-full items-center">
               <Header
                 name="Logan Pritchett"
                 title="Full-Stack Web Developer"
@@ -51,7 +55,10 @@ export function MainLayout({ children }: MainLayoutProps) {
                 avatarUrl="/images/profile.jpg"
                 initials="LP"
               />
-              <Nav className="mt-8 lg:mt-12 mx-auto" />
+              <div className="flex flex-col items-center gap-4 mt-8 lg:mt-12">
+                <ThemeToggle />
+                <Nav className="mx-auto" />
+              </div>
               <div className="mt-8 lg:mt-auto mx-auto">
                 <Socials />
               </div>

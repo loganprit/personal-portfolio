@@ -1,5 +1,4 @@
 import { Avatar, AvatarFallback, AvatarImage } from "./avatar";
-import { ThemeToggle } from "@/components/theme/ThemeToggle";
 import { MdLocationPin } from "react-icons/md";
 
 interface HeaderProps {
@@ -32,9 +31,6 @@ export function Header({ name, title, location, avatarUrl, initials }: HeaderPro
           <MdLocationPin className="text-lg" />
           {location}
         </p>
-        <div className="mt-2 flex portrait:justify-center landscape:justify-start">
-          <ThemeToggle />
-        </div>
       </div>
     </div>
   );

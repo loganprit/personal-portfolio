@@ -71,7 +71,7 @@ export function Nav({ className = "" }: NavProps) {
         Projects
       </NavItem>
       <NavItem href="/work-history" isActive={pathname === "/work-history"} itemRef={workHistoryRef}>
-        Work History
+        Work
       </NavItem>
 
       <motion.div
