@@ -14,7 +14,7 @@ import { FaCross } from "react-icons/fa";
  */
 export default function Home() {
   return (
-    <div className="flex flex-col gap-8">
+    <div className="flex flex-col gap-8 max-w-full">
       <motion.div 
         className="rounded-lg"
         {...animations.pageSection}
@@ -31,13 +31,13 @@ export default function Home() {
         <h2 className="text-2xl font-bold mb-6">
           About Me
         </h2>
-        <div className="grid grid-cols-1 lg:grid-cols-[50%_50%] gap-8">
+        <div className="grid grid-cols-1 lg:grid-cols-[50%_50%] gap-8 overflow-hidden">
           {/* Developer Section */}
-          <div className="flex flex-col h-full">
+          <div className="flex flex-col h-full min-w-0">
             <h3 className="text-xl font-semibold mb-4">As a Developer</h3>
             <div className="flex flex-col gap-4">
               {/* Full Stack Development Section */}
-              <div className="space-y-2 p-4 rounded-lg bg-foreground/5">
+              <div className="space-y-2 pl-0 p-4 rounded-lg bg-foreground/5">
                 <div className="flex items-center gap-2">
                   <FiCode size={20} />
                   <h4 className="font-semibold">Full Stack Development</h4>
@@ -48,7 +48,7 @@ export default function Home() {
               </div>
 
               {/* Engineering Background Section */}
-              <div className="space-y-2 p-4 rounded-lg bg-foreground/5">
+              <div className="space-y-2 pl-0 p-4 rounded-lg bg-foreground/5">
                 <div className="flex items-center gap-2">
                   <FiActivity size={20} />
                   <h4 className="font-semibold">Engineering Background</h4>
@@ -59,7 +59,7 @@ export default function Home() {
               </div>
 
               {/* Learning Focus Section */}
-              <div className="space-y-2 p-4 rounded-lg bg-foreground/5">
+              <div className="space-y-2 pl-0 p-4 rounded-lg bg-foreground/5">
                 <div className="flex items-center gap-2">
                   <FiBookOpen size={20} />
                   <h4 className="font-semibold">Learning Focus</h4>
@@ -72,11 +72,11 @@ export default function Home() {
           </div>
 
           {/* Beyond Coding Section */}
-          <div className="flex flex-col h-full">
+          <div className="flex flex-col h-full min-w-0">
             <h3 className="text-xl font-semibold mb-4">Beyond Coding</h3>
             <div className="flex flex-col gap-4">
               {/* Languages Section */}
-              <div className="space-y-2 p-4 rounded-lg bg-foreground/5">
+              <div className="space-y-2 pl-0 p-4 rounded-lg bg-foreground/5">
                 <div className="flex items-center gap-2">
                   <LuLanguages size={20} />
                   <h4 className="font-semibold">Languages</h4>
@@ -87,7 +87,7 @@ export default function Home() {
               </div>
 
               {/* Technology Section */}
-              <div className="space-y-2 p-4 rounded-lg bg-foreground/5">
+              <div className="space-y-2 pl-0 p-4 rounded-lg bg-foreground/5">
                 <div className="flex items-center gap-2">
                   <FiCpu size={20} />
                   <h4 className="font-semibold">Technology</h4>
@@ -98,7 +98,7 @@ export default function Home() {
               </div>
 
               {/* Christianity Section */}
-              <div className="space-y-2 p-4 rounded-lg bg-foreground/5">
+              <div className="space-y-2 pl-0 p-4 rounded-lg bg-foreground/5">
                 <div className="flex items-center gap-2">
                   <FaCross size={20} />
                   <h4 className="font-semibold">Christianity</h4>
@@ -115,6 +115,7 @@ export default function Home() {
       {/* Current Role section */}
       <motion.div 
         {...animations.pageSection}
+        className="min-w-0"
       >
         <div className="flex items-center justify-between mb-6">
           <h2 className="text-2xl font-bold">
