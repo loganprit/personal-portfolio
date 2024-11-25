@@ -6,7 +6,7 @@ export const projects = [
   {
     title: "Portfolio V3",
     period: "OCTOBER 2024 - PRESENT",
-    description: "You&apos;re looking at it! Modern portfolio website built with Next.js 15, TypeScript, and Tailwind CSS. Features a responsive design with dark mode support, smooth page transitions, and a glass-morphism UI effect.",
+    description: "You're looking at it! Modern portfolio website built with Next.js 15, TypeScript, and Tailwind CSS. Features a responsive design with dark mode support, smooth page transitions, and a glass-morphism UI effect.",
     technologies: [
       { name: "Next.js" },
       { name: "TypeScript" },
