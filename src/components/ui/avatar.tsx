@@ -1,10 +1,11 @@
 import * as React from "react";
+import Image from "next/image";
 
 interface AvatarProps extends React.HTMLAttributes<HTMLDivElement> {
   className?: string;
 }
 
-interface AvatarImageProps extends React.ImgHTMLAttributes<HTMLImageElement> {
+interface AvatarImageProps {
   src: string;
   alt: string;
 }
@@ -28,13 +29,13 @@ export function Avatar({ className = "", ...props }: AvatarProps) {
 /**
  * Avatar image component
  */
-export function AvatarImage({ src, alt, ...props }: AvatarImageProps) {
+export function AvatarImage({ src, alt }: AvatarImageProps) {
   return (
-    <img
+    <Image
       src={src}
       alt={alt}
       className="aspect-square h-full w-full object-cover"
-      {...props}
+      fill
     />
   );
 }

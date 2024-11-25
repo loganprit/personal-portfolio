@@ -13,8 +13,8 @@ export const projects = [
       { name: "Tailwind CSS" },
       { name: "Framer Motion" }
     ],
-    deploy_link: "You're looking at it!", // TODO: Update projects page for this specific project to display the "You're looking at it!" message
-    github_link: "https://github.com/loganprit/portfolio-v3" // TODO: Update with the actual GitHub link
+    deploy_link: "You're looking at it!",
+    github_link: "https://github.com/loganprit/personal-portfolio"
   },
   {
     title: "Portfolio V2",
@@ -26,7 +26,7 @@ export const projects = [
       { name: "JavaScript" },
       { name: "jQuery" }
     ],
-    deploy_link: "https://loganprit.github.io/personal-portfolio/", // TODO: Update with actual deploy link (deploy it)
+    deploy_link: "https://v2.loganpritchett.me",
     github_link: "https://github.com/loganprit/personal-portfolio/tree/backup/v2"
   },
   {
@@ -90,12 +90,12 @@ export const projects = [
     description: "A restaurant management system built with JavaScript, Node.js, Express.js, and PostgreSQL. Features include creating, updating and deleting menu items, as well as searching for items by name.", // TODO: Update with actual description
     technologies: [
       { name: "JavaScript" },
+      { name: "React" },
       { name: "Node.js" },
       { name: "Express.js" },
-      { name: "PostgreSQL" }
-    ], // TODO: Update with actual technologies
-    deploy_link: "https://grubdash-front-end-ribo.onrender.com/", // TODO: Update with actual deploy link (deploy it)
-    github_link: "https://github.com/loganprit/grubdash" // TODO: Create monorepo for GrubDash frontend and backend
+    ],
+    deploy_link: "https://grubdash-frontend-ky4l.onrender.com",
+    github_link: "https://github.com/loganprit/grubdash"
   },
   {
     title: "Decoder Ring",
@@ -163,7 +163,6 @@ export const projects = [
       { name: "HTML5" },
       { name: "CSS" }
     ],
-    deploy_link: "https://flashcard-o-matic-ribo.onrender.com/", // TODO: Update with actual deploy link (deploy it)
     github_link: "https://github.com/loganprit/flashcard-o-matic"
   },
   {
@@ -210,7 +209,6 @@ export const projects = [
       { name: "HTML5" },
       { name: "Express.js" }
     ],
-    deploy_link: "https://local-library-front-end-v5ci.onrender.com/", // TODO: Update with actual deploy link (deploy it)
     github_link: "https://github.com/loganprit/local-library-project"
   },
   {
@@ -222,7 +220,7 @@ export const projects = [
       { name: "CSS" },
       { name: "JavaScript" }
     ],
-    deploy_link: "https://loganprit.github.io/personal-portfolio/", // TODO: Update with actual deploy link (deploy it)
+    deploy_link: "https://v1.loganpritchett.me",
     github_link: "https://github.com/loganprit/personal-portfolio/tree/backup/v1"
   }
 ];
@@ -244,7 +242,7 @@ export type Project = {
   period: string;
   description: string;
   technologies: Technology[];
-  deploy_link: string;
+  deploy_link?: string;
   github_link: string;
   updates?: ProjectUpdates;
 };

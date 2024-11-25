@@ -3,18 +3,21 @@
 import { motion } from "framer-motion";
 import { useTheme } from "next-themes";
 import { useEffect, useState } from "react";
+import { animations } from "@/lib/animations";
 
 interface StatusBadgeProps {
   status: boolean;
   className?: string;
+  index?: number;
 }
 
 /**
  * Status badge component that displays employment status
  * @param {boolean} status - Current employment status (false = seeking, true = active)
  * @param {string} className - Optional additional CSS classes
+ * @param {number} index - Optional index for staggered animations
  */
-export function StatusBadge({ status, className = "" }: StatusBadgeProps) {
+export function StatusBadge({ status, className = "", index = 0 }: StatusBadgeProps) {
   const [mounted, setMounted] = useState(false);
   const { theme, systemTheme } = useTheme();
 
@@ -29,8 +32,7 @@ export function StatusBadge({ status, className = "" }: StatusBadgeProps) {
 
   return (
     <motion.div
-      initial={{ opacity: 0, scale: 0.9 }}
-      animate={{ opacity: 1, scale: 1 }}
+      {...animations.badge(index)}
       className={`
         inline-flex items-center px-3 py-1 rounded-full text-sm font-medium
         portrait:text-base portrait:px-4 portrait:py-1.5

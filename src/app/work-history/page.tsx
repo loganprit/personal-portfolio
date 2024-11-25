@@ -13,7 +13,7 @@ function Achievement({ achievement }: { achievement: string }) {
   const linkMatch = achievement.match(/\[(.*?)\]\((.*?)\)/);
   
   if (linkMatch) {
-    const [_, text, url] = linkMatch;
+    const [text, url] = linkMatch;
     return (
       <a 
         href={url}

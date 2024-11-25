@@ -39,7 +39,7 @@ export default function Home() {
           className="mt-6 text-lg text-foreground/80 leading-relaxed max-w-[65ch]"
           {...animations.delayedContent}
         >
-            I'm a software developer based in Lafayette, Louisiana with a background in chemical engineering, bringing a unique blend of analytical thinking and technical expertise to software development. My experience spans from process optimization in refineries to building full-stack web applications, always focusing on creating efficient, scalable solutions.
+            I&apos;m a software developer based in Lafayette, Louisiana with a background in chemical engineering, bringing a unique blend of analytical thinking and technical expertise to software development. My experience spans from process optimization in refineries to building full-stack web applications, always focusing on creating efficient, scalable solutions.
           </motion.p>
         </div>
         

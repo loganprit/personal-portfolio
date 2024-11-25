@@ -27,20 +27,23 @@ function ProjectCard({
           <div>
             <div className="flex items-center gap-2">
               <h3 className="text-xl font-semibold">{title}</h3>
-              {deploy_link && deploy_link !== "You're looking at it!" && (
-                <Link 
-                  href={deploy_link} 
-                  target="_blank" 
-                  className="text-foreground/60 hover:text-foreground transition-colors"
-                  aria-label={`Visit ${title} project`}
-                >
-                  <FiExternalLink size={16} />
-                </Link>
-              )}
-              {deploy_link === "You're looking at it!" && (
-                <span className="text-sm text-foreground/60 italic">
-                  (You're looking at it!)
-                </span>
+              {deploy_link && (
+                <>
+                  {deploy_link !== "You&apos;re looking at it!" ? (
+                    <Link 
+                      href={deploy_link} 
+                      target="_blank" 
+                      className="text-foreground/60 hover:text-foreground transition-colors"
+                      aria-label={`Visit ${title} project`}
+                    >
+                      <FiExternalLink size={16} />
+                    </Link>
+                  ) : (
+                    <span className="text-sm text-foreground/60 italic">
+                      (You&apos;re looking at it!)
+                    </span>
+                  )}
+                </>
               )}
             </div>
             <p className="text-sm text-foreground/40 mt-0.5">{period}</p>
@@ -57,7 +60,7 @@ function ProjectCard({
             )}
           </div>
         </div>
-        
+
         <p className="mt-4 text-foreground/80 leading-relaxed">
           {description}
         </p>
@@ -128,7 +131,7 @@ export default function ProjectsPage() {
           className="mt-6 text-lg text-foreground/80 leading-relaxed max-w-[65ch]"
           {...animations.delayedContent}
         >
-          A collection of projects I've worked on, both professionally and personally.
+          A collection of projects I&apos;ve worked on, both professionally and personally.
         </motion.p>
       </motion.div>
 
