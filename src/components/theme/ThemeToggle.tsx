@@ -49,7 +49,7 @@ export function ThemeToggle() {
             : "bg-gray-300"
           }
         `}
-        aria-label={`Switch to ${otherMode} mode`}
+        aria-label={`Prefer ${otherMode} mode? Click to switch theme`}
       >
         <motion.div
           animate={{ rotate: isSpinning ? 360 : 0 }}
