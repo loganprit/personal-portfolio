@@ -18,7 +18,8 @@ export function MainLayout({ children }: MainLayoutProps) {
           <div className="flex flex-col gap-6 items-center">
             <Header
               name="Logan Pritchett"
-              title="Software Engineer // Bringing Engineering Precision to Every Line of Code"
+              title="Full-Stack Web Developer"
+              location="Lafayette, LA"
               avatarUrl="/images/profile.jpg"
               initials="LP"
             />
@@ -45,7 +46,8 @@ export function MainLayout({ children }: MainLayoutProps) {
             <div className="flex flex-col h-full">
               <Header
                 name="Logan Pritchett"
-                title="Software Engineer // Bringing Engineering Precision to Every Line of Code"
+                title="Full-Stack Web Developer"
+                location="Lafayette, LA"
                 avatarUrl="/images/profile.jpg"
                 initials="LP"
               />

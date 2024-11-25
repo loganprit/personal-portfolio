@@ -5,7 +5,6 @@ import { currentRole } from "@/data/current-role";
 import { TechnologyBadge } from "@/components/ui/TechnologyBadge";
 import { StatusBadge } from "@/components/ui/StatusBadge";
 import { animations } from "@/lib/animations";
-import Image from "next/image";
 import { LuLanguages } from "react-icons/lu";
 import { FiCpu } from "react-icons/fi";
 import { FaCross } from "react-icons/fa";
@@ -39,23 +38,9 @@ export default function Home() {
           className="mt-6 text-lg text-foreground/80 leading-relaxed max-w-[65ch]"
           {...animations.delayedContent}
         >
-            I&apos;m a software developer based in Lafayette, Louisiana with a background in chemical engineering, bringing a unique blend of analytical thinking and technical expertise to software development. My experience spans from process optimization in refineries to building full-stack web applications, always focusing on creating efficient, scalable solutions.
+            I&apos;m a full-stack web developer with a background in chemical engineering, bringing a unique blend of analytical thinking and technical expertise to software development. My experience spans from process optimization in refineries to building full-stack web applications in React, Node.js, and Express.js, always focusing on creating efficient, scalable solutions.
           </motion.p>
         </div>
-        
-        <motion.div 
-          className="relative h-[300px] rounded-lg overflow-hidden"
-          {...animations.delayedContent}
-        >
-          <Image
-            src="/images/about-me.jpg"
-            alt="Logan presenting at a conference"
-            width={800}
-            height={600}
-            className="object-cover object-left w-full h-full"
-            priority
-          />
-        </motion.div>
 
         {/* Beyond Coding Section */}
         <motion.div 
