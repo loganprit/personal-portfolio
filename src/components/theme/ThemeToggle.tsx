@@ -1,9 +1,10 @@
 "use client";
 
 import { useTheme } from "next-themes";
-import { useEffect, useState } from "react";
+import { useEffect, useState, useRef } from "react";
 import { FiMoon, FiSun } from "react-icons/fi";
 import { motion } from "framer-motion";
+import { useSystemTheme } from "@/hooks/useSystemTheme";
 
 /**
  * Button component for toggling between light and dark themes
@@ -13,11 +14,37 @@ export function ThemeToggle() {
   const [mounted, setMounted] = useState(false);
   const [isSpinning, setIsSpinning] = useState(false);
   const { theme, setTheme, systemTheme } = useTheme();
+  const previousThemeRef = useRef<string | null>(null);
 
-  // Prevent hydration mismatch
   useEffect(() => {
     setMounted(true);
   }, []);
+
+  useSystemTheme({
+    theme,
+    onThemeChange: () => {
+      const currentTheme = theme === "system" ? systemTheme : theme;
+      if (previousThemeRef.current !== currentTheme) {
+        setIsSpinning(true);
+      }
+    }
+  });
+
+  // Track theme changes
+  useEffect(() => {
+    const currentTheme = theme === "system" ? systemTheme : theme;
+    if (mounted && currentTheme && previousThemeRef.current !== currentTheme) {
+      previousThemeRef.current = currentTheme;
+    }
+  }, [theme, systemTheme, mounted]);
+
+  // Reset spinning state after animation
+  useEffect(() => {
+    if (isSpinning) {
+      const timeout = setTimeout(() => setIsSpinning(false), 500);
+      return () => clearTimeout(timeout);
+    }
+  }, [isSpinning]);
 
   if (!mounted) return null;
 
@@ -27,8 +54,6 @@ export function ThemeToggle() {
   const handleThemeChange = () => {
     setIsSpinning(true);
     setTheme(otherMode);
-    // Reset spinning state after animation completes
-    setTimeout(() => setIsSpinning(false), 500);
   };
 
   return (
@@ -55,7 +80,7 @@ export function ThemeToggle() {
           animate={{ rotate: isSpinning ? 360 : 0 }}
           transition={{ 
             duration: 0.5, 
-            ease: "easeInOut",
+            ease: "linear",
             repeatType: "reverse",
             from: 0
           }}

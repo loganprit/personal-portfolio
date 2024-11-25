@@ -12,33 +12,44 @@ interface SocialLinkProps {
 }
 
 /**
- * Caches a file from a URL for 1 hour
+ * Caches a file from a URL for 1 hour using localStorage as fallback
  * @param url - The URL of the file to cache
  * @throws Error if the response is not ok
  */
 async function cacheFile(url: string): Promise<void> {
   try {
-    const cache = await caches.open("resume-cache");
     const response = await fetch(url);
     
     if (!response.ok) {
       throw new Error(`HTTP error! status: ${response.status}`);
     }
-    
-    // Create a new response with a custom Cache-Control header
-    const modifiedResponse = new Response(response.body, {
-      status: response.status,
-      statusText: response.statusText,
-      headers: new Headers({
-        ...Object.fromEntries(response.headers.entries()),
-        "Cache-Control": "max-age=3600" // 1 hour cache
-      })
-    });
-    
-    await cache.put(url, modifiedResponse);
+
+    // Try using Cache API first
+    if (typeof caches !== "undefined") {
+      const cache = await caches.open("resume-cache");
+      const modifiedResponse = new Response(response.body, {
+        status: response.status,
+        statusText: response.statusText,
+        headers: new Headers({
+          ...Object.fromEntries(response.headers.entries()),
+          "Cache-Control": "max-age=3600" // 1 hour cache
+        })
+      });
+      await cache.put(url, modifiedResponse);
+      return;
+    }
+
+    // Fallback to localStorage if Cache API is not available
+    try {
+      const timestamp = Date.now();
+      localStorage.setItem("resume-cache-timestamp", timestamp.toString());
+      localStorage.setItem("resume-cache-url", url);
+    } catch {
+      console.warn("LocalStorage not available for caching");
+    }
   } catch (error) {
     console.error("Failed to cache resume:", error);
-    throw error; // Re-throw to handle in the component
+    throw error;
   }
 }
 
@@ -55,6 +66,8 @@ function SocialLink({ href, icon, label, onClick }: SocialLinkProps) {
         e.preventDefault();
         onClick().then(() => window.location.href = href);
       } : undefined}
+      target="_blank"
+      rel="noopener noreferrer"
     >
       {icon}
       <span className="sr-only">{label}</span>
@@ -78,7 +91,6 @@ export function Socials() {
         setIsCaching(true);
         await cacheFile(resumeUrl);
       } catch (error) {
-        // Handle error silently on initial load
         console.error("Failed to cache resume on initial load:", error);
       } finally {
         setIsCaching(false);
