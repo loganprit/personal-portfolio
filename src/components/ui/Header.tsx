@@ -19,16 +19,16 @@ interface HeaderProps {
  */
 export function Header({ name, title, location, avatarUrl, initials }: HeaderProps) {
   return (
-    <div className="flex flex-col items-center landscape:flex-row landscape:items-start w-full landscape:w-auto gap-4 landscape:gap-6">
+    <div className="flex flex-col items-center landscape:flex-row landscape:items-start w-full landscape:w-auto gap-4 landscape:gap-8">
       <Avatar className="h-24 w-24 landscape:h-32 landscape:w-32">
         <AvatarImage src={avatarUrl} alt={name} />
         <AvatarFallback>{initials}</AvatarFallback>
       </Avatar>
-      <div className="flex flex-col gap-2 text-center landscape:text-left">
-        <h1 className="text-3xl landscape:text-4xl lg:text-5xl font-bold tracking-tight">{name}</h1>
+      <div className="flex flex-col gap-4 h-32 landscape:h-32 text-center landscape:text-left">
+        <h1 className="text-3xl landscape:text-4xl xl:text-5xl font-bold tracking-tight">{name}</h1>
         <p className="text-lg landscape:text-xl text-muted-foreground">{title}</p>
-        <p className="text-lg landscape:text-base text-muted-foreground flex items-center justify-center landscape:justify-start gap-1">
-          <MdLocationPin className="text-lg" />
+        <p className="text-lg landscape:text-base text-muted-foreground flex items-center justify-center landscape:justify-start gap-2">
+          <MdLocationPin className="text-xl landscape:text-2xl" />
           {location}
         </p>
       </div>
