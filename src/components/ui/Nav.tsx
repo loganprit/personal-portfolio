@@ -20,7 +20,7 @@ function NavItem({ href, children, isActive, itemRef }: NavItemProps) {
     <Link 
       ref={itemRef}
       href={href}
-      className={`text-base portrait:text-md landscape:text-2xl font-semibold transition-colors py-2 px-2 portrait:px-1.5 landscape:px-3 relative ${
+      className={`text-base portrait:text-xl landscape:text-2xl font-semibold transition-colors py-2 px-2 portrait:px-3 landscape:px-3 relative ${
         isActive ? "text-foreground" : "text-foreground/60 hover:text-foreground/80"
       }`}
     >

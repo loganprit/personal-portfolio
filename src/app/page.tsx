@@ -19,7 +19,7 @@ export default function Home() {
         className="rounded-lg"
         {...animations.pageSection}
       >
-        <h1 className="text-3xl font-bold">
+        <h1 className="text-3xl font-bold text-center landscape:text-left">
           Welcome to my portfolio!
         </h1>
       </motion.div>
@@ -28,7 +28,7 @@ export default function Home() {
       <motion.div 
         {...animations.pageSection}
       >
-        <h2 className="text-2xl font-bold mb-6">
+        <h2 className="text-2xl font-bold mb-6 text-center landscape:text-left">
           About Me
         </h2>
         <div className="grid grid-cols-1 lg:grid-cols-[50%_50%] gap-8 overflow-hidden">
