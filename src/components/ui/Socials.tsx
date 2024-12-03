@@ -118,7 +118,7 @@ export function Socials() {
         label="LinkedIn Profile"
       />
       <SocialLink 
-        href="mailto:hares.pill.0n@icloud.com"
+        href="mailto:contact@loganpritchett.me"
         icon={<FiMail size={30} />}
         label="Email Contact"
       />
