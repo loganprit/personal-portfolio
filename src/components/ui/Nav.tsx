@@ -1,9 +1,9 @@
 "use client";
 
 import Link from "next/link";
-import { usePathname } from "next/navigation";
+import { usePathname, useRouter } from "next/navigation";
 import { motion } from "framer-motion";
-import { useRef, useMemo, useEffect, useState } from "react";
+import { useRef, useMemo, useEffect, useState, useCallback } from "react";
 
 interface NavItemProps {
   href: string;
@@ -16,10 +16,18 @@ interface NavItemProps {
  * Individual navigation item component with active state styling and underline animation
  */
 function NavItem({ href, children, isActive, itemRef }: NavItemProps) {
+  const router = useRouter();
+  
+  const handleMouseEnter = useCallback(() => {
+    router.prefetch(href);
+  }, [router, href]);
+
   return (
     <Link 
       ref={itemRef}
       href={href}
+      onMouseEnter={handleMouseEnter}
+      prefetch={true}
       className={`text-base portrait:text-xl landscape:text-2xl font-semibold transition-colors py-2 px-2 portrait:px-3 landscape:px-3 relative ${
         isActive ? "text-foreground" : "text-foreground/60 hover:text-foreground/80"
       }`}
