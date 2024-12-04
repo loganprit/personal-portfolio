@@ -12,11 +12,43 @@ interface SocialLinkProps {
 }
 
 /**
+ * Checks if the file is already cached
+ * @param url - The URL of the file to check
+ */
+async function isFileCached(url: string): Promise<boolean> {
+  // Check Cache API first
+  if (typeof caches !== "undefined") {
+    const cache = await caches.open("resume-cache");
+    const cachedResponse = await cache.match(url);
+    if (cachedResponse) return true;
+  }
+
+  // Fallback to localStorage
+  try {
+    const timestamp = localStorage.getItem("resume-cache-timestamp");
+    const cachedUrl = localStorage.getItem("resume-cache-url");
+    
+    if (!timestamp || !cachedUrl) return false;
+    
+    // Check if cache is older than 1 hour
+    const ONE_HOUR = 3600000;
+    const now = Date.now();
+    return (now - parseInt(timestamp)) < ONE_HOUR && cachedUrl === url;
+  } catch {
+    return false;
+  }
+}
+
+/**
  * Caches a file from a URL for 1 hour using localStorage as fallback
  * @param url - The URL of the file to cache
  * @throws Error if the response is not ok
  */
 async function cacheFile(url: string): Promise<void> {
+  // Check if already cached
+  const isCached = await isFileCached(url);
+  if (isCached) return;
+
   try {
     const response = await fetch(url);
     
@@ -89,7 +121,10 @@ export function Socials() {
       
       try {
         setIsCaching(true);
-        await cacheFile(resumeUrl);
+        const isCached = await isFileCached(resumeUrl);
+        if (!isCached) {
+          await cacheFile(resumeUrl);
+        }
       } catch (error) {
         console.error("Failed to cache resume on initial load:", error);
       } finally {

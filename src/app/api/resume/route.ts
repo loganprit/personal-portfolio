@@ -11,7 +11,9 @@ export async function GET() {
       headers: {
         "Content-Type": "application/pdf",
         "Content-Disposition": "attachment; filename=resume.pdf",
-        "Cache-Control": "max-age=3600"
+        "Cache-Control": "public, max-age=3600, must-revalidate",
+        "ETag": `"${Date.now()}"`,
+        "Last-Modified": new Date().toUTCString()
       }
     });
   } catch (error) {
