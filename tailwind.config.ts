@@ -17,16 +17,7 @@ const config: Config = {
       },
     },
   },
-  plugins: [],
-  purge: {
-    enabled: true,
-    content: [
-      "./src/**/*.{js,ts,jsx,tsx}",
-    ],
-    options: {
-      safelist: [],
-    },
-  },
+  plugins: []
 };
 
 export default config;
