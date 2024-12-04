@@ -18,6 +18,15 @@ const config: Config = {
     },
   },
   plugins: [],
+  purge: {
+    enabled: true,
+    content: [
+      "./src/**/*.{js,ts,jsx,tsx}",
+    ],
+    options: {
+      safelist: [],
+    },
+  },
 };
 
 export default config;
