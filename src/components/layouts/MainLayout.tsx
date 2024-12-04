@@ -53,6 +53,7 @@ export function MainLayout({ children }: MainLayoutProps) {
                 title="Full-Stack Web Developer"
                 location="Lafayette, LA"
                 avatarUrl="/images/profile.jpg"
+                priority={true}
                 initials="LP"
               />
               <div className="flex flex-col items-center gap-4 mt-8 lg:mt-12">

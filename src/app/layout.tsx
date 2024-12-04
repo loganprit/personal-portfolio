@@ -18,10 +18,15 @@ const geistMono = localFont({
   weight: "100 900",
 });
 
-export const metadata: Metadata = {
-  title: "Logan Pritchett - Software Engineer",
-  description: "Personal portfolio and professional experience",
-};
+export async function generateMetadata(): Promise<Metadata> {
+  return {
+    title: "Logan Pritchett - Software Engineer",
+    description: "Personal portfolio and professional experience",
+    other: {
+      "Cache-Control": "public, max-age=31536000, immutable"
+    }
+  };
+}
 
 export default function RootLayout({
   children,
@@ -36,6 +41,8 @@ export default function RootLayout({
             __html: themeScript,
           }}
         />
+        <link rel="preconnect" href="https://docs.google.com" />
+        <link rel="dns-prefetch" href="https://docs.google.com" />
       </head>
       <body className={`${geistSans.variable} ${geistMono.variable} antialiased`}>
         <ThemeProvider>
