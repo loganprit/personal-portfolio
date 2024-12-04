@@ -23,6 +23,7 @@ export function MainLayout({ children }: MainLayoutProps) {
               location="Lafayette, LA"
               avatarUrl="/images/profile.jpg"
               initials="LP"
+              priority={true}
             />
             <div className="flex flex-col items-center gap-4">
               <ThemeToggle />
@@ -54,6 +55,7 @@ export function MainLayout({ children }: MainLayoutProps) {
                 location="Lafayette, LA"
                 avatarUrl="/images/profile.jpg"
                 initials="LP"
+                priority={true}
               />
               <div className="flex flex-col items-center gap-4 mt-8 lg:mt-12">
                 <ThemeToggle />

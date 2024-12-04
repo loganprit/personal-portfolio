@@ -7,6 +7,7 @@ interface HeaderProps {
   location: string;
   avatarUrl: string;
   initials: string;
+  priority?: boolean;
 }
 
 /**
@@ -17,11 +18,11 @@ interface HeaderProps {
  * @param {string} avatarUrl - URL for the avatar image
  * @param {string} initials - Fallback initials when avatar fails to load
  */
-export function Header({ name, title, location, avatarUrl, initials }: HeaderProps) {
+export function Header({ name, title, location, avatarUrl, initials, priority }: HeaderProps) {
   return (
     <div className="flex flex-col items-center landscape:flex-row landscape:items-start w-full landscape:w-auto gap-4 landscape:gap-8">
       <Avatar className="h-24 w-24 landscape:h-32 landscape:w-32">
-        <AvatarImage src={avatarUrl} alt={name} />
+        <AvatarImage src={avatarUrl} alt={name} priority={priority} />
         <AvatarFallback>{initials}</AvatarFallback>
       </Avatar>
       <div className="flex flex-col gap-4 h-32 landscape:h-32 text-center landscape:text-left">

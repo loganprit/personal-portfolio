@@ -8,6 +8,7 @@ interface AvatarProps extends React.HTMLAttributes<HTMLDivElement> {
 interface AvatarImageProps {
   src: string;
   alt: string;
+  priority?: boolean;
 }
 
 interface AvatarFallbackProps extends React.HTMLAttributes<HTMLDivElement> {
