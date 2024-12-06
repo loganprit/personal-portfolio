@@ -16,6 +16,39 @@ export const projects = [
     github_link: "https://github.com/loganprit/personal-portfolio"
   },
   {
+    title: "WeLoveMovies",
+    period: "MAY 2024 - PRESENT",
+    description: "A movie database application designed to help users discover movies, read reviews, and find local theater showtimes. Features include browsing movies currently showing in theaters, exploring detailed movie descriptions with aggregated reviews, and finding theaters showing specific movies.",
+    updates: {
+        completed: [
+            "Refactored to TypeScript for improved type safety and developer experience",
+            "Visual redesign with Tailwind CSS and comprehensive UI component library",
+            "Caching layer implemented via Tanstack Query for improved performance"
+        ],
+        planned: [
+            "Advanced filtering options for sorting by ratings, release dates, and demographics", 
+            "Integration with TMDb API for expanded movie metadata",
+            "Theater location search based on user geolocation",
+            "User authentication and authorization for personalized features"
+        ]
+    },
+    technologies: [
+      { name: "TypeScript" },
+      { name: "React" },
+      { name: "Tailwind CSS" },
+      { name: "Tanstack Router" },
+      { name: "Node.js" },
+      { name: "Express.js" },
+      { name: "PostgreSQL" },
+      { name: "SQLite" },
+      { name: "Knex.js" },
+      { name: "Jest" },
+      { name: "Docker" }
+    ],
+    deploy_link: "https://welovemovies-front-end-ribo.onrender.com/",
+    github_link: "https://github.com/loganprit/welovemovies"
+  },
+  {
     title: "Portfolio V2",
     period: "OCTOBER 2024 - OCTOBER 2024",
     description: "Single-page portfolio built with HTML5 UP's Dimension template, featuring a responsive modal-based layout with smooth transitions and dynamic backgrounds. Implemented with SCSS for enhanced styling capabilities and custom effects like background blur on modal activation.",
@@ -51,37 +84,6 @@ export const projects = [
     ],
     deploy_link: "https://restaurant-reservation-frontend-v5ci.onrender.com/",
     github_link: "https://github.com/loganprit/periodic-tables"
-  },
-  {
-    title: "WeLoveMovies",
-    period: "MAY 2024",
-    description: "A movie database application designed to help users discover movies, read reviews, and find local theater showtimes. Features include browsing movies currently showing in theaters, exploring detailed movie descriptions with aggregated reviews, and finding theaters showing specific movies.",
-    updates: {
-        completed: [
-            "Refactored to TypeScript for improved type safety and developer experience",
-        ],
-        planned: [
-            "Visual redesign with Tailwind CSS and comprehensive UI component library",
-            "Advanced filtering options for sorting by ratings, release dates, and demographics", 
-            "Integration with TMDb API for expanded movie metadata",
-            "Theater location search based on user geolocation",
-            "Caching layer implementation for improved performance",
-            "User authentication and authorization for personalized features"
-        ]
-    },
-    technologies: [
-      { name: "TypeScript" },
-      { name: "React" },
-      { name: "Node.js" },
-      { name: "Express.js" },
-      { name: "PostgreSQL" },
-      { name: "SQLite" },
-      { name: "Knex.js" },
-      { name: "Jest" },
-      { name: "Docker" }
-    ],
-    deploy_link: "https://welovemovies-front-end-ribo.onrender.com/",
-    github_link: "https://github.com/loganprit/welovemovies"
   },
   {
     title: "GrubDash",

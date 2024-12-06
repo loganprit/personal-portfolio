@@ -14,7 +14,7 @@ export function MainLayout({ children }: MainLayoutProps) {
     <div className="fixed inset-0 landscape:p-8 portrait:p-4 overflow-y-auto landscape:overflow-hidden">
       <GlassCard className="w-full portrait:min-h-[calc(100vh-2rem)] landscape:h-[calc(100vh-4rem)] p-4 landscape:p-8 lg:p-12 relative flex flex-col">
         {/* Portrait Layout */}
-        <div className="flex flex-col landscape:hidden h-full px-6">
+        <div className="flex flex-col h-full px-6 landscape:!hidden">
           {/* Static Content */}
           <div className="flex flex-col gap-6 items-center">
             <Header
