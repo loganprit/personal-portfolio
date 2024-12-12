@@ -21,30 +21,19 @@ export function useThemeContext() {
  */
 export function ThemeProvider({ children }: { children: ReactNode }) {
   const [mounted, setMounted] = useState(false);
-
-  useSystemTheme({
-    onThemeChange: (isDark) => {
-      const systemTheme = isDark ? "dark" : "light";
-      const storedTheme = localStorage.getItem("theme");
-      
-      if (!storedTheme || storedTheme === "system") {
-        const currentTheme = document.documentElement.classList.contains("dark") ? "dark" : "light";
-        if (currentTheme !== systemTheme) {
-          document.documentElement.classList.remove(currentTheme);
-          document.documentElement.classList.add(systemTheme);
-        }
-      }
-    }
-  });
+  const [isClient, setIsClient] = useState(false);
 
   useEffect(() => {
-    // Clean up any Dark Reader attributes on mount
+    setIsClient(true);
+    
+    // Clean up any extension attributes
     const dataAttrs = document.documentElement.getAttributeNames();
     dataAttrs.forEach(attr => {
-      if (attr.startsWith("data-darkreader")) {
+      if (attr.startsWith("data-")) {
         document.documentElement.removeAttribute(attr);
       }
     });
+    
     setMounted(true);
   }, []);
 
@@ -55,10 +44,10 @@ export function ThemeProvider({ children }: { children: ReactNode }) {
         defaultTheme="system"
         enableSystem
         disableTransitionOnChange
-        forcedTheme={!mounted ? undefined : undefined}
+        forcedTheme={!isClient ? undefined : undefined}
       >
         <ThemeTransition />
-        {children}
+        {mounted ? children : null}
       </NextThemeProvider>
     </ThemeContext.Provider>
   );

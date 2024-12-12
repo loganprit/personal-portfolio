@@ -12,7 +12,7 @@ interface MainLayoutProps {
 export function MainLayout({ children }: MainLayoutProps) {
   return (
     <div className="fixed inset-0 landscape:p-8 portrait:p-4 overflow-y-auto landscape:overflow-hidden">
-      <GlassCard className="w-full portrait:min-h-[calc(100vh-2rem)] landscape:h-[calc(100vh-4rem)] p-4 landscape:p-8 lg:p-12 relative flex flex-col">
+      <GlassCard className="w-full portrait:min-h-[calc(var(--real-vh,1vh)*100-2rem)] landscape:h-[calc(var(--real-vh,1vh)*100-4rem)] p-4 landscape:p-8 lg:p-12 relative flex flex-col">
         {/* Portrait Layout */}
         <div className="flex flex-col h-full px-6 landscape:!hidden">
           {/* Static Content */}

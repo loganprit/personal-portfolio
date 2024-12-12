@@ -1,4 +1,30 @@
+export const viewportScript = `
+  (function() {
+    function setViewportHeight() {
+      const vh = window.innerHeight * 0.01;
+      const isIPad = /iPad|iPhone|iPod/.test(navigator.platform) || 
+        (navigator.platform === "MacIntel" && navigator.maxTouchPoints > 1);
+      
+      document.documentElement.style.setProperty('--vh', \`\${vh}px\`);
+      document.documentElement.style.setProperty('--real-vh', \`\${vh}px\`);
+      
+      // Add iPad-specific class
+      if (isIPad) {
+        document.documentElement.classList.add('is-ipad');
+      }
+    }
+    
+    setViewportHeight();
+    window.addEventListener('resize', setViewportHeight);
+    window.addEventListener('orientationchange', () => {
+      // Delay to ensure correct height after orientation change
+      setTimeout(setViewportHeight, 200);
+    });
+  })();
+`;
+
 export const themeScript = `
+  ${viewportScript}
   (function() {
     try {
       const storedTheme = localStorage.getItem("theme");
@@ -31,4 +57,25 @@ export const readyScript = `
       document.documentElement.classList.add('ready');
     }, 0);
   })();
+`;
+
+export const cleanupScript = `
+  (function() {
+    const html = document.documentElement;
+    const attrs = html.getAttributeNames();
+    attrs.forEach(attr => {
+      if (attr.startsWith('data-') && 
+          attr !== 'data-theme' && 
+          attr !== 'data-color-scheme') {
+        html.removeAttribute(attr);
+      }
+    });
+  })();
+`;
+
+// Update the script combination
+export const combinedScript = `
+  ${viewportScript}
+  ${themeScript}
+  ${cleanupScript}
 `; 

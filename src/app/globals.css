@@ -130,3 +130,43 @@ body::before {
     --card-gradient: var(--card-background);
   }
 }
+
+/* Fix iOS Safari 100vh issue */
+@supports (-webkit-touch-callout: none) {
+  .min-h-screen {
+    min-height: -webkit-fill-available;
+  }
+
+  .h-screen {
+    height: -webkit-fill-available;
+  }
+
+  /* Use dynamic viewport height */
+  :root {
+    --vh: 1vh;
+  }
+
+  @media (orientation: portrait) {
+    .portrait\:min-h-\[calc\(100vh-2rem\)\] {
+      min-height: calc(var(--vh, 1vh) * 100 - 2rem);
+    }
+  }
+
+  @media (orientation: landscape) {
+    .landscape\:h-\[calc\(100vh-4rem\)\] {
+      height: calc(var(--vh, 1vh) * 100 - 4rem);
+    }
+  }
+}
+
+/* Prevent overscroll bounce */
+html {
+  overflow: hidden;
+  height: 100%;
+}
+
+body {
+  overflow: auto;
+  -webkit-overflow-scrolling: touch;
+  height: 100%;
+}

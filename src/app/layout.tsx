@@ -37,6 +37,10 @@ export default function RootLayout({
   return (
     <html lang="en" suppressHydrationWarning className="no-fouc">
       <head>
+        <meta 
+          name="viewport" 
+          content="width=device-width, initial-scale=1.0, viewport-fit=cover, maximum-scale=1" 
+        />
         <meta name="darkreader-lock" />
         <meta name="color-scheme" content="light dark" />
         <script
