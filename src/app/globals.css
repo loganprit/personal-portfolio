@@ -170,3 +170,11 @@ body {
   -webkit-overflow-scrolling: touch;
   height: 100%;
 }
+
+@-moz-document url-prefix() {
+  .avatar-image {
+    image-rendering: -moz-crisp-edges;
+    transform: translateZ(0);
+    backface-visibility: hidden;
+  }
+}

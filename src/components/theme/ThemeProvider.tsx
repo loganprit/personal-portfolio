@@ -3,7 +3,6 @@
 import { ThemeProvider as NextThemeProvider } from "next-themes";
 import { createContext, useContext, useEffect, useState, type ReactNode } from "react";
 import { ThemeTransition } from "./ThemeTransition";
-import { useSystemTheme } from "@/hooks/useSystemTheme";
 
 interface ThemeContextType {
   mounted: boolean;

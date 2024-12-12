@@ -22,7 +22,13 @@ export function Header({ name, title, location, avatarUrl, initials, priority }:
   return (
     <div className="flex flex-col items-center landscape:flex-row landscape:items-start w-full landscape:w-auto gap-4 landscape:gap-8">
       <Avatar className="h-24 w-24 landscape:h-32 landscape:w-32">
-        <AvatarImage src={avatarUrl} alt={name} priority={priority} />
+        <AvatarImage 
+          src={avatarUrl} 
+          alt={name} 
+          priority={priority}
+          quality={95}
+          sizes="(max-width: 640px) 96px, (max-width: 1024px) 128px, 96px"
+        />
         <AvatarFallback>{initials}</AvatarFallback>
       </Avatar>
       <div className="flex flex-col gap-4 h-32 landscape:h-32 text-center landscape:text-left">
