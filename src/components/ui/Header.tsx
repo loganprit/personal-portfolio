@@ -1,3 +1,5 @@
+"use client";
+
 import { Avatar, AvatarFallback, AvatarImage } from "./avatar";
 import { MdLocationPin } from "react-icons/md";
 
@@ -29,7 +31,7 @@ export function Header({ name, title, location, avatarUrl, initials, priority }:
           quality={95}
           sizes="(max-width: 640px) 96px, (max-width: 1024px) 128px, 96px"
         />
-        <AvatarFallback>{initials}</AvatarFallback>
+        <AvatarFallback aria-label={`${name}'s initials`}>{initials}</AvatarFallback>
       </Avatar>
       <div className="flex flex-col gap-4 h-32 landscape:h-32 text-center landscape:text-left">
         <h1 className="text-3xl landscape:text-4xl xl:text-5xl font-bold tracking-tight">{name}</h1>
