@@ -5,6 +5,7 @@ import { useEffect, useState, useRef } from "react";
 import { FiMoon, FiSun } from "react-icons/fi";
 import { motion } from "framer-motion";
 import { useSystemTheme } from "@/hooks/useSystemTheme";
+import { isFirefox } from "@/lib/utils";
 
 /**
  * Button component for toggling between light and dark themes
@@ -52,7 +53,9 @@ export function ThemeToggle() {
   const otherMode = currentTheme === "dark" ? "light" : "dark";
 
   const handleThemeChange = () => {
-    setIsSpinning(true);
+    if (!isFirefox()) {
+      setIsSpinning(true);
+    }
     setTheme(otherMode);
   };
 
