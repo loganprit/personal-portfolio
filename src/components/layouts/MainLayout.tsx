@@ -51,7 +51,7 @@ export function MainLayout({ children }: MainLayoutProps) {
               <Header
                 name="Logan Pritchett"
                 title="Full-Stack Web Developer"
-                location="Lafayette, LA"
+                location="Orange, TX"
                 avatarUrl="/images/profile.jpg"
                 priority={true}
                 initials="LP"
