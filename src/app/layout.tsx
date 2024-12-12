@@ -6,6 +6,7 @@ import { MainLayout } from "@/components/layouts/MainLayout";
 import { Analytics } from "@vercel/analytics/react";
 import { SpeedInsights } from "@vercel/speed-insights/next"
 import { themeScript } from "@/lib/theme-script";
+import { readyScript } from "@/lib/theme-script";
 
 const geistSans = localFont({
   src: "./fonts/GeistVF.woff",
@@ -34,11 +35,13 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <html lang="en" suppressHydrationWarning>
+    <html lang="en" suppressHydrationWarning className="no-fouc">
       <head>
+        <meta name="darkreader-lock" />
+        <meta name="color-scheme" content="light dark" />
         <script
           dangerouslySetInnerHTML={{
-            __html: themeScript,
+            __html: `${themeScript}${readyScript}`,
           }}
         />
         <link rel="preconnect" href="https://docs.google.com" />

@@ -38,6 +38,13 @@ export function ThemeProvider({ children }: { children: ReactNode }) {
   });
 
   useEffect(() => {
+    // Clean up any Dark Reader attributes on mount
+    const dataAttrs = document.documentElement.getAttributeNames();
+    dataAttrs.forEach(attr => {
+      if (attr.startsWith("data-darkreader")) {
+        document.documentElement.removeAttribute(attr);
+      }
+    });
     setMounted(true);
   }, []);
 
@@ -48,6 +55,7 @@ export function ThemeProvider({ children }: { children: ReactNode }) {
         defaultTheme="system"
         enableSystem
         disableTransitionOnChange
+        forcedTheme={!mounted ? undefined : undefined}
       >
         <ThemeTransition />
         {children}

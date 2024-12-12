@@ -2,6 +2,15 @@
 @tailwind components;
 @tailwind utilities;
 
+.no-fouc {
+  opacity: 0;
+  transition: opacity 0.2s ease-in;
+}
+
+html.ready {
+  opacity: 1;
+}
+
 :root {
   --background-start: #dbe7ec;
   --background-end: #bbd3dd;
