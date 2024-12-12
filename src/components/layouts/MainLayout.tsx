@@ -56,7 +56,7 @@ export function MainLayout({ children }: MainLayoutProps) {
                 priority={true}
                 initials="LP"
               />
-              <div className="flex flex-col items-center gap-4 mt-8 lg:mt-12">
+              <div className="flex flex-col items-center gap-4 mt-8">
                 <ThemeToggle />
                 <Nav className="mx-auto" />
               </div>
