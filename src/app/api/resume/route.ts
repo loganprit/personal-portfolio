@@ -1,7 +1,7 @@
 import { NextResponse } from "next/server";
 
 export async function GET() {
-  const GOOGLE_DRIVE_URL = "https://docs.google.com/uc?export=download&id=1tyxpk-D8_QJhQNbYOUl21BlSxH_twZnt";
+  const GOOGLE_DRIVE_URL = "https://docs.google.com/uc?export=download&id=1U4bqMGEper-J3ovFkz_4MhC6dwcOwoFF";
   
   try {
     const response = await fetch(GOOGLE_DRIVE_URL);
