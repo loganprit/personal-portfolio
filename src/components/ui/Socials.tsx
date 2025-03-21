@@ -95,8 +95,9 @@ function SocialLink({ href, icon, label, onClick }: SocialLinkProps) {
       className="p-3 hover:bg-foreground/10 rounded-full transition-colors inline-flex items-center gap-2"
       aria-label={label}
       onClick={onClick ? (e) => {
+        // Always prevent default behavior
         e.preventDefault();
-        onClick().then(() => window.location.href = href);
+        void onClick();
       } : undefined}
       target="_blank"
       rel="noopener noreferrer"
@@ -112,6 +113,7 @@ function SocialLink({ href, icon, label, onClick }: SocialLinkProps) {
  */
 export function Socials() {
   const resumeUrl = "/api/resume";
+  const googleDriveUrl = "https://docs.google.com/uc?export=download&id=1moEKcpXt_1K86KUhq8jJZMQgSDrhZoUe";
   const [isCaching, setIsCaching] = useState(false);
 
   // Cache the resume on component mount
@@ -137,7 +139,22 @@ export function Socials() {
 
   // Handle resume click with caching
   const handleResumeClick = useCallback(async () => {
-    await cacheFile(resumeUrl);
+    try {
+      // Check if browser is Firefox
+      const isFirefox = typeof window !== 'undefined' && 
+        navigator.userAgent.toLowerCase().includes('firefox');
+      
+      if (isFirefox) {
+        // For Firefox: Only open Google Drive URL
+        window.location.href = googleDriveUrl;
+      } else {
+        // For other browsers: Use caching and API route
+        await cacheFile(resumeUrl);
+        window.location.href = resumeUrl;
+      }
+    } catch (error) {
+      console.error("Failed to handle resume download:", error);
+    }
   }, [resumeUrl]);
 
   return (
@@ -158,9 +175,13 @@ export function Socials() {
         label="Email Contact"
       />
       <SocialLink 
-        href={resumeUrl}
+        href={typeof window !== 'undefined' && navigator.userAgent.toLowerCase().includes('firefox') 
+          ? googleDriveUrl 
+          : resumeUrl}
         icon={<FiFile size={30} />}
-        label="Download Resume"
+        label={typeof window !== 'undefined' && navigator.userAgent.toLowerCase().includes('firefox') 
+          ? "View Resume (Firefox)" 
+          : "Download Resume"}
         onClick={handleResumeClick}
       />
     </div>

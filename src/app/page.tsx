@@ -142,7 +142,7 @@ export default function Home() {
 
           <div>
             <h4 className="text-sm font-semibold text-foreground/60 mb-3">
-              Technical Expertise
+              Technologies Used
             </h4>
             <div className="flex flex-wrap gap-2">
               {currentRole.technologies.map((tech, index) => (
