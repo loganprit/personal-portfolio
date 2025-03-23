@@ -14,20 +14,17 @@ interface CurrentRole {
 }
 
 export const currentRole: CurrentRole = {
-  title: "Software Engineer",
-  company: "Open to Opportunities",
-  location: "Remote / Hybrid / On-site",
-  period: "OCTOBER 2024 — PRESENT",
-  description: "Currently seeking software engineering opportunities where I can leverage my full-stack development expertise and chemical engineering background. Skilled in React, TypeScript, Node.js, and database management, with a focus on building scalable web applications.",
+  title: "Software Engineer I",
+  company: "FloQast",
+  location: "Remote",
+  period: "APRIL 2025 — PRESENT",
+  description: "",
   technologies: [
     { name: "JavaScript" },
-    { name: "TypeScript" },
     { name: "React" },
     { name: "Node.js" },
-    { name: "PostgreSQL" },
-    { name: "Next.js" },
+    { name: "MongoDB" },
     { name: "Express.js" },
-    { name: "Tailwind CSS" }
   ],
-  isActive: false
+  isActive: true
 };
