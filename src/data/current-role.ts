@@ -21,10 +21,11 @@ export const currentRole: CurrentRole = {
   description: "Currently working on the Journal Entry product for FloQast.",
   technologies: [
     { name: "JavaScript" },
+    { name: "TypeScript" },
     { name: "React" },
     { name: "Node.js" },
-    { name: "MongoDB" },
     { name: "Express.js" },
+    { name: "MongoDB" },
   ],
   isActive: true,
 };
