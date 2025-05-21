@@ -18,7 +18,7 @@ export const currentRole: CurrentRole = {
   company: "FloQast",
   location: "Remote",
   period: "APRIL 2025 — PRESENT",
-  description: "",
+  description: "Currently working on the Journal Entry product for FloQast.",
   technologies: [
     { name: "JavaScript" },
     { name: "React" },
@@ -26,5 +26,5 @@ export const currentRole: CurrentRole = {
     { name: "MongoDB" },
     { name: "Express.js" },
   ],
-  isActive: true
+  isActive: true,
 };
