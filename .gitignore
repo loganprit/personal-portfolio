@@ -21,7 +21,9 @@ Thumbs.db
 # AI
 /.cursor/
 /.claude/
+opencode.json
 
 # Vite
 vite.config.js.timestamp-*
 vite.config.ts.timestamp-*
+
