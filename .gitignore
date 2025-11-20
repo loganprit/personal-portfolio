@@ -17,10 +17,12 @@ Thumbs.db
 .env.*
 !.env.example
 !.env.test
+/tmp/
 
 # AI
 /.cursor/
 /.claude/
+/.vscode/
 opencode.json
 
 # Vite
