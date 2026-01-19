@@ -45,3 +45,7 @@ next-env.d.ts
 # vscode
 .vscode
 package-lock.json
+opencode.json
+.claude/mcp.json
+.cursor/mcp.json
+.cursor/OPENCODE.md
