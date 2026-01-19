@@ -39,8 +39,14 @@
   <!-- Image column - spans full height of hero + about -->
   <div class="flex items-start justify-center md:justify-end">
     <div
-      class="size-48 rounded-xl border border-(--border) bg-(--card) shadow-(--shadow)"
-    ></div>
+      class="size-48 overflow-hidden rounded-xl border border-(--border) bg-(--card) shadow-(--shadow)"
+    >
+      <img
+        src="/images/profile.jpg"
+        alt={profile.name}
+        class="h-full w-full object-cover"
+      />
+    </div>
   </div>
 </section>
 
