@@ -12,12 +12,12 @@ This repository is a Next.js App Router portfolio.
 
 ## Build, Test, and Development Commands
 Use Node `>=20.9.0`.
-- `npm install`: install dependencies.
-- `npm run dev`: start local dev server at `http://localhost:3000`.
-- `npm run scan`: run dev server plus `react-scan` performance diagnostics.
-- `npm run build`: create production build.
-- `npm run start`: serve production build locally.
-- `npm run lint`: run ESLint on `src/`.
+- `pnpm install`: install dependencies.
+- `pnpm dev`: start local dev server at `http://localhost:3000`.
+- `pnpm scan`: run dev server plus `react-scan` performance diagnostics.
+- `pnpm build`: create production build.
+- `pnpm start`: serve production build locally.
+- `pnpm lint`: run ESLint on `src/`.
 
 ## Coding Style & Naming Conventions
 - Language: TypeScript + React function components.
@@ -29,8 +29,8 @@ Use Node `>=20.9.0`.
 
 ## Testing Guidelines
 There is no formal automated test suite configured yet. Before opening a PR:
-- Run `npm run lint`.
-- Run `npm run build` to catch type/build regressions.
+- Run `pnpm lint`.
+- Run `pnpm build` to catch type/build regressions.
 - Manually validate key pages: `/`, `/projects`, `/work-history`, theme toggle, and resume download endpoint.
 When adding tests in the future, colocate with source files using `*.test.ts(x)` naming.
 
@@ -43,4 +43,4 @@ PRs should include:
 - Clear summary of user-facing and technical changes.
 - Linked issue/task (if applicable).
 - Screenshots or short recordings for UI changes.
-- Validation notes listing commands run (for example `npm run lint`, `npm run build`).
+- Validation notes listing commands run (for example `pnpm lint`, `pnpm build`).
