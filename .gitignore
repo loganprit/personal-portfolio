@@ -46,6 +46,7 @@ next-env.d.ts
 .vscode
 package-lock.json
 opencode.json
-.claude/mcp.json
-.cursor/mcp.json
+.claude/
+.cursor/
 .cursor/OPENCODE.md
+.playwright-mcp/

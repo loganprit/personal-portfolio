@@ -52,7 +52,7 @@ export function ThemeTransition() {
         }}
         transition={{ 
           duration: 0.5,
-          ease: "easeInOut"
+          ease: "easeInOut" as const
         }}
         style={{
           background: `linear-gradient(135deg, ${gradientColors.dark.start} 0%, ${gradientColors.dark.middle} 50%, ${gradientColors.dark.end} 100%)`,
