@@ -24,7 +24,7 @@ export function ThemeSwipeOverlay() {
       }}
       transition={{ 
         duration: 0.5,
-        ease: "easeInOut"
+        ease: "easeInOut" as const
       }}
       style={{
         background: theme === "dark" 

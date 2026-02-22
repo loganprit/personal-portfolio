@@ -57,47 +57,35 @@ export function ThemeToggle() {
   };
 
   return (
-    <motion.div 
-      className="flex items-center gap-2 -ml-2"
+    <motion.div
       initial={{ opacity: 0, y: -20 }}
       animate={{ opacity: 1, y: 0 }}
-      transition={{ duration: 0.5, ease: "easeOut" }}
+      transition={{ duration: 0.5, ease: "easeOut" as const }}
     >
       <button
         onClick={handleThemeChange}
         className={`
-          rounded-full px-3 py-2 
-          transition-colors relative z-[51] 
-          flex items-center gap-2
-          ${currentTheme === "dark" 
-            ? "bg-[#2E3C43] backdrop-blur-sm" 
-            : "bg-gray-300"
+          rounded-full p-2
+          transition-colors relative z-[51]
+          hover:bg-foreground/10
+          ${currentTheme === "dark"
+            ? "text-foreground/80"
+            : "text-gray-700"
           }
         `}
-        aria-label={`Prefer ${otherMode} mode? Click to switch theme`}
+        aria-label={`Switch to ${otherMode} mode`}
       >
         <motion.div
           animate={{ rotate: isSpinning ? 360 : 0 }}
-          transition={{ 
-            duration: 0.5, 
-            ease: "linear",
+          transition={{
+            duration: 0.5,
+            ease: "linear" as const,
             repeatType: "reverse",
             from: 0
           }}
         >
           {currentTheme === "dark" ? <FiSun size={20} /> : <FiMoon size={20} />}
         </motion.div>
-        <span 
-          className={`
-            text-lg
-            ${currentTheme === "dark" 
-              ? "text-foreground/80" 
-              : "text-gray-700"
-            }
-          `}
-        >
-          Prefer {otherMode} mode?
-        </span>
       </button>
     </motion.div>
   );

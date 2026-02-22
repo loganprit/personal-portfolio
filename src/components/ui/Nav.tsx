@@ -9,7 +9,7 @@ interface NavItemProps {
   href: string;
   children: React.ReactNode;
   isActive: boolean;
-  itemRef: React.RefObject<HTMLAnchorElement>;
+  itemRef: React.RefObject<HTMLAnchorElement | null>;
 }
 
 /**
