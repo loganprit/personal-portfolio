@@ -26,6 +26,8 @@ export interface WorkExperience {
   description: string;
   achievements: string[];
   technologies: Technology[];
+  logo?: string;
+  logoFill?: boolean;
 }
 
 export interface CurrentRole {
@@ -36,6 +38,8 @@ export interface CurrentRole {
   description: string;
   technologies: Technology[];
   isActive: boolean;
+  logo?: string;
+  logoFill?: boolean;
 }
 
 export interface SocialLink {
@@ -48,14 +52,27 @@ export interface PersonalInfo {
   name: string;
   title: string;
   headline: string;
-  tagline: string;
   location: string;
   email: string;
   avatar: string;
+  shortBio: string;
   resumeUrl: string;
   socials: SocialLink[];
   bio: BioSection[];
   skills: string[];
+}
+
+export interface Education {
+  institution: string;
+  degree: string;
+  field: string;
+  location: string;
+  period: string;
+  description: string;
+  achievements: string[];
+  technologies: Technology[];
+  logo?: string;
+  logoFill?: boolean;
 }
 
 export interface BioSection {
