@@ -19,7 +19,7 @@ Want to visit the live site? [Click here](https://loganpritchett.me)
 
 ## Tech Stack
 
-- **Framework**: Next.js 15
+- **Framework**: Next.js 16
 - **Language**: TypeScript
 - **Styling**: Tailwind CSS
 - **Animations**: Framer Motion
@@ -31,16 +31,16 @@ Want to visit the live site? [Click here](https://loganpritchett.me)
 
 ```bash
 # Install dependencies
-pnpm install
+bun install
 
 # Run development server
-pnpm dev
+bun dev
 
 # Build for production
-pnpm build
+bun build
 
 # Start production server
-pnpm start
+bun start
 ```
 
 ## Project Structure

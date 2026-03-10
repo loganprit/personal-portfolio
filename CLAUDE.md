@@ -4,19 +4,19 @@ This file provides guidance to Claude Code (claude.ai/code) when working with co
 
 ## Development Commands
 
-**Note: NEVER use `pnpm dev` to start the development server. Assume the development server is already running. If it isn't, prompt the user to start it.**
+**Note: NEVER use `bun dev` to start the development server. Assume the development server is already running. If it isn't, prompt the user to start it.**
 
 ```bash
 # Development
-pnpm dev                    # Start development server on localhost:3000
-pnpm scan                   # Start dev server with React Scan for performance profiling
+bun dev                     # Start development server on localhost:3000
+bun scan                    # Start dev server with React Scan for performance profiling
 
 # Production
-pnpm build                  # Build optimized production bundle
-pnpm start                  # Start production server (requires build first)
+bun run build               # Build optimized production bundle
+bun start                   # Start production server (requires build first)
 
 # Code Quality
-pnpm lint                   # Run ESLint checks
+bun lint                    # Run ESLint checks
 ```
 
 ## Architecture Overview
@@ -44,9 +44,9 @@ This separation keeps content updates simple and enables easy TypeScript type ch
 
 ### Layout System
 
-- **MainLayout** (`src/components/layouts/MainLayout.tsx`): Contains global Header and page wrapper
-- **PageTransition** (`src/components/layouts/PageTransition.tsx`): Framer Motion wrapper for route transitions
-- **App Router Structure**: Using Next.js 15 App Router with file-based routing in `src/app/`
+- **Root Layout** (`src/app/layout.tsx`): Contains theme script injection, font loading, and global providers
+- **Single-page Architecture**: All content is rendered in `src/app/page.tsx` as a single scrollable page with section-based navigation
+- **App Router Structure**: Using Next.js 16 App Router with file-based routing in `src/app/`
 
 ### Component Patterns
 
