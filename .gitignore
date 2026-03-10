@@ -46,7 +46,8 @@ next-env.d.ts
 
 # vscode
 .vscode
-package-lock.json
+
+# playwright
 .playwright-mcp/
 
 # btca local data
@@ -54,6 +55,7 @@ package-lock.json
 btca.config.jsonc
 
 # AI tool configs
+.agents/
 .claude/
 .codex/
 
