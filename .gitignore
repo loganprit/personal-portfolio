@@ -45,8 +45,14 @@ next-env.d.ts
 # vscode
 .vscode
 package-lock.json
-opencode.json
-.claude/
-.cursor/
-.cursor/OPENCODE.md
 .playwright-mcp/
+
+# btca local data
+.btca/
+btca.config.jsonc
+
+# AI tool configs
+.claude/
+.codex/
+
+*.png

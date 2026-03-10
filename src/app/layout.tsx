@@ -2,11 +2,9 @@ import type { Metadata } from "next";
 import localFont from "next/font/local";
 import "./globals.css";
 import { ThemeProvider } from "@/components/theme/ThemeProvider";
-import { MainLayout } from "@/components/layouts/MainLayout";
 import { Analytics } from "@vercel/analytics/react";
-import { SpeedInsights } from "@vercel/speed-insights/next"
-import { themeScript } from "@/lib/theme-script";
-import { readyScript } from "@/lib/theme-script";
+import { SpeedInsights } from "@vercel/speed-insights/next";
+import { themeScript, readyScript } from "@/lib/theme-script";
 
 const geistSans = localFont({
   src: "./fonts/GeistVF.woff",
@@ -24,8 +22,8 @@ export async function generateMetadata(): Promise<Metadata> {
     title: "Logan Pritchett - Software Engineer",
     description: "Personal portfolio and professional experience",
     other: {
-      "Cache-Control": "public, max-age=31536000, immutable"
-    }
+      "Cache-Control": "public, max-age=31536000, immutable",
+    },
   };
 }
 
@@ -37,9 +35,9 @@ export default function RootLayout({
   return (
     <html lang="en" suppressHydrationWarning className="no-fouc">
       <head>
-        <meta 
-          name="viewport" 
-          content="width=device-width, initial-scale=1.0, viewport-fit=cover, maximum-scale=1" 
+        <meta
+          name="viewport"
+          content="width=device-width, initial-scale=1.0, viewport-fit=cover, maximum-scale=1"
         />
         <meta name="darkreader-lock" />
         <meta name="color-scheme" content="light dark" />
@@ -51,9 +49,11 @@ export default function RootLayout({
         <link rel="preconnect" href="https://docs.google.com" />
         <link rel="dns-prefetch" href="https://docs.google.com" />
       </head>
-      <body className={`${geistSans.variable} ${geistMono.variable} antialiased`}>
+      <body
+        className={`${geistSans.variable} ${geistMono.variable} antialiased`}
+      >
         <ThemeProvider>
-          <MainLayout>{children}</MainLayout>
+          {children}
           {process.env.NODE_ENV === "production" && (
             <>
               <Analytics />

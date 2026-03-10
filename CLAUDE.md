@@ -4,6 +4,8 @@ This file provides guidance to Claude Code (claude.ai/code) when working with co
 
 ## Development Commands
 
+**Note: NEVER use `pnpm dev` to start the development server. Assume the development server is already running. If it isn't, prompt the user to start it.**
+
 ```bash
 # Development
 pnpm dev                    # Start development server on localhost:3000
@@ -33,6 +35,7 @@ The application uses a sophisticated client-side theme system to prevent FOUC (F
 ### Data Architecture
 
 Static data is centralized in `/src/data/`:
+
 - `projects.ts` - All project information with TypeScript types
 - `work-history.ts` - Employment history
 - `current-role.ts` - Current position details
@@ -48,6 +51,7 @@ This separation keeps content updates simple and enables easy TypeScript type ch
 ### Component Patterns
 
 **Glass-morphism UI**: Most components use `backdrop-blur` effects defined in Tailwind config. The visual hierarchy relies on:
+
 - CSS custom properties `--background` and `--foreground` for theme colors
 - Tailwind's backdrop blur utilities (`backdrop-blur-xl`)
 - Transparent backgrounds with subtle borders
@@ -57,11 +61,13 @@ This separation keeps content updates simple and enables easy TypeScript type ch
 ### Critical Configuration Details
 
 **Next.js Image Optimization** (`next.config.ts`):
+
 - Resume PDF is hosted on Google Drive, configured in `remotePatterns`
 - Custom `deviceSizes` optimized for common viewport widths: `[96, 128, 256, 384]`
 - Console logs stripped in production builds via compiler options
 
 **Font Loading** (`src/app/layout.tsx`):
+
 - Uses `next/font/local` for Geist Sans and Geist Mono
 - Fonts are preloaded automatically by Next.js
 - Font variables injected as CSS custom properties
@@ -69,6 +75,7 @@ This separation keeps content updates simple and enables easy TypeScript type ch
 ### iPad/Mobile Viewport Handling
 
 The `viewportScript` in `theme-script.ts` handles dynamic viewport heights:
+
 - Sets CSS custom property `--vh` to address mobile browser toolbar issues
 - Detects iPad devices (including Safari on macOS masquerading as desktop)
 - Listens to orientation changes with debounced updates
@@ -78,6 +85,7 @@ The `viewportScript` in `theme-script.ts` handles dynamic viewport heights:
 ### Resume Download Flow
 
 API route at `src/app/api/resume/route.ts` handles resume downloads:
+
 - Fetches PDF from Google Drive URL
 - Sets proper headers for browser downloads
 - Implements error handling for network failures

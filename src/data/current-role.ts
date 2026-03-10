@@ -1,17 +1,4 @@
-interface Technology {
-  name: string;
-  className?: string;
-}
-
-interface CurrentRole {
-  title: string;
-  company: string;
-  location: string;
-  period: string;
-  description: string;
-  technologies: Technology[];
-  isActive: boolean;
-}
+import type { CurrentRole } from "./types";
 
 export const currentRole: CurrentRole = {
   title: "Software Engineer I",
