@@ -14,18 +14,20 @@ interface SplitHeroProps {
 }
 
 export function SplitHero({ children, id = "hero", className }: SplitHeroProps) {
-  const [firstName, lastName] = personal.name.split(" ");
+  const parts = personal.name.split(" ");
+  const firstName = parts.slice(0, -1).join(" ");
+  const lastName = parts.at(-1) ?? "";
 
   return (
     <section
       id={id}
-      className={`min-h-[80vh] flex items-center pt-24 pb-12 ${className ?? ""}`}
+      className={`flex items-center pt-32 pb-8 ${className ?? ""}`}
     >
       <motion.div
         variants={staggerContainer}
         initial="initial"
         animate="animate"
-        className="max-w-3xl mx-auto px-4 sm:px-6 flex flex-col-reverse md:flex-row items-center gap-12 w-full"
+        className="max-w-3xl mx-auto px-4 sm:px-6 flex flex-col-reverse md:flex-row items-center gap-8 w-full"
       >
         {/* Text content — R7 header style: font-black split-color name */}
         <div className="flex-1 text-center md:text-left">
@@ -49,18 +51,22 @@ export function SplitHero({ children, id = "hero", className }: SplitHeroProps) 
             {personal.headline}
           </motion.p>
 
-          <motion.div variants={staggerItem} className="mt-6">
-            <SocialLinks className="justify-center md:justify-start" />
-          </motion.div>
+          <motion.p
+            variants={staggerItem}
+            className="mt-3 text-sm text-muted-foreground leading-relaxed"
+          >
+            {personal.shortBio}
+          </motion.p>
 
-          <motion.div variants={staggerItem} className="mt-6">
+          <motion.div variants={staggerItem} className="mt-6 flex items-center gap-4 justify-center md:justify-start">
             <a
               href={personal.resumeUrl}
-              className="inline-flex items-center gap-2 rounded-full bg-accent text-white px-6 py-3 font-medium hover:bg-accent/90 transition-colors"
+              className="inline-flex items-center gap-2 rounded-xl bg-accent text-white px-6 py-3 font-medium hover:bg-accent/90 transition-colors"
             >
               <Download className="h-4 w-4" />
               Resume
             </a>
+            <SocialLinks />
           </motion.div>
         </div>
 

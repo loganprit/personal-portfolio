@@ -66,6 +66,15 @@ export const flipCardEntrance: Variants = {
   },
 };
 
+export const flipCardPeek = {
+  rotateY: [0, 15, -10, 5, 0],
+  transition: {
+    duration: 0.8,
+    ease: "easeInOut" as const,
+    times: [0, 0.3, 0.55, 0.8, 1],
+  },
+};
+
 export const sidebarEntrance: Variants = {
   initial: { opacity: 0, x: -40 },
   animate: {

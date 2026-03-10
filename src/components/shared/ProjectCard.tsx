@@ -24,7 +24,7 @@ export function ProjectCard({ project, variant = "expanded", className }: Projec
       )}
     >
       {project.image && variant === "expanded" && (
-        <div className="relative w-full h-40">
+        <div className="relative w-full h-32">
           <Image
             src={project.image}
             alt={project.title}
@@ -34,7 +34,7 @@ export function ProjectCard({ project, variant = "expanded", className }: Projec
           />
         </div>
       )}
-      <div className={cn("p-5", variant === "compact" && "p-4")}>
+      <div className={cn("p-4", variant === "compact" && "p-3")}>
         <h3 className={cn("font-bold text-foreground", variant === "expanded" ? "text-lg" : "text-base")}>
           {project.title}
         </h3>
@@ -42,7 +42,7 @@ export function ProjectCard({ project, variant = "expanded", className }: Projec
           {project.period}
         </p>
         <p className={cn(
-          "mt-3 text-sm text-muted-foreground",
+          "mt-2 text-sm text-muted-foreground",
           variant === "compact" ? "line-clamp-2" : "line-clamp-3",
         )}>
           {project.description}
@@ -62,21 +62,23 @@ export function ProjectCard({ project, variant = "expanded", className }: Projec
           </div>
         )}
 
-        <div className="flex flex-wrap gap-1.5 mt-4">
+        <div className="flex flex-wrap gap-1.5 mt-3">
           {project.technologies.slice(0, variant === "compact" ? 4 : undefined).map((tech) => (
             <TechBadge key={tech.name} name={tech.name} />
           ))}
         </div>
-        <div className="flex items-center gap-3 mt-4">
-          <a
-            href={project.github_link}
-            target="_blank"
-            rel="noopener noreferrer"
-            className="text-muted-foreground hover:text-foreground transition-colors"
-            aria-label={`${project.title} GitHub`}
-          >
-            <Github className="h-4 w-4" />
-          </a>
+        <div className="flex items-center gap-3 mt-3">
+          {project.github_link && (
+            <a
+              href={project.github_link}
+              target="_blank"
+              rel="noopener noreferrer"
+              className="text-muted-foreground hover:text-foreground transition-colors"
+              aria-label={`${project.title} GitHub`}
+            >
+              <Github className="h-4 w-4" />
+            </a>
+          )}
           {project.deploy_link && (
             <a
               href={project.deploy_link}
