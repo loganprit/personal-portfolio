@@ -18,8 +18,8 @@ export function PillNav({ sections, activeSection, className }: PillNavProps) {
   return (
     <nav className={cn("fixed top-0 left-0 right-0 z-40", className)}>
       <div className="max-w-3xl mx-auto">
-        <div className="bg-card/80 backdrop-blur-xl border border-border rounded-full mx-4 mt-4 px-6 py-3 flex items-center justify-between">
-          <div className="flex items-center gap-1 overflow-x-auto scrollbar-hide">
+        <div className="bg-card/80 backdrop-blur-xl border border-border rounded-full mx-4 mt-6 px-6 py-3 flex items-center justify-between">
+          <div className="flex items-center gap-8 overflow-x-auto scrollbar-hide">
             {sections.map((section) => {
               const isActive = activeSection === section.id;
               return (

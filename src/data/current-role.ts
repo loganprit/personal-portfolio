@@ -15,4 +15,6 @@ export const currentRole: CurrentRole = {
     { name: "MongoDB" },
   ],
   isActive: true,
+  logo: "/logos/floqast.png",
+  logoFill: true,
 };

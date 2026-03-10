@@ -2,31 +2,6 @@ import type { WorkExperience } from "./types";
 
 export const experiences: WorkExperience[] = [
   {
-    title: "Software Engineer Trainee",
-    company: "Chegg Skills",
-    location: "Remote",
-    period: "OCTOBER 2023 — OCTOBER 2024",
-    description:
-      "Acquired comprehensive knowledge of industry best practices and software development standards, focusing on full-stack JavaScript development, RESTful APIs, algorithms, and data structures.",
-    achievements: [
-      "Periodic Tables — full-stack reservation system",
-      "WeLoveMovies — movie database application",
-      "Flashcard-o-Matic — study flashcard app",
-      "Decoder Ring — encryption/decryption tool",
-    ],
-    technologies: [
-      { name: "JavaScript" },
-      { name: "React" },
-      { name: "Node.js" },
-      { name: "Express" },
-      { name: "PostgreSQL" },
-      { name: "HTML" },
-      { name: "CSS" },
-      { name: "Bootstrap" },
-      { name: "Git" },
-    ],
-  },
-  {
     title: "Control Systems Engineering Intern",
     company: "Valero St. Charles Refinery",
     location: "Norco, LA",
@@ -44,6 +19,7 @@ export const experiences: WorkExperience[] = [
       { name: "Foxboro I/A" },
       { name: "Microsoft Visio" },
     ],
+    logo: "/logos/valero.svg",
   },
   {
     title: "Process Engineering Intern",
@@ -63,6 +39,7 @@ export const experiences: WorkExperience[] = [
       { name: "PI ProcessBook" },
       { name: "Petro-SIM" },
     ],
+    logo: "/logos/valero.svg",
   },
   {
     title: "Research Apprentice",
@@ -83,5 +60,6 @@ export const experiences: WorkExperience[] = [
       { name: "Catalytic Reactor" },
       { name: "LIMS" },
     ],
+    logo: "/logos/ull.png",
   },
 ];

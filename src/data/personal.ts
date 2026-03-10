@@ -29,16 +29,16 @@ export const personal: PersonalInfo = {
   ],
   bio: [
     {
+      label: "Based in Orange, Texas",
+      description: "I grew up in Lake Charles, Louisiana and currently live in Orange, Texas.",
+    },
+    {
       label: "Engineering Background",
       description: "Followed my dad's footsteps into chemical engineering, realized I hated it and transitioned to software engineering.",
     },
         {
       label: "Outside the Office",
       description: "I'm a devout Christian and I serve regularly at my church. I also am an avid language learner, I can speak Spanish and I'm learning German and Russian.",
-    },
-    {
-      label: "Based in Orange, Texas",
-      description: "I grew up in Lake Charles, Louisiana and currently live in Orange, Texas.",
     },
   ],
   skills: [
