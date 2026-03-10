@@ -65,7 +65,7 @@ export function FlipCard({ className }: FlipCardProps) {
       {/* Peek wrapper — animated independently from the CSS flip */}
       <motion.div ref={peekScope} className="[transform-style:preserve-3d]">
         <div
-          className={`relative w-56 h-72 transition-transform duration-700 [transform-style:preserve-3d] ${
+          className={`relative w-72 h-96 transition-transform duration-700 [transform-style:preserve-3d] ${
             flipped ? "[transform:rotateY(180deg)]" : ""
           }`}
         >
@@ -76,7 +76,7 @@ export function FlipCard({ className }: FlipCardProps) {
               alt={personal.name}
               fill
               className="object-cover"
-              sizes="224px"
+              sizes="288px"
             />
 
             {/* Bottom-center "Learn more" hint */}
@@ -112,7 +112,7 @@ export function FlipCard({ className }: FlipCardProps) {
               {personal.bio.slice(0, 4).map((section) => (
                 <div key={section.label}>
                   <p className="text-xs font-semibold text-foreground">{section.label}</p>
-                  <p className="text-xs text-muted-foreground leading-snug line-clamp-2">
+                  <p className="text-xs text-muted-foreground leading-snug">
                     {section.description}
                   </p>
                 </div>
