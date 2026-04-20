@@ -11,7 +11,8 @@
     "scan": "next dev & npx react-scan@latest localhost:3000",
     "build": "next build",
     "start": "next start",
-    "lint": "eslint src"
+    "lint": "eslint src",
+    "typecheck": "tsc --noEmit"
   },
   "dependencies": {
     "@vercel/analytics": "^1.4.1",
