@@ -1,0 +1,16 @@
+{
+  "hooks": {
+    "Stop": [
+      {
+        "hooks": [
+          {
+            "type": "command",
+            "command": "bash ./.codex/hooks/stop-checks.sh",
+            "timeout": 900,
+            "statusMessage": "running lint and typecheck"
+          }
+        ]
+      }
+    ]
+  }
+}
