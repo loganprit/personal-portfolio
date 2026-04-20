@@ -20,11 +20,8 @@ export function useThemeContext() {
  */
 export function ThemeProvider({ children }: { children: ReactNode }) {
   const [mounted, setMounted] = useState(false);
-  const [isClient, setIsClient] = useState(false);
 
   useEffect(() => {
-    setIsClient(true);
-    
     // Clean up any extension attributes
     const dataAttrs = document.documentElement.getAttributeNames();
     dataAttrs.forEach(attr => {
@@ -43,10 +40,9 @@ export function ThemeProvider({ children }: { children: ReactNode }) {
         defaultTheme="system"
         enableSystem
         disableTransitionOnChange
-        forcedTheme={!isClient ? undefined : undefined}
       >
         <ThemeTransition />
-        {mounted ? children : null}
+        {children}
       </NextThemeProvider>
     </ThemeContext.Provider>
   );

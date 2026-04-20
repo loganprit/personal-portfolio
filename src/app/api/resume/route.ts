@@ -5,21 +5,22 @@ export async function GET() {
   
   try {
     const response = await fetch(GOOGLE_DRIVE_URL);
-    const blob = await response.blob();
+
+    if (!response.ok || !response.body) {
+      return new NextResponse("Failed to fetch resume from upstream source", { status: 502 });
+    }
     
-    return new NextResponse(blob, {
+    return new NextResponse(response.body, {
       headers: {
-        "Content-Type": "application/pdf",
+        "Content-Type": response.headers.get("content-type") ?? "application/pdf",
         "Content-Disposition": "inline; filename=resume.pdf",
-        "Cache-Control": "public, max-age=3600, must-revalidate",
-        "ETag": `"${Date.now()}"`,
-        "Last-Modified": new Date().toUTCString(),
+        "Cache-Control": "public, max-age=3600, stale-while-revalidate=86400",
         "X-Content-Type-Options": "nosniff",
-        "Accept-Ranges": "bytes"
+        "Accept-Ranges": "bytes",
       }
     });
   } catch (error) {
     console.error("Failed to fetch resume:", error);
-    return new NextResponse("Failed to fetch resume", { status: 500 });
+    return new NextResponse("Failed to fetch resume", { status: 502 });
   }
 }
