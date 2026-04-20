@@ -2,6 +2,9 @@
 
 set -euo pipefail
 
+REPO_ROOT="$(git rev-parse --show-toplevel)"
+cd "$REPO_ROOT"
+
 if [[ ! -d node_modules ]]; then
   printf '%s\n' \
     "Project checks could not run because dependencies are missing in ${PWD}." \
