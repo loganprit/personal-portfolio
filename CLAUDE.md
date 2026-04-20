@@ -6,15 +6,15 @@ This file provides guidance to Claude Code (claude.ai/code) when working with co
 
 ```bash
 # Development
-pnpm dev                    # Start development server on localhost:3000
-pnpm scan                   # Start dev server with React Scan for performance profiling
+bun dev                     # Start development server on localhost:3000
+bun run scan                # Start dev server with React Scan for performance profiling
 
 # Production
-pnpm build                  # Build optimized production bundle
-pnpm start                  # Start production server (requires build first)
+bun run build               # Build optimized production bundle
+bun start                   # Start production server (requires build first)
 
 # Code Quality
-pnpm lint                   # Run ESLint checks
+bun lint                    # Run ESLint checks
 ```
 
 ## Architecture Overview
