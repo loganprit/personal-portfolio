@@ -114,6 +114,7 @@ function SocialLink({ href, icon, label, onClick }: SocialLinkProps) {
 export function Socials() {
   const resumeUrl = "/api/resume";
   const googleDriveUrl = "https://docs.google.com/uc?export=download&id=1moEKcpXt_1K86KUhq8jJZMQgSDrhZoUe";
+  const resumeLabel = "Download Resume";
   const [isCaching, setIsCaching] = useState(false);
 
   // Cache the resume on component mount
@@ -175,13 +176,9 @@ export function Socials() {
         label="Email Contact"
       />
       <SocialLink 
-        href={typeof window !== 'undefined' && navigator.userAgent.toLowerCase().includes('firefox') 
-          ? googleDriveUrl 
-          : resumeUrl}
+        href={resumeUrl}
         icon={<FiFile size={30} />}
-        label={typeof window !== 'undefined' && navigator.userAgent.toLowerCase().includes('firefox') 
-          ? "View Resume (Firefox)" 
-          : "Download Resume"}
+        label={resumeLabel}
         onClick={handleResumeClick}
       />
     </div>

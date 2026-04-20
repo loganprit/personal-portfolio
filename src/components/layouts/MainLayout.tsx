@@ -10,6 +10,14 @@ interface MainLayoutProps {
 }
 
 export function MainLayout({ children }: MainLayoutProps) {
+  const headerProps = {
+    name: "Logan Pritchett",
+    title: "Full-Stack Web Developer",
+    location: "Orange, TX",
+    avatarUrl: "/images/profile.jpg",
+    initials: "LP",
+  } as const;
+
   return (
     <div className="fixed inset-0 landscape:p-8 portrait:p-4 overflow-y-auto landscape:overflow-hidden">
       <GlassCard className="w-full portrait:min-h-[calc(var(--real-vh,1vh)*100-2rem)] landscape:h-[calc(var(--real-vh,1vh)*100-4rem)] p-4 landscape:p-8 lg:p-12 relative flex flex-col">
@@ -17,13 +25,7 @@ export function MainLayout({ children }: MainLayoutProps) {
         <div className="flex flex-col h-full px-6 landscape:!hidden">
           {/* Static Content */}
           <div className="flex flex-col gap-6 items-center">
-            <Header
-              name="Logan Pritchett"
-              title="Full-Stack Web Developer"
-              location="Lafayette, LA"
-              avatarUrl="/images/profile.jpg"
-              initials="LP"
-            />
+            <Header {...headerProps} />
             <div className="flex flex-col items-center gap-4">
               <ThemeToggle />
               <Nav className="mx-auto" />
@@ -48,14 +50,7 @@ export function MainLayout({ children }: MainLayoutProps) {
           {/* Left Side - Static Content */}
           <div className="flex flex-col lg:w-[40%] shrink-0 relative">
             <div className="flex flex-col h-full items-center">
-              <Header
-                name="Logan Pritchett"
-                title="Full-Stack Web Developer"
-                location="Orange, TX"
-                avatarUrl="/images/profile.jpg"
-                priority={true}
-                initials="LP"
-              />
+              <Header {...headerProps} priority={true} />
               <div className="flex flex-col items-center gap-4 mt-8">
                 <ThemeToggle />
                 <Nav className="mx-auto" />
