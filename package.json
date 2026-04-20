@@ -8,7 +8,7 @@
   },
   "scripts": {
     "dev": "next dev",
-    "scan": "next dev & npx react-scan@latest localhost:3000",
+    "scan": "next dev & bunx react-scan@latest localhost:3000",
     "build": "next build",
     "start": "next start",
     "lint": "eslint src",
@@ -40,10 +40,8 @@
     "ts-node": "^10.9.2",
     "typescript": "^5"
   },
-  "pnpm": {
-    "overrides": {
-      "@types/react": "19.2.14",
-      "@types/react-dom": "19.2.3"
-    }
+  "overrides": {
+    "@types/react": "19.2.14",
+    "@types/react-dom": "19.2.3"
   }
 }

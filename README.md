@@ -31,16 +31,16 @@ Want to visit the live site? [Click here](https://loganpritchett.me)
 
 ```bash
 # Install dependencies
-pnpm install
+bun install
 
 # Run development server
-pnpm dev
+bun dev
 
 # Build for production
-pnpm build
+bun run build
 
 # Start production server
-pnpm start
+bun start
 ```
 
 ## Project Structure
