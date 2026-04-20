@@ -9,7 +9,7 @@ import { experiences } from "@/data/work-history";
 import { education } from "@/data/education";
 import { TechBadge } from "./TechBadge";
 import { cn } from "@/lib/cn";
-import { tabContent, staggerContainer, staggerItem } from "@/lib/animations";
+import { tabContent, timelineLine, staggerContainer, staggerItem } from "@/lib/animations";
 
 type Tab = "work" | "education";
 
@@ -91,13 +91,21 @@ export function ExperienceTabs({ id = "experience", className }: ExperienceTabsP
                 initial="initial"
                 whileInView="animate"
                 viewport={{ once: true }}
-                className="relative border-l-2 border-border ml-6"
+                className="relative ml-6"
               >
+                <motion.div
+                  aria-hidden="true"
+                  variants={timelineLine}
+                  initial="initial"
+                  whileInView="animate"
+                  viewport={{ once: true }}
+                  className="pointer-events-none absolute inset-y-0 -left-[6px] w-0.5 bg-border origin-top"
+                />
                 {workEntries.map((entry) => (
                   <motion.div
                     key={`${entry.company}-${entry.period}`}
                     variants={staggerItem}
-                    className="relative pl-10 pb-8 last:pb-0"
+                    className="relative z-10 pl-10 pb-8 last:pb-0"
                   >
                     <div
                       className={cn(
@@ -185,13 +193,21 @@ export function ExperienceTabs({ id = "experience", className }: ExperienceTabsP
                 initial="initial"
                 whileInView="animate"
                 viewport={{ once: true }}
-                className="relative border-l-2 border-border ml-6"
+                className="relative ml-6"
               >
+                <motion.div
+                  aria-hidden="true"
+                  variants={timelineLine}
+                  initial="initial"
+                  whileInView="animate"
+                  viewport={{ once: true }}
+                  className="pointer-events-none absolute inset-y-0 -left-[6px] w-0.5 bg-border origin-top"
+                />
                 {education.map((edu) => (
                   <motion.div
                     key={`${edu.institution}-${edu.period}`}
                     variants={staggerItem}
-                    className="relative pl-10 pb-8 last:pb-0"
+                    className="relative z-10 pl-10 pb-8 last:pb-0"
                   >
                     <div
                       className={cn(

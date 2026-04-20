@@ -20,6 +20,15 @@ export const staggerItem: Variants = {
   animate: { opacity: 1, y: 0, transition: { duration: 0.5, ease: "easeOut" } },
 };
 
+export const timelineLine: Variants = {
+  initial: { opacity: 0, scaleY: 0.96 },
+  animate: {
+    opacity: 1,
+    scaleY: 1,
+    transition: { delay: 0.18, duration: 0.28, ease: "easeOut" },
+  },
+};
+
 export const scaleIn: Variants = {
   initial: { opacity: 0, scale: 0.95 },
   animate: { opacity: 1, scale: 1, transition: { duration: 0.4, ease: "easeOut" } },
