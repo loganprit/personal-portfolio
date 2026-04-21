@@ -2,22 +2,6 @@ export interface Technology {
   name: string;
 }
 
-export interface ProjectUpdates {
-  completed: string[];
-}
-
-export interface Project {
-  title: string;
-  period: string;
-  description: string;
-  technologies: Technology[];
-  deploy_link?: string;
-  github_link: string;
-  updates?: ProjectUpdates;
-  featured?: boolean;
-  image?: string;
-}
-
 export interface WorkExperience {
   title: string;
   company: string;
