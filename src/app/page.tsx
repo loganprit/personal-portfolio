@@ -3,26 +3,21 @@
 import { motion } from "framer-motion";
 import { Mail } from "lucide-react";
 import { personal } from "@/data/personal";
-import { projects } from "@/data/projects";
 import { PillNav } from "@/components/shared/PillNav";
 import { SplitHero } from "@/components/shared/SplitHero";
 import { FlipCard } from "@/components/shared/FlipCard";
 import { ExperienceTabs } from "@/components/shared/ExperienceTabs";
-import { ProjectCard } from "@/components/shared/ProjectCard";
 import { SocialLinks } from "@/components/shared/SocialLinks";
 import { useActiveSection } from "@/hooks/useActiveSection";
 import { fadeIn, staggerContainer, staggerItem } from "@/lib/animations";
 
 const SECTIONS = [
   { label: "Experience", id: "experience" },
-  { label: "Projects", id: "projects" },
   { label: "Skills", id: "skills" },
   { label: "Contact", id: "contact" },
 ] as const;
 
-const SECTION_IDS = ["hero", "experience", "projects", "skills", "contact"] as const;
-
-const featured = projects.filter((p) => p.featured);
+const SECTION_IDS = ["hero", "experience", "skills", "contact"] as const;
 const doubledSkills = [...personal.skills, ...personal.skills];
 
 export default function Home() {
@@ -40,37 +35,6 @@ export default function Home() {
 
         {/* ── Experience ────────────────────────────────────── */}
         <ExperienceTabs id="experience" className="py-10 sm:py-14" />
-
-        {/* ── Projects ──────────────────────────────────────── */}
-        <section id="projects" className="py-10 sm:py-14 bg-muted">
-          <div className="max-w-3xl mx-auto px-4 sm:px-6">
-            <motion.h2
-              variants={fadeIn}
-              initial="initial"
-              whileInView="animate"
-              viewport={{ once: true }}
-              className="text-2xl font-bold text-foreground mb-6"
-            >
-              Projects
-            </motion.h2>
-
-            <motion.div
-              variants={staggerContainer}
-              initial="initial"
-              whileInView="animate"
-              viewport={{ once: true }}
-              className="grid grid-cols-1 sm:grid-cols-2 gap-6"
-            >
-              {featured.map((project) => (
-                <ProjectCard
-                  key={project.title}
-                  project={project}
-                  variant="expanded"
-                />
-              ))}
-            </motion.div>
-          </div>
-        </section>
 
         {/* ── Skills ────────────────────────────────────────── */}
         <section id="skills" className="py-10 sm:py-14">
