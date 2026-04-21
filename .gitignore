@@ -58,5 +58,6 @@ btca.config.jsonc
 .agents/
 .claude/
 .codex/
+.worktrees/
 
 *.png
