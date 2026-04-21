@@ -13,6 +13,12 @@ import { tabContent, timelineLine, staggerContainer, staggerItem } from "@/lib/a
 
 type Tab = "work" | "education";
 
+const TIMELINE_MARKER_SIZE_PX = 48;
+const TIMELINE_MARKER_OFFSET_PX = -25;
+const TIMELINE_LINE_WIDTH_PX = 2;
+const TIMELINE_LINE_OFFSET_PX =
+  TIMELINE_MARKER_OFFSET_PX + TIMELINE_MARKER_SIZE_PX / 2 - TIMELINE_LINE_WIDTH_PX / 2;
+
 function getInitials(name: string): string {
   const words = name.split(/\s+/);
   if (words.length > 3) return words[0][0].toUpperCase();
@@ -30,6 +36,15 @@ interface ExperienceTabsProps {
 
 export function ExperienceTabs({ id = "experience", className }: ExperienceTabsProps) {
   const [activeTab, setActiveTab] = useState<Tab>("work");
+  const timelineLineStyle = {
+    left: `${TIMELINE_LINE_OFFSET_PX}px`,
+    width: `${TIMELINE_LINE_WIDTH_PX}px`,
+  };
+  const timelineMarkerStyle = {
+    left: `${TIMELINE_MARKER_OFFSET_PX}px`,
+    width: `${TIMELINE_MARKER_SIZE_PX}px`,
+    height: `${TIMELINE_MARKER_SIZE_PX}px`,
+  };
 
   const workEntries = [
     {
@@ -99,7 +114,8 @@ export function ExperienceTabs({ id = "experience", className }: ExperienceTabsP
                   initial="initial"
                   whileInView="animate"
                   viewport={{ once: true }}
-                  className="pointer-events-none absolute inset-y-0 -left-[6px] w-0.5 bg-border origin-top"
+                  className="pointer-events-none absolute inset-y-0 bg-border origin-top"
+                  style={timelineLineStyle}
                 />
                 {workEntries.map((entry) => (
                   <motion.div
@@ -109,20 +125,21 @@ export function ExperienceTabs({ id = "experience", className }: ExperienceTabsP
                   >
                     <div
                       className={cn(
-                        "absolute -left-[25px] top-0 h-12 w-12 rounded-full flex items-center justify-center overflow-hidden",
+                        "absolute top-0 rounded-full flex items-center justify-center overflow-hidden",
                         entry.logo
                           ? entry.logoFill
                             ? ""
                             : "bg-white"
                           : "bg-accent/10 border-2 border-accent dark:border-accent-light text-sm font-bold text-accent dark:text-accent-light",
                       )}
+                      style={timelineMarkerStyle}
                     >
                       {entry.logo ? (
                         <Image
                           src={entry.logo}
                           alt={`${entry.company} logo`}
-                          width={48}
-                          height={48}
+                          width={TIMELINE_MARKER_SIZE_PX}
+                          height={TIMELINE_MARKER_SIZE_PX}
                           className={cn(
                             "h-full w-full",
                             entry.logoFill ? "object-cover" : "object-contain p-1",
@@ -201,7 +218,8 @@ export function ExperienceTabs({ id = "experience", className }: ExperienceTabsP
                   initial="initial"
                   whileInView="animate"
                   viewport={{ once: true }}
-                  className="pointer-events-none absolute inset-y-0 -left-[6px] w-0.5 bg-border origin-top"
+                  className="pointer-events-none absolute inset-y-0 bg-border origin-top"
+                  style={timelineLineStyle}
                 />
                 {education.map((edu) => (
                   <motion.div
@@ -211,20 +229,21 @@ export function ExperienceTabs({ id = "experience", className }: ExperienceTabsP
                   >
                     <div
                       className={cn(
-                        "absolute -left-[25px] top-0 h-12 w-12 rounded-full flex items-center justify-center overflow-hidden",
+                        "absolute top-0 rounded-full flex items-center justify-center overflow-hidden",
                         edu.logo
                           ? edu.logoFill
                             ? ""
                             : "bg-white"
                           : "bg-accent/10 border-2 border-accent dark:border-accent-light text-sm font-bold text-accent dark:text-accent-light",
                       )}
+                      style={timelineMarkerStyle}
                     >
                       {edu.logo ? (
                         <Image
                           src={edu.logo}
                           alt={`${edu.institution} logo`}
-                          width={48}
-                          height={48}
+                          width={TIMELINE_MARKER_SIZE_PX}
+                          height={TIMELINE_MARKER_SIZE_PX}
                           className={cn(
                             "h-full w-full",
                             edu.logoFill ? "object-cover" : "object-contain p-1",
