@@ -2,6 +2,25 @@ import type { WorkExperience } from "./types";
 
 export const experiences: WorkExperience[] = [
   {
+    title: "Software Engineer I",
+    company: "FloQast",
+    location: "Remote",
+    period: "APRIL 2025 — APRIL 2026",
+    description:
+      "Worked on the Journal Entry product and was later promoted to Software Engineer II.",
+    achievements: [],
+    technologies: [
+      { name: "JavaScript" },
+      { name: "TypeScript" },
+      { name: "React" },
+      { name: "Node.js" },
+      { name: "Express.js" },
+      { name: "MongoDB" },
+    ],
+    logo: "/logos/floqast.png",
+    logoFill: true,
+  },
+  {
     title: "Control Systems Engineering Intern",
     company: "Valero St. Charles Refinery",
     location: "Norco, LA",

@@ -6,6 +6,7 @@ import Image from "next/image";
 import { MapPin, Briefcase, GraduationCap } from "lucide-react";
 import { currentRole } from "@/data/current-role";
 import { experiences } from "@/data/work-history";
+import type { Technology } from "@/data/types";
 import { education } from "@/data/education";
 import { TechBadge } from "./TechBadge";
 import { cn } from "@/lib/cn";
@@ -19,6 +20,27 @@ const TIMELINE_LINE_WIDTH_PX = 2;
 const TIMELINE_LINE_OFFSET_PX =
   TIMELINE_MARKER_OFFSET_PX + TIMELINE_MARKER_SIZE_PX / 2 - TIMELINE_LINE_WIDTH_PX / 2;
 
+interface WorkEntry {
+  title: string;
+  company: string;
+  location: string;
+  period: string;
+  description: string;
+  achievements: string[];
+  technologies: Technology[];
+  isCurrent: boolean;
+  logo?: string;
+  logoFill?: boolean;
+}
+
+interface WorkGroup {
+  company: string;
+  location: string;
+  logo?: string;
+  logoFill?: boolean;
+  roles: WorkEntry[];
+}
+
 function getInitials(name: string): string {
   const words = name.split(/\s+/);
   if (words.length > 3) return words[0][0].toUpperCase();
@@ -27,6 +49,35 @@ function getInitials(name: string): string {
     .map((w) => w[0].toUpperCase())
     .join("")
     .slice(0, 2);
+}
+
+function isSameCompanyGroup(group: WorkGroup, entry: WorkEntry): boolean {
+  return (
+    group.company === entry.company &&
+    group.location === entry.location &&
+    group.logo === entry.logo
+  );
+}
+
+function groupConsecutiveWorkEntries(entries: WorkEntry[]): WorkGroup[] {
+  return entries.reduce<WorkGroup[]>((groups, entry) => {
+    const previousGroup = groups[groups.length - 1];
+
+    if (previousGroup && isSameCompanyGroup(previousGroup, entry)) {
+      previousGroup.roles.push(entry);
+      return groups;
+    }
+
+    groups.push({
+      company: entry.company,
+      location: entry.location,
+      logo: entry.logo,
+      logoFill: entry.logoFill,
+      roles: [entry],
+    });
+
+    return groups;
+  }, []);
 }
 
 interface ExperienceTabsProps {
@@ -61,6 +112,7 @@ export function ExperienceTabs({ id = "experience", className }: ExperienceTabsP
     },
     ...experiences.map((exp) => ({ ...exp, isCurrent: false })),
   ];
+  const workGroups = groupConsecutiveWorkEntries(workEntries);
 
   return (
     <section id={id} className={cn("", className)}>
@@ -117,80 +169,92 @@ export function ExperienceTabs({ id = "experience", className }: ExperienceTabsP
                   className="pointer-events-none absolute inset-y-0 bg-border origin-top"
                   style={timelineLineStyle}
                 />
-                {workEntries.map((entry) => (
+                {workGroups.map((group) => (
                   <motion.div
-                    key={`${entry.company}-${entry.period}`}
+                    key={`${group.company}-${group.location}-${group.roles[0].period}`}
                     variants={staggerItem}
                     className="relative z-10 pl-10 pb-8 last:pb-0"
                   >
                     <div
                       className={cn(
                         "absolute top-0 rounded-full flex items-center justify-center overflow-hidden",
-                        entry.logo
-                          ? entry.logoFill
+                        group.logo
+                          ? group.logoFill
                             ? ""
                             : "bg-white"
                           : "bg-accent/10 border-2 border-accent dark:border-accent-light text-sm font-bold text-accent dark:text-accent-light",
                       )}
                       style={timelineMarkerStyle}
                     >
-                      {entry.logo ? (
+                      {group.logo ? (
                         <Image
-                          src={entry.logo}
-                          alt={`${entry.company} logo`}
+                          src={group.logo}
+                          alt={`${group.company} logo`}
                           width={TIMELINE_MARKER_SIZE_PX}
                           height={TIMELINE_MARKER_SIZE_PX}
                           className={cn(
                             "h-full w-full",
-                            entry.logoFill ? "object-cover" : "object-contain p-1",
+                            group.logoFill ? "object-cover" : "object-contain p-1",
                           )}
                         />
                       ) : (
-                        getInitials(entry.company)
+                        getInitials(group.company)
                       )}
                     </div>
 
-                    <div className="flex items-center gap-2">
-                      <h4 className="text-lg font-bold text-foreground">{entry.title}</h4>
-                      {entry.isCurrent && (
-                        <span className="inline-flex items-center rounded-full bg-green-500/10 px-2.5 py-0.5 text-xs font-medium text-green-700 dark:text-green-400 border border-green-500/20">
-                          Current
-                        </span>
-                      )}
-                    </div>
-                    <div className="flex flex-wrap items-center gap-x-4 gap-y-1 mt-1 text-sm text-muted-foreground">
+                    <div className="flex flex-wrap items-center gap-x-4 gap-y-1 text-sm text-muted-foreground">
                       <span className="inline-flex items-center gap-1">
                         <Briefcase className="h-3.5 w-3.5" />
-                        {entry.company}
+                        {group.company}
                       </span>
                       <span className="inline-flex items-center gap-1">
                         <MapPin className="h-3.5 w-3.5" />
-                        {entry.location}
+                        {group.location}
                       </span>
-                      <span>{entry.period}</span>
                     </div>
 
-                    <p className="mt-3 text-muted-foreground">{entry.description}</p>
+                    <div className="mt-3 space-y-6">
+                      {group.roles.map((entry) => (
+                        <div key={`${entry.title}-${entry.period}`}>
+                          <div className="flex flex-wrap items-center gap-2">
+                            <h4 className="text-lg font-bold text-foreground">
+                              {entry.title}
+                            </h4>
+                            {entry.isCurrent && (
+                              <span className="inline-flex items-center rounded-full bg-green-500/10 px-2.5 py-0.5 text-xs font-medium text-green-700 dark:text-green-400 border border-green-500/20">
+                                Current
+                              </span>
+                            )}
+                          </div>
 
-                    {entry.achievements.length > 0 && (
-                      <ul className="mt-3 space-y-1.5">
-                        {entry.achievements.map((achievement) => (
-                          <li
-                            key={achievement}
-                            className="text-sm text-muted-foreground flex gap-2"
-                          >
-                            <span className="text-accent dark:text-accent-light shrink-0">
-                              &bull;
-                            </span>
-                            {achievement}
-                          </li>
-                        ))}
-                      </ul>
-                    )}
+                          <div className="mt-1 text-sm text-muted-foreground">
+                            {entry.period}
+                          </div>
 
-                    <div className="flex flex-wrap gap-1.5 mt-4">
-                      {entry.technologies.map((tech) => (
-                        <TechBadge key={tech.name} name={tech.name} />
+                          <p className="mt-3 text-muted-foreground">{entry.description}</p>
+
+                          {entry.achievements.length > 0 && (
+                            <ul className="mt-3 space-y-1.5">
+                              {entry.achievements.map((achievement) => (
+                                <li
+                                  key={achievement}
+                                  className="text-sm text-muted-foreground flex gap-2"
+                                >
+                                  <span className="text-accent dark:text-accent-light shrink-0">
+                                    &bull;
+                                  </span>
+                                  {achievement}
+                                </li>
+                              ))}
+                            </ul>
+                          )}
+
+                          <div className="flex flex-wrap gap-1.5 mt-4">
+                            {entry.technologies.map((tech) => (
+                              <TechBadge key={tech.name} name={tech.name} />
+                            ))}
+                          </div>
+                        </div>
                       ))}
                     </div>
                   </motion.div>
