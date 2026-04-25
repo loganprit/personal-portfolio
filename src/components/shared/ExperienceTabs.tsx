@@ -14,8 +14,8 @@ import { tabContent, timelineLine, staggerContainer, staggerItem } from "@/lib/a
 
 type Tab = "work" | "education";
 
-const TIMELINE_MARKER_SIZE_PX = 48;
-const TIMELINE_MARKER_OFFSET_PX = -25;
+const TIMELINE_MARKER_SIZE_PX = 53;
+const TIMELINE_MARKER_OFFSET_PX = -27.5;
 const TIMELINE_LINE_WIDTH_PX = 2;
 const TIMELINE_LINE_OFFSET_PX =
   TIMELINE_MARKER_OFFSET_PX + TIMELINE_MARKER_SIZE_PX / 2 - TIMELINE_LINE_WIDTH_PX / 2;

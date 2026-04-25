@@ -23,6 +23,13 @@ Use Node `>=20.9.0`.
 - `bun start`: serve production build locally.
 - `bun lint`: run ESLint on `src/`.
 
+## Browser Interaction
+
+Use `$browser-use:browser` for browser interaction, inspection, screenshots, and
+localhost validation. Prefer the Codex in-app browser workflow over Playwright,
+Computer Use, or other browser automation skills unless `$browser-use:browser`
+is unavailable or explicitly unsuitable.
+
 ## Coding Style & Naming Conventions
 
 - Language: TypeScript + React function components.
