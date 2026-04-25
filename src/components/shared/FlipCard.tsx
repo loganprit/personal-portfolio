@@ -39,7 +39,7 @@ export function FlipCard({ className }: FlipCardProps) {
   }, []);
 
   return (
-    <div className={`flex flex-col items-center ${className ?? ""}`}>
+    <div className={`relative flex flex-col items-center ${className ?? ""}`}>
       {/* Card with 3D perspective — click/hover scoped here */}
       <motion.div
         variants={flipCardEntrance}
@@ -100,7 +100,7 @@ export function FlipCard({ className }: FlipCardProps) {
           y: flipped ? 8 : 0,
         }}
         transition={{ duration: 0.4, delay: !flipped && !hasInteractedRef.current ? 0.4 : 0 }}
-        className="pointer-events-none mt-2 flex flex-col items-end text-muted-foreground"
+        className="pointer-events-none mt-2 flex flex-col items-end text-muted-foreground md:absolute md:left-1/2 md:top-full md:mt-2 md:-translate-x-1/2"
       >
         <svg
           width="240"
