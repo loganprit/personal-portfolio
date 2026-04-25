@@ -32,7 +32,7 @@ export default function Home() {
         </SplitHero>
 
         {/* ── Experience ────────────────────────────────────── */}
-        <ExperienceTabs id="experience" className="py-10 sm:py-14" />
+        <ExperienceTabs id="experience" className="pt-8 pb-10 sm:pb-14" />
 
         {/* ── Skills ────────────────────────────────────────── */}
         <section id="skills" className="py-10 sm:py-14">
