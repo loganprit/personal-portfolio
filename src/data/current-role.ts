@@ -1,10 +1,10 @@
 import type { CurrentRole } from "./types";
 
 export const currentRole: CurrentRole = {
-  title: "Software Engineer I",
+  title: "Software Engineer II",
   company: "FloQast",
   location: "Remote",
-  period: "APRIL 2025 — PRESENT",
+  period: "APRIL 2026 — PRESENT",
   description: "Currently working on the Journal Entry product for FloQast.",
   technologies: [
     { name: "JavaScript" },
