@@ -41,6 +41,36 @@ interface WorkGroup {
   roles: WorkEntry[];
 }
 
+function WorkRoleBody({ entry }: { entry: WorkEntry }) {
+  return (
+    <>
+      <p className="mt-3 text-muted-foreground">{entry.description}</p>
+
+      {entry.achievements.length > 0 && (
+        <ul className="mt-3 space-y-1.5">
+          {entry.achievements.map((achievement) => (
+            <li
+              key={achievement}
+              className="text-sm text-muted-foreground flex gap-2"
+            >
+              <span className="text-accent dark:text-accent-light shrink-0">
+                &bull;
+              </span>
+              {achievement}
+            </li>
+          ))}
+        </ul>
+      )}
+
+      <div className="flex flex-wrap gap-1.5 mt-4">
+        {entry.technologies.map((tech) => (
+          <TechBadge key={tech.name} name={tech.name} />
+        ))}
+      </div>
+    </>
+  );
+}
+
 function getInitials(name: string): string {
   const words = name.split(/\s+/);
   if (words.length > 3) return words[0][0].toUpperCase();
@@ -205,68 +235,59 @@ export function ExperienceTabs({ id = "experience", className }: ExperienceTabsP
                   className="pointer-events-none absolute inset-y-0 bg-border origin-top"
                   style={timelineLineStyle}
                 />
-                {workGroups.map((group) => (
-                  <motion.div
-                    key={`${group.company}-${group.location}-${group.roles[0].period}`}
-                    variants={staggerItem}
-                    className="relative z-10 pl-10 pb-8 last:pb-0"
-                  >
-                    <TimelineLogoMarker
-                      label={group.company}
-                      logo={group.logo}
-                      logoFill={group.logoFill}
-                    />
+                {workGroups.map((group) => {
+                  const [primaryRole, ...previousRoles] = group.roles;
 
-                    <div className="flex flex-wrap items-center gap-x-4 gap-y-1 text-sm text-muted-foreground">
-                      <span className="inline-flex items-center gap-1">
-                        <Briefcase className="h-3.5 w-3.5" />
-                        {group.company}
-                      </span>
-                      <span className="inline-flex items-center gap-1">
-                        <MapPin className="h-3.5 w-3.5" />
-                        {group.location}
-                      </span>
-                    </div>
+                  return (
+                    <motion.div
+                      key={`${group.company}-${group.location}-${primaryRole.period}`}
+                      variants={staggerItem}
+                      className="relative z-10 pl-10 pb-8 last:pb-0"
+                    >
+                      <TimelineLogoMarker
+                        label={group.company}
+                        logo={group.logo}
+                        logoFill={group.logoFill}
+                      />
 
-                    <div className="mt-3 space-y-6">
-                      {group.roles.map((entry) => (
-                        <div key={`${entry.title}-${entry.period}`}>
-                          <h4 className="text-lg font-bold text-foreground">
-                            {entry.title}
-                          </h4>
+                      <h4 className="text-lg font-bold text-foreground">
+                        {primaryRole.title}
+                      </h4>
 
-                          <div className="mt-1 text-sm text-muted-foreground">
-                            {entry.period}
-                          </div>
+                      <div className="flex flex-wrap items-center gap-x-4 gap-y-1 mt-1 text-sm text-muted-foreground">
+                        <span className="inline-flex items-center gap-1">
+                          <Briefcase className="h-3.5 w-3.5" />
+                          {group.company}
+                        </span>
+                        <span className="inline-flex items-center gap-1">
+                          <MapPin className="h-3.5 w-3.5" />
+                          {group.location}
+                        </span>
+                        <span>{primaryRole.period}</span>
+                      </div>
 
-                          <p className="mt-3 text-muted-foreground">{entry.description}</p>
+                      <WorkRoleBody entry={primaryRole} />
 
-                          {entry.achievements.length > 0 && (
-                            <ul className="mt-3 space-y-1.5">
-                              {entry.achievements.map((achievement) => (
-                                <li
-                                  key={achievement}
-                                  className="text-sm text-muted-foreground flex gap-2"
-                                >
-                                  <span className="text-accent dark:text-accent-light shrink-0">
-                                    &bull;
-                                  </span>
-                                  {achievement}
-                                </li>
-                              ))}
-                            </ul>
-                          )}
+                      {previousRoles.length > 0 && (
+                        <div className="mt-8 space-y-6">
+                          {previousRoles.map((entry) => (
+                            <div key={`${entry.title}-${entry.period}`}>
+                              <h5 className="text-lg font-bold text-foreground">
+                                {entry.title}
+                              </h5>
 
-                          <div className="flex flex-wrap gap-1.5 mt-4">
-                            {entry.technologies.map((tech) => (
-                              <TechBadge key={tech.name} name={tech.name} />
-                            ))}
-                          </div>
+                              <div className="mt-1 text-sm text-muted-foreground">
+                                {entry.period}
+                              </div>
+
+                              <WorkRoleBody entry={entry} />
+                            </div>
+                          ))}
                         </div>
-                      ))}
-                    </div>
-                  </motion.div>
-                ))}
+                      )}
+                    </motion.div>
+                  );
+                })}
               </motion.div>
             </motion.div>
           ) : (

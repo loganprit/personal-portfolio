@@ -21,7 +21,7 @@ export function SplitHero({ children, id = "hero", className }: SplitHeroProps) 
   return (
     <section
       id={id}
-      className={`flex items-center pt-32 pb-8 md:pb-28 ${className ?? ""}`}
+      className={`flex items-center pt-32 pb-8 md:pb-16 ${className ?? ""}`}
     >
       <motion.div
         variants={staggerContainer}
