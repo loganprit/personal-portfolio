@@ -9,16 +9,14 @@ import { FlipCard } from "@/components/shared/FlipCard";
 import { ExperienceTabs } from "@/components/shared/ExperienceTabs";
 import { SocialLinks } from "@/components/shared/SocialLinks";
 import { useActiveSection } from "@/hooks/useActiveSection";
-import { fadeIn, staggerContainer, staggerItem } from "@/lib/animations";
+import { staggerContainer, staggerItem } from "@/lib/animations";
 
 const SECTIONS = [
   { label: "Experience", id: "experience" },
-  { label: "Skills", id: "skills" },
   { label: "Contact", id: "contact" },
 ] as const;
 
-const SECTION_IDS = ["hero", "experience", "skills", "contact"] as const;
-const doubledSkills = [...personal.skills, ...personal.skills];
+const SECTION_IDS = ["hero", "experience", "contact"] as const;
 
 export default function Home() {
   const activeSection = useActiveSection(SECTION_IDS);
@@ -39,23 +37,14 @@ export default function Home() {
         {/* ── Skills ────────────────────────────────────────── */}
         <section id="skills" className="py-10 sm:py-14">
           <div className="max-w-3xl mx-auto px-4 sm:px-6">
-            <motion.h2
-              variants={fadeIn}
-              initial="initial"
-              whileInView="animate"
-              viewport={{ once: true }}
-              className="text-2xl font-bold text-foreground mb-6"
-            >
+            <h2 className="text-2xl font-bold text-foreground mb-6">
               Skills &amp; Technologies
-            </motion.h2>
-          </div>
-
-          <div className="overflow-hidden">
-            <div className="marquee-track flex gap-3 w-max">
-              {doubledSkills.map((skill, i) => (
+            </h2>
+            <div className="flex flex-wrap gap-2.5">
+              {personal.skills.map((skill) => (
                 <span
-                  key={`${skill}-${i}`}
-                  className="shrink-0 rounded-full border border-border bg-card px-4 py-2 text-sm font-medium text-foreground whitespace-nowrap"
+                  key={skill}
+                  className="rounded-full border border-border bg-card px-4 py-2 text-sm font-medium text-foreground"
                 >
                   {skill}
                 </span>
@@ -104,12 +93,6 @@ export default function Home() {
               <SocialLinks />
             </motion.div>
 
-            <motion.p
-              variants={staggerItem}
-              className="mt-10 text-xs text-muted-foreground"
-            >
-              Built with Next.js &amp; Tailwind
-            </motion.p>
           </motion.div>
         </section>
       </main>

@@ -118,20 +118,6 @@ body::before {
   display: none;
 }
 
-/* ── Skills marquee ────────────────────────────────────── */
-@keyframes marquee {
-  0% { transform: translateX(0); }
-  100% { transform: translateX(-50%); }
-}
-
-.marquee-track {
-  animation: marquee 25s linear infinite;
-}
-
-.marquee-track:hover {
-  animation-play-state: paused;
-}
-
 /* ── Orbit animation (Design C hero) ─────────────────── */
 @keyframes orbit-spin {
   from { transform: rotate(0deg); }

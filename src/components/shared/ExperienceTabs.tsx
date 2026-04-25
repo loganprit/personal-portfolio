@@ -80,6 +80,47 @@ function groupConsecutiveWorkEntries(entries: WorkEntry[]): WorkGroup[] {
   }, []);
 }
 
+interface TimelineLogoMarkerProps {
+  label: string;
+  logo?: string;
+  logoFill?: boolean;
+}
+
+function TimelineLogoMarker({ label, logo, logoFill }: TimelineLogoMarkerProps) {
+  return (
+    <div
+      className={cn(
+        "absolute top-0 rounded-full flex items-center justify-center overflow-hidden",
+        logo
+          ? logoFill
+            ? ""
+            : "bg-white"
+          : "bg-accent/10 border-2 border-accent dark:border-accent-light text-sm font-bold text-accent dark:text-accent-light",
+      )}
+      style={{
+        left: `${TIMELINE_MARKER_OFFSET_PX}px`,
+        width: `${TIMELINE_MARKER_SIZE_PX}px`,
+        height: `${TIMELINE_MARKER_SIZE_PX}px`,
+      }}
+    >
+      {logo ? (
+        <Image
+          src={logo}
+          alt={`${label} logo`}
+          width={TIMELINE_MARKER_SIZE_PX}
+          height={TIMELINE_MARKER_SIZE_PX}
+          className={cn(
+            "h-full w-full",
+            logoFill ? "object-cover" : "object-contain p-1",
+          )}
+        />
+      ) : (
+        getInitials(label)
+      )}
+    </div>
+  );
+}
+
 interface ExperienceTabsProps {
   id?: string;
   className?: string;
@@ -90,11 +131,6 @@ export function ExperienceTabs({ id = "experience", className }: ExperienceTabsP
   const timelineLineStyle = {
     left: `${TIMELINE_LINE_OFFSET_PX}px`,
     width: `${TIMELINE_LINE_WIDTH_PX}px`,
-  };
-  const timelineMarkerStyle = {
-    left: `${TIMELINE_MARKER_OFFSET_PX}px`,
-    width: `${TIMELINE_MARKER_SIZE_PX}px`,
-    height: `${TIMELINE_MARKER_SIZE_PX}px`,
   };
 
   const workEntries = [
@@ -175,32 +211,11 @@ export function ExperienceTabs({ id = "experience", className }: ExperienceTabsP
                     variants={staggerItem}
                     className="relative z-10 pl-10 pb-8 last:pb-0"
                   >
-                    <div
-                      className={cn(
-                        "absolute top-0 rounded-full flex items-center justify-center overflow-hidden",
-                        group.logo
-                          ? group.logoFill
-                            ? ""
-                            : "bg-white"
-                          : "bg-accent/10 border-2 border-accent dark:border-accent-light text-sm font-bold text-accent dark:text-accent-light",
-                      )}
-                      style={timelineMarkerStyle}
-                    >
-                      {group.logo ? (
-                        <Image
-                          src={group.logo}
-                          alt={`${group.company} logo`}
-                          width={TIMELINE_MARKER_SIZE_PX}
-                          height={TIMELINE_MARKER_SIZE_PX}
-                          className={cn(
-                            "h-full w-full",
-                            group.logoFill ? "object-cover" : "object-contain p-1",
-                          )}
-                        />
-                      ) : (
-                        getInitials(group.company)
-                      )}
-                    </div>
+                    <TimelineLogoMarker
+                      label={group.company}
+                      logo={group.logo}
+                      logoFill={group.logoFill}
+                    />
 
                     <div className="flex flex-wrap items-center gap-x-4 gap-y-1 text-sm text-muted-foreground">
                       <span className="inline-flex items-center gap-1">
@@ -216,16 +231,9 @@ export function ExperienceTabs({ id = "experience", className }: ExperienceTabsP
                     <div className="mt-3 space-y-6">
                       {group.roles.map((entry) => (
                         <div key={`${entry.title}-${entry.period}`}>
-                          <div className="flex flex-wrap items-center gap-2">
-                            <h4 className="text-lg font-bold text-foreground">
-                              {entry.title}
-                            </h4>
-                            {entry.isCurrent && (
-                              <span className="inline-flex items-center rounded-full bg-green-500/10 px-2.5 py-0.5 text-xs font-medium text-green-700 dark:text-green-400 border border-green-500/20">
-                                Current
-                              </span>
-                            )}
-                          </div>
+                          <h4 className="text-lg font-bold text-foreground">
+                            {entry.title}
+                          </h4>
 
                           <div className="mt-1 text-sm text-muted-foreground">
                             {entry.period}
@@ -291,32 +299,11 @@ export function ExperienceTabs({ id = "experience", className }: ExperienceTabsP
                     variants={staggerItem}
                     className="relative z-10 pl-10 pb-8 last:pb-0"
                   >
-                    <div
-                      className={cn(
-                        "absolute top-0 rounded-full flex items-center justify-center overflow-hidden",
-                        edu.logo
-                          ? edu.logoFill
-                            ? ""
-                            : "bg-white"
-                          : "bg-accent/10 border-2 border-accent dark:border-accent-light text-sm font-bold text-accent dark:text-accent-light",
-                      )}
-                      style={timelineMarkerStyle}
-                    >
-                      {edu.logo ? (
-                        <Image
-                          src={edu.logo}
-                          alt={`${edu.institution} logo`}
-                          width={TIMELINE_MARKER_SIZE_PX}
-                          height={TIMELINE_MARKER_SIZE_PX}
-                          className={cn(
-                            "h-full w-full",
-                            edu.logoFill ? "object-cover" : "object-contain p-1",
-                          )}
-                        />
-                      ) : (
-                        getInitials(edu.institution)
-                      )}
-                    </div>
+                    <TimelineLogoMarker
+                      label={edu.institution}
+                      logo={edu.logo}
+                      logoFill={edu.logoFill}
+                    />
 
                     <h4 className="text-lg font-bold text-foreground">
                       {edu.degree} — {edu.field}
