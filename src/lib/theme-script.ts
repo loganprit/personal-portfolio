@@ -50,15 +50,6 @@ export const themeScript = `
   })();
 `;
 
-export const readyScript = `
-  (function() {
-    // Wait for next tick to ensure DOM is ready
-    setTimeout(() => {
-      document.documentElement.classList.add('ready');
-    }, 0);
-  })();
-`;
-
 export const cleanupScript = `
   (function() {
     const html = document.documentElement;
@@ -78,4 +69,4 @@ export const combinedScript = `
   ${viewportScript}
   ${themeScript}
   ${cleanupScript}
-`; 
+`;

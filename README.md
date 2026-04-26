@@ -36,8 +36,14 @@ bun install
 # Run development server
 bun dev
 
+# Typecheck
+bun run typecheck
+
+# Lint
+bun lint
+
 # Build for production
-bun build
+bun run build
 
 # Start production server
 bun start

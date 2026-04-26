@@ -51,16 +51,6 @@
   --color-border: #262626;
 }
 
-/* ── FOUC prevention ───────────────────────────────────── */
-.no-fouc {
-  opacity: 0;
-  transition: opacity 0.2s ease-in;
-}
-
-html.ready {
-  opacity: 1;
-}
-
 /* ── Base styles ───────────────────────────────────────── */
 html {
   scroll-behavior: smooth;
