@@ -5,7 +5,7 @@ import "./globals.css";
 import { ThemeProvider } from "@/components/theme/ThemeProvider";
 import { Analytics } from "@vercel/analytics/react";
 import { SpeedInsights } from "@vercel/speed-insights/next";
-import { themeScript, readyScript } from "@/lib/theme-script";
+import { themeScript } from "@/lib/theme-script";
 import { PageTransition } from "@/components/shared/PageTransition";
 import { SiteNav } from "@/components/shared/SiteNav";
 
@@ -42,7 +42,7 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <html lang="en" suppressHydrationWarning className="no-fouc">
+    <html lang="en" suppressHydrationWarning>
       <head>
         <meta
           name="viewport"
@@ -52,7 +52,7 @@ export default function RootLayout({
         <meta name="color-scheme" content="light dark" />
         <script
           dangerouslySetInnerHTML={{
-            __html: `${themeScript}${readyScript}`,
+            __html: themeScript,
           }}
         />
         <link rel="preconnect" href="https://docs.google.com" />

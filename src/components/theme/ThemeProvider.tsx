@@ -1,11 +1,9 @@
 "use client";
 
 import { ThemeProvider as NextThemeProvider } from "next-themes";
-import { useEffect, useState, type ReactNode } from "react";
+import { useEffect, type ReactNode } from "react";
 
 export function ThemeProvider({ children }: { children: ReactNode }) {
-  const [mounted, setMounted] = useState(false);
-
   useEffect(() => {
     // Clean up any extension attributes
     const dataAttrs = document.documentElement.getAttributeNames();
@@ -14,8 +12,6 @@ export function ThemeProvider({ children }: { children: ReactNode }) {
         document.documentElement.removeAttribute(attr);
       }
     });
-
-    setMounted(true);
   }, []);
 
   return (
@@ -25,7 +21,7 @@ export function ThemeProvider({ children }: { children: ReactNode }) {
       enableSystem
       disableTransitionOnChange
     >
-      {mounted ? children : null}
+      {children}
     </NextThemeProvider>
   );
 }
