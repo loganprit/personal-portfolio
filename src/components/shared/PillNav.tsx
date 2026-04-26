@@ -1,11 +1,13 @@
 "use client";
 
+import Link from "next/link";
 import { cn } from "@/lib/cn";
 import { ThemeToggle } from "@/components/theme/ThemeToggle";
 
 export interface NavSection {
   label: string;
   id: string;
+  href: string;
 }
 
 interface PillNavProps {
@@ -23,9 +25,9 @@ export function PillNav({ sections, activeSection, className }: PillNavProps) {
             {sections.map((section) => {
               const isActive = activeSection === section.id;
               return (
-                <a
+                <Link
                   key={section.id}
-                  href={`#${section.id}`}
+                  href={section.href}
                   className={cn(
                     "px-3 py-1.5 text-sm font-medium rounded-full transition-colors whitespace-nowrap",
                     isActive
@@ -34,7 +36,7 @@ export function PillNav({ sections, activeSection, className }: PillNavProps) {
                   )}
                 >
                   {section.label}
-                </a>
+                </Link>
               );
             })}
           </div>

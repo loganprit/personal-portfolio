@@ -3,7 +3,7 @@ import type { PersonalInfo } from "./types";
 export const personal: PersonalInfo = {
   name: "Logan Pritchett",
   title: "Software Engineer",
-  headline: "I'm a 25-year-old software engineer based in Orange, Texas.",
+  headline: "I'm a 25-year-old software engineer based in Orange, Texas",
   location: "Remote",
   email: "logan.pritchett01@gmail.com",
   avatar: "/images/profile.jpg",
