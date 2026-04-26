@@ -16,10 +16,8 @@
 *.tsbuildinfo
 next-env.d.ts
 
-# playwright
-.playwright-mcp/
-
 # AI tool configs
 .agents/
 .codex/
+.pi/
 .worktrees/

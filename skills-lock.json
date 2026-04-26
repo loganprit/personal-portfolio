@@ -6,10 +6,30 @@
       "sourceType": "github",
       "computedHash": "515ba75178bd44875812d9a560bdf14651f86709f89cf1d4f209638e879807f3"
     },
+    "performance-investigation": {
+      "source": "sveltejs/svelte",
+      "sourceType": "github",
+      "computedHash": "3d008ff2e61e5484a340dc947611ea7635be064d2143ff1e9226e8f571806af1"
+    },
+    "svelte-code-writer": {
+      "source": "sveltejs/ai-tools",
+      "sourceType": "github",
+      "computedHash": "c0e2cce9855f8e312cbb0a05aef164b4659c672d7723e4e598ffa6bc94890542"
+    },
+    "svelte-core-bestpractices": {
+      "source": "sveltejs/ai-tools",
+      "sourceType": "github",
+      "computedHash": "bec11e369679027edf9d4acbe6d9788f8da33dc14b48b874f231d3ba13705324"
+    },
     "vercel-react-best-practices": {
       "source": "vercel-labs/agent-skills",
       "sourceType": "github",
       "computedHash": "3462ec83f862abb2d532953df33a4dbf87f4616849da5d4b5cc7c13601aaf997"
+    },
+    "writing-agents-md": {
+      "source": "shihyuho/skills",
+      "sourceType": "github",
+      "computedHash": "473e2dbeb2b12c9e33da08655f9400a3b80c7e8c904dae4da99992d1a575a7ab"
     }
   }
 }
