@@ -1,12 +1,12 @@
 # Personal Portfolio V3
 
-A modern, minimalist portfolio site built with Next.js 15, TypeScript, and Tailwind CSS. Features a responsive design with dark mode support, smooth page transitions, and glass-morphism UI effects.
+A modern, minimalist portfolio site built with Next.js 16, TypeScript, and Tailwind CSS. Features a responsive design with dark mode support, smooth page transitions, and glass-morphism UI effects.
 
 Want to visit the live site? [Click here](https://loganpritchett.me)
 
 ## Features
 
-- Server-side rendering with Next.js 15
+- Server-side rendering with Next.js 16
 - Type-safe development with TypeScript
 - Responsive design that adapts to both portrait and landscape orientations
 - Dark mode with smooth theme transitions
@@ -97,4 +97,4 @@ This was my first experience with several modern web technologies:
 
 ## License
 
-[Creative Commons Attribution 3.0 Unported](./LICENSE.txt)
+No license file is currently included.
