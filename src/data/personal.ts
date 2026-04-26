@@ -9,8 +9,7 @@ export const personal: PersonalInfo = {
   avatar: "/images/profile.jpg",
   shortBio:
     "Full-stack with a bias toward backend by profession, macOS and terminal applications by passion. I'm also playing around with building agents.",
-  resumeUrl:
-    "https://drive.google.com/uc?export=download&id=1BxGbUNqmMEVbfRCwa3GETz-3UcJlGXWj",
+  resumeUrl: "/api/resume",
   socials: [
     {
       name: "GitHub",

@@ -8,7 +8,7 @@ cd "$REPO_ROOT"
 if [[ ! -d node_modules ]]; then
   printf '%s\n' \
     "Project checks could not run because dependencies are missing in ${PWD}." \
-    "Run pnpm install, then retry so I can lint and typecheck before finishing." >&2
+    "Run bun install, then retry so I can lint and typecheck before finishing." >&2
   exit 2
 fi
 
@@ -26,8 +26,8 @@ run_check() {
   failures+=("$label"$'\n'"$(printf '%s\n' "$output" | tail -n 80)")
 }
 
-run_check "Lint failed (pnpm lint):" pnpm lint
-run_check "Typecheck failed (pnpm typecheck):" pnpm typecheck
+run_check "Lint failed (bun lint):" bun lint
+run_check "Typecheck failed (bun run typecheck):" bun run typecheck
 
 if ((${#failures[@]} > 0)); then
   {
