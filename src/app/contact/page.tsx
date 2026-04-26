@@ -1,10 +1,16 @@
 "use client";
 
 import { motion } from "framer-motion";
+import type { Variants } from "framer-motion";
 import { Send } from "lucide-react";
 import { personal } from "@/data/personal";
 import { SiteFooter } from "@/components/shared/SiteFooter";
-import { staggerContainer, staggerItem } from "@/lib/animations";
+import { staggerContainer } from "@/lib/animations";
+
+const contactFadeItem: Variants = {
+  initial: { opacity: 0 },
+  animate: { opacity: 1, transition: { duration: 0.5, ease: "easeOut" } },
+};
 
 export default function ContactPage() {
   return (
@@ -17,14 +23,14 @@ export default function ContactPage() {
           className="max-w-3xl mx-auto px-4 sm:px-6"
         >
           <motion.h1
-            variants={staggerItem}
+            variants={contactFadeItem}
             className="text-4xl font-black leading-tight tracking-normal text-foreground sm:text-5xl"
           >
             Contact Me
           </motion.h1>
 
           <motion.form
-            variants={staggerItem}
+            variants={contactFadeItem}
             action={`mailto:${personal.email}`}
             method="post"
             encType="text/plain"
@@ -73,7 +79,7 @@ export default function ContactPage() {
             </button>
           </motion.form>
 
-          <motion.div variants={staggerItem}>
+          <motion.div variants={contactFadeItem}>
             <SiteFooter className="mt-28 sm:mt-36" />
           </motion.div>
         </motion.section>

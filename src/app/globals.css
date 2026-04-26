@@ -55,6 +55,7 @@
 html {
   scroll-behavior: smooth;
   scroll-padding-top: 7rem;
+  overflow-x: clip;
 }
 
 body {
@@ -62,6 +63,7 @@ body {
   background-color: var(--color-background);
   transition: background-color 0.3s ease, color 0.3s ease;
   min-height: 100vh;
+  overflow-x: clip;
 }
 
 /* ── Noise texture overlay ─────────────────────────────── */
