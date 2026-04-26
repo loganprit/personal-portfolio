@@ -200,7 +200,7 @@ export function ExperienceTabs({ id = "experience", className }: ExperienceTabsP
               {activeTab === tab && (
                 <motion.div
                   layoutId="section-pill"
-                  className="absolute inset-0 rounded-full bg-card border border-border shadow-sm"
+                  className="absolute inset-0 rounded-full bg-card border border-border shadow-xs"
                   style={{ zIndex: -1 }}
                   transition={{ type: "spring", bounce: 0.2, duration: 0.5 }}
                 />
