@@ -5,7 +5,8 @@ export const currentRole: CurrentRole = {
   company: "FloQast",
   location: "Remote",
   period: "APRIL 2026 — PRESENT",
-  description: "Currently working on the Journal Entry product for FloQast.",
+  description:
+    "Improving FloQast's Close platform with a focus on product quality, full-stack type safety, testable code, and maintainable domain architecture.",
   technologies: [
     { name: "JavaScript" },
     { name: "TypeScript" },

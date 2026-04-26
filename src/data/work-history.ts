@@ -7,8 +7,14 @@ export const experiences: WorkExperience[] = [
     location: "Remote",
     period: "APRIL 2025 — APRIL 2026",
     description:
-      "Worked on the Journal Entry product and was later promoted to Software Engineer II.",
-    achievements: [],
+      "Built product features and engineering foundations for FloQast's Journal Entry Management product while improving code quality and application performance.",
+    achievements: [
+      "Started a JavaScript-to-TypeScript migration initiative that gained broader company attention",
+      "Led the backend Vitest migration, improving test speed by roughly 40x",
+      "Resolved high-priority product defects and contributed to a 91% year-over-year reduction in open Close Engineering defects",
+      "Helped establish domain refactoring patterns that improved testability, reduced cognitive load, and reached near-full coverage in refactored areas",
+      "Introduced internal tooling such as a design system MCP server and a shared types package for full-stack type safety",
+    ],
     technologies: [
       { name: "JavaScript" },
       { name: "TypeScript" },

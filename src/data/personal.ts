@@ -3,11 +3,12 @@ import type { PersonalInfo } from "./types";
 export const personal: PersonalInfo = {
   name: "Logan Pritchett",
   title: "Software Engineer",
-  headline: "25 year old software engineer based in Orange, Texas",
+  headline: "I'm a 25-year-old software engineer based in Orange, Texas.",
   location: "Remote",
   email: "logan.pritchett01@gmail.com",
   avatar: "/images/profile.jpg",
-  shortBio: "Former chemical engineering student turned software engineer. I build a modern SaaS application at FloQast.",
+  shortBio:
+    "Full-stack with a bias toward backend by profession, macOS and terminal applications by passion. I'm also playing around with building agents.",
   resumeUrl:
     "https://drive.google.com/uc?export=download&id=1BxGbUNqmMEVbfRCwa3GETz-3UcJlGXWj",
   socials: [
@@ -29,16 +30,19 @@ export const personal: PersonalInfo = {
   ],
   bio: [
     {
-      label: "Based in Orange, Texas",
-      description: "I grew up in Lake Charles, Louisiana and currently live in Orange, Texas.",
+      label: "Engineering Background",
+      description:
+        "I originally studied chemical engineering. I LOVED working with Excel's VBA and Python but didn't like the chemistry. My senior year, I dropped out of college to do a software bootcamp and it was the best decision I've ever made.",
     },
     {
-      label: "Engineering Background",
-      description: "Followed my dad's footsteps into chemical engineering, realized I hated it and transitioned to software engineering.",
+      label: "Christianity",
+      description:
+        "I am a devout Christian and I regularly serve at my church and young adults group. My faith in Jesus shapes everything about who I am.",
     },
-        {
-      label: "Outside the Office",
-      description: "I'm a devout Christian and I serve regularly at my church. I also am an avid language learner, I can speak Spanish and I'm learning German and Russian.",
+    {
+      label: "Hobbies",
+      description:
+        "I like playing around with AI tools and building apps for Apple devices. I'm conversational in Spanish and I'm also learning German and Russian.",
     },
   ],
   skills: [
