@@ -45,7 +45,7 @@ export default function ContactPage() {
                 name="name"
                 type="text"
                 placeholder="Name"
-                className="h-14 rounded-lg border border-border bg-card px-5 text-lg text-foreground shadow-sm outline-none transition focus:border-accent focus:ring-4 focus:ring-accent/10 dark:focus:border-accent-light"
+                className="h-14 rounded-lg border border-border bg-card px-5 text-lg text-foreground shadow-xs outline-hidden transition placeholder:text-muted-foreground focus:border-accent focus:ring-4 focus:ring-accent/10 dark:focus:border-accent-light"
               />
               <label className="sr-only" htmlFor="contact-email">
                 Email
@@ -55,7 +55,7 @@ export default function ContactPage() {
                 name="email"
                 type="email"
                 placeholder="Email"
-                className="h-14 rounded-lg border border-border bg-card px-5 text-lg text-foreground shadow-sm outline-none transition focus:border-accent focus:ring-4 focus:ring-accent/10 dark:focus:border-accent-light"
+                className="h-14 rounded-lg border border-border bg-card px-5 text-lg text-foreground shadow-xs outline-hidden transition placeholder:text-muted-foreground focus:border-accent focus:ring-4 focus:ring-accent/10 dark:focus:border-accent-light"
               />
             </div>
 
@@ -67,12 +67,12 @@ export default function ContactPage() {
               name="message"
               rows={5}
               placeholder="Share a little about what you're working on, the role or project you have in mind, and the best way for me to follow up."
-              className="min-h-40 w-full resize-y rounded-lg border border-border bg-card px-5 py-4 text-lg text-foreground shadow-sm outline-none transition placeholder:text-muted-foreground focus:border-accent focus:ring-4 focus:ring-accent/10 dark:focus:border-accent-light"
+              className="min-h-40 w-full resize-y rounded-lg border border-border bg-card px-5 py-4 text-lg text-foreground shadow-xs outline-hidden transition placeholder:text-muted-foreground focus:border-accent focus:ring-4 focus:ring-accent/10 dark:focus:border-accent-light"
             />
 
             <button
               type="submit"
-              className="flex h-14 w-full items-center justify-center gap-3 rounded-md bg-slate-950 px-6 text-lg font-semibold text-white shadow-sm transition hover:-translate-y-0.5 hover:bg-slate-800 focus:outline-none focus:ring-4 focus:ring-slate-400/30 dark:bg-white dark:text-slate-950 dark:hover:bg-slate-200"
+              className="flex h-14 w-full items-center justify-center gap-3 rounded-md bg-slate-950 px-6 text-lg font-semibold text-white shadow-xs transition hover:-translate-y-0.5 hover:bg-slate-800 focus:outline-hidden focus:ring-4 focus:ring-slate-400/30 dark:bg-white dark:text-slate-950 dark:hover:bg-slate-200"
             >
               Send Message
               <Send className="h-5 w-5" />
