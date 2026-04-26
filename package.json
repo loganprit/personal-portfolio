@@ -8,7 +8,7 @@
   },
   "scripts": {
     "dev": "next dev",
-    "scan": "next dev & bunx react-scan@latest localhost:3000",
+    "scan": "echo \"React Scan 0.5.3 is enabled automatically in development. Start bun dev and open the local dev URL.\"",
     "build": "next build",
     "start": "next start",
     "lint": "eslint src",
