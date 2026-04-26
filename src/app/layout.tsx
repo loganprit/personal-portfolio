@@ -6,6 +6,8 @@ import { ThemeProvider } from "@/components/theme/ThemeProvider";
 import { Analytics } from "@vercel/analytics/react";
 import { SpeedInsights } from "@vercel/speed-insights/next";
 import { themeScript } from "@/lib/theme-script";
+import { PageTransition } from "@/components/shared/PageTransition";
+import { SiteNav } from "@/components/shared/SiteNav";
 
 const geistSans = localFont({
   src: "./fonts/GeistVF.woff",
@@ -60,7 +62,8 @@ export default function RootLayout({
         className={`${geistSans.variable} ${geistMono.variable} ${caveat.variable} antialiased`}
       >
         <ThemeProvider>
-          {children}
+          <SiteNav />
+          <PageTransition>{children}</PageTransition>
           {process.env.NODE_ENV === "production" && (
             <>
               <Analytics />

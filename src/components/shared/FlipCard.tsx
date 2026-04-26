@@ -35,11 +35,11 @@ export function FlipCard({ className }: FlipCardProps) {
     }, 1500);
 
     return () => clearTimeout(timer);
-  // eslint-disable-next-line react-hooks/exhaustive-deps
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
   return (
-    <div className={`flex flex-col items-center ${className ?? ""}`}>
+    <div className={`relative flex flex-col items-center ${className ?? ""}`}>
       {/* Card with 3D perspective — click/hover scoped here */}
       <motion.div
         variants={flipCardEntrance}
@@ -76,11 +76,15 @@ export function FlipCard({ className }: FlipCardProps) {
 
             {/* Back face — About Me */}
             <div className="absolute inset-0 [backface-visibility:hidden] [transform:rotateY(180deg)] rounded-2xl border border-border bg-card p-5 shadow-lg flex flex-col justify-center gap-2.5 overflow-hidden">
-              <h3 className="text-base font-bold text-foreground text-center">About Me</h3>
+              <h3 className="text-base font-bold text-foreground text-center">
+                More About Me
+              </h3>
               <div className="space-y-2">
                 {personal.bio.slice(0, 4).map((section) => (
                   <div key={section.label}>
-                    <p className="text-xs font-semibold text-foreground">{section.label}</p>
+                    <p className="text-xs font-semibold text-foreground">
+                      {section.label}
+                    </p>
                     <p className="text-xs text-muted-foreground leading-snug">
                       {section.description}
                     </p>
@@ -99,8 +103,11 @@ export function FlipCard({ className }: FlipCardProps) {
           opacity: flipped ? 0 : 1,
           y: flipped ? 8 : 0,
         }}
-        transition={{ duration: 0.4, delay: !flipped && !hasInteractedRef.current ? 0.4 : 0 }}
-        className="pointer-events-none mt-2 flex flex-col items-end text-muted-foreground"
+        transition={{
+          duration: 0.4,
+          delay: !flipped && !hasInteractedRef.current ? 0.4 : 0,
+        }}
+        className="pointer-events-none mt-2 flex flex-col items-end text-muted-foreground md:absolute md:left-1/2 md:top-full md:mt-2 md:-translate-x-1/2"
       >
         <svg
           width="240"
@@ -123,7 +130,11 @@ export function FlipCard({ className }: FlipCardProps) {
                 ? { pathLength: 1, opacity: flipped ? 0 : 1 }
                 : { pathLength: flipped ? 0 : 1, opacity: 1 }
             }
-            transition={{ duration: hasInteractedRef.current ? 0.3 : 0.8, delay: !flipped && !hasInteractedRef.current ? 0.4 : 0, ease: "easeInOut" }}
+            transition={{
+              duration: hasInteractedRef.current ? 0.3 : 0.8,
+              delay: !flipped && !hasInteractedRef.current ? 0.4 : 0,
+              ease: "easeInOut",
+            }}
           />
           {/* Arrowhead */}
           <motion.path
@@ -135,7 +146,10 @@ export function FlipCard({ className }: FlipCardProps) {
             fill="none"
             initial={{ opacity: 0 }}
             animate={{ opacity: flipped ? 0 : 1 }}
-            transition={{ duration: 0.2, delay: !flipped && !hasInteractedRef.current ? 1.2 : 0 }}
+            transition={{
+              duration: 0.2,
+              delay: !flipped && !hasInteractedRef.current ? 1.2 : 0,
+            }}
           />
           {/* Text wrapped around the arrow path */}
           <motion.text
@@ -144,10 +158,13 @@ export function FlipCard({ className }: FlipCardProps) {
             style={{ fontFamily: "var(--font-caveat), cursive" }}
             initial={{ opacity: 0 }}
             animate={{ opacity: flipped ? 0 : 1 }}
-            transition={{ duration: 0.5, delay: !flipped && !hasInteractedRef.current ? 1.2 : 0 }}
+            transition={{
+              duration: 0.5,
+              delay: !flipped && !hasInteractedRef.current ? 1.2 : 0,
+            }}
           >
-            <textPath href="#arrow-path" startOffset="60%">
-              about me!
+            <textPath href="#arrow-path" startOffset="50%">
+              more about me!
             </textPath>
           </motion.text>
         </svg>
