@@ -8,8 +8,7 @@ sw.addEventListener("install", (event: ExtendableEvent) => {
         caches.open(CACHE_NAME).then((cache) => {
             return cache.addAll([
                 "/",
-                "/projects",
-                "/work-history",
+                "/contact",
                 "/images/profile.jpg",
             ]);
         })

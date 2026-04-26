@@ -1,5 +1,17 @@
 {
   "hooks": {
+    "SessionStart": [
+      {
+        "matcher": "startup|clear",
+        "hooks": [
+          {
+            "type": "command",
+            "command": "bash -lc 'bash \"$(git rev-parse --show-toplevel)/.codex/hooks/session-start-superpowers.sh\"'",
+            "statusMessage": "loading superpowers startup context"
+          }
+        ]
+      }
+    ],
     "Stop": [
       {
         "hooks": [

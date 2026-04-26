@@ -10,11 +10,13 @@
 !.yarn/releases
 !.yarn/versions
 package-lock.json
+pnpm-lock.yaml
 
 # testing
 /coverage
 Instructions.md
 README_default.md
+/tmp/
 
 # next.js
 /.next/
@@ -44,9 +46,16 @@ next-env.d.ts
 
 # vscode
 .vscode
-package-lock.json
-opencode.json
-.claude/
-.cursor/
-.cursor/OPENCODE.md
+
+# playwright
 .playwright-mcp/
+
+# btca local data
+.btca/
+btca.config.jsonc
+
+# AI tool configs
+.agents/
+.claude/
+.codex/
+.worktrees/

@@ -19,7 +19,7 @@ Want to visit the live site? [Click here](https://loganpritchett.me)
 
 ## Tech Stack
 
-- **Framework**: Next.js 15
+- **Framework**: Next.js 16
 - **Language**: TypeScript
 - **Styling**: Tailwind CSS
 - **Animations**: Framer Motion
@@ -35,6 +35,12 @@ bun install
 
 # Run development server
 bun dev
+
+# Typecheck
+bun run typecheck
+
+# Lint
+bun lint
 
 # Build for production
 bun run build
