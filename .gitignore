@@ -16,8 +16,14 @@
 *.tsbuildinfo
 next-env.d.ts
 
-# AI tool configs
+# AI tool configs and scratch work
 .agents/
+.claude/
 .codex/
 .pi/
+.superpowers/
 .worktrees/
+tmp/
+
+# local deployment state
+.vercel/
