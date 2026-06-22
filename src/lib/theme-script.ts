@@ -49,24 +49,3 @@ export const themeScript = `
     }
   })();
 `;
-
-export const cleanupScript = `
-  (function() {
-    const html = document.documentElement;
-    const attrs = html.getAttributeNames();
-    attrs.forEach(attr => {
-      if (attr.startsWith('data-') && 
-          attr !== 'data-theme' && 
-          attr !== 'data-color-scheme') {
-        html.removeAttribute(attr);
-      }
-    });
-  })();
-`;
-
-// Update the script combination
-export const combinedScript = `
-  ${viewportScript}
-  ${themeScript}
-  ${cleanupScript}
-`;

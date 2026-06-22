@@ -8,14 +8,13 @@ export const currentRole: CurrentRole = {
   description:
     "Improving FloQast's Close platform with a focus on product quality, full-stack type safety, testable code, and maintainable domain architecture.",
   technologies: [
-    { name: "JavaScript" },
-    { name: "TypeScript" },
-    { name: "React" },
-    { name: "Node.js" },
-    { name: "Express.js" },
-    { name: "MongoDB" },
+    "JavaScript",
+    "TypeScript",
+    "React",
+    "Node.js",
+    "Express.js",
+    "MongoDB",
   ],
-  isActive: true,
   logo: "/logos/floqast.png",
   logoFill: true,
 };
