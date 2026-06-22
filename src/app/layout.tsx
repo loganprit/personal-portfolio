@@ -1,7 +1,6 @@
 import type { Metadata } from "next";
 import localFont from "next/font/local";
 import { Caveat } from "next/font/google";
-import Script from "next/script";
 import "./globals.css";
 import { ThemeProvider } from "@/components/theme/ThemeProvider";
 import { Analytics } from "@vercel/analytics/react";
@@ -9,7 +8,6 @@ import { SpeedInsights } from "@vercel/speed-insights/next";
 import { themeScript } from "@/lib/theme-script";
 import { PageTransition } from "@/components/shared/PageTransition";
 import { SiteNav } from "@/components/shared/SiteNav";
-import { ReactScanProbe } from "@/components/dev/ReactScanProbe";
 
 const geistSans = localFont({
   src: "./fonts/GeistVF.woff",
@@ -63,14 +61,7 @@ export default function RootLayout({
       <body
         className={`${geistSans.variable} ${geistMono.variable} ${caveat.variable} antialiased`}
       >
-        {process.env.NODE_ENV === "development" && (
-          <Script
-            src="https://unpkg.com/react-scan@0.5.3/dist/auto.global.js"
-            strategy="beforeInteractive"
-          />
-        )}
         <ThemeProvider>
-          {process.env.NODE_ENV === "development" && <ReactScanProbe />}
           <SiteNav />
           <PageTransition>{children}</PageTransition>
           {process.env.NODE_ENV === "production" && (

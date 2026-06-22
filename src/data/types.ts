@@ -1,7 +1,3 @@
-export interface Technology {
-  name: string;
-}
-
 export interface WorkExperience {
   title: string;
   company: string;
@@ -9,7 +5,7 @@ export interface WorkExperience {
   period: string;
   description: string;
   achievements: string[];
-  technologies: Technology[];
+  technologies: string[];
   logo?: string;
   logoFill?: boolean;
 }
@@ -20,8 +16,7 @@ export interface CurrentRole {
   location: string;
   period: string;
   description: string;
-  technologies: Technology[];
-  isActive: boolean;
+  technologies: string[];
   logo?: string;
   logoFill?: boolean;
 }
@@ -54,7 +49,7 @@ export interface Education {
   period: string;
   description: string;
   achievements: string[];
-  technologies: Technology[];
+  technologies: string[];
   logo?: string;
   logoFill?: boolean;
 }

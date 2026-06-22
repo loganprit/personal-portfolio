@@ -6,7 +6,6 @@ import Image from "next/image";
 import { MapPin, Briefcase, GraduationCap } from "lucide-react";
 import { currentRole } from "@/data/current-role";
 import { experiences } from "@/data/work-history";
-import type { Technology } from "@/data/types";
 import { education } from "@/data/education";
 import { TechBadge } from "./TechBadge";
 import { cn } from "@/lib/cn";
@@ -27,8 +26,7 @@ interface WorkEntry {
   period: string;
   description: string;
   achievements: string[];
-  technologies: Technology[];
-  isCurrent: boolean;
+  technologies: string[];
   logo?: string;
   logoFill?: boolean;
 }
@@ -64,7 +62,7 @@ function WorkRoleBody({ entry }: { entry: WorkEntry }) {
 
       <div className="flex flex-wrap gap-1.5 mt-4">
         {entry.technologies.map((tech) => (
-          <TechBadge key={tech.name} name={tech.name} />
+          <TechBadge key={tech} name={tech} />
         ))}
       </div>
     </>
@@ -172,11 +170,10 @@ export function ExperienceTabs({ id = "experience", className }: ExperienceTabsP
       description: currentRole.description,
       achievements: [] as string[],
       technologies: currentRole.technologies,
-      isCurrent: true,
       logo: currentRole.logo,
       logoFill: currentRole.logoFill,
     },
-    ...experiences.map((exp) => ({ ...exp, isCurrent: false })),
+    ...experiences,
   ];
   const workGroups = groupConsecutiveWorkEntries(workEntries);
 
@@ -361,7 +358,7 @@ export function ExperienceTabs({ id = "experience", className }: ExperienceTabsP
 
                     <div className="flex flex-wrap gap-1.5 mt-4">
                       {edu.technologies.map((tech) => (
-                        <TechBadge key={tech.name} name={tech.name} />
+                        <TechBadge key={tech} name={tech} />
                       ))}
                     </div>
                   </motion.div>
