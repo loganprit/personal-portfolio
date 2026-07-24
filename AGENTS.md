@@ -1,14 +1,11 @@
 # Repository Guardrails
 
-This is a Next.js App Router portfolio. Keep this file limited to stable
-constraints that are easy to miss; discover scripts, structure, and ordinary
-style rules from the repo.
+This is a Next.js App Router portfolio. Keep this file limited to stable constraints that are easy to miss; discover scripts, structure, and ordinary style rules from the repo.
 
 ## Local Development
 
 - Use Node `>=20.9.0`.
-- Do not start `bun dev` automatically. Assume the dev server is already
-  running; if browser validation needs it and it is unavailable, ask Logan to
+- Do not start `bun dev` automatically. Assume the dev server is already running; if browser validation needs it and it is unavailable, ask Logan to
   start it.
 - Use `$browser-use:browser` for localhost inspection, screenshots, and browser
   interaction. Prefer it over Playwright, Computer Use, or shell-launched
