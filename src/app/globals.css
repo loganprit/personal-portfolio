@@ -35,6 +35,7 @@
 /* ── Base styles ───────────────────────────────────────── */
 html {
   scroll-behavior: smooth;
+  overflow-y: scroll;
   scroll-padding-top: 7rem;
   overflow-x: clip;
 }
@@ -45,6 +46,16 @@ body {
   transition: background-color 0.3s ease, color 0.3s ease;
   min-height: 100vh;
   overflow-x: clip;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  html {
+    scroll-behavior: auto;
+  }
+
+  body {
+    transition: none;
+  }
 }
 
 @layer base {

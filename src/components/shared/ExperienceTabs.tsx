@@ -185,6 +185,7 @@ export function ExperienceTabs({ id = "experience", className }: ExperienceTabsP
           {(["work", "education"] as const).map((tab) => (
             <button
               key={tab}
+              type="button"
               onClick={() => setActiveTab(tab)}
               className={cn(
                 "relative flex-1 rounded-full py-2 text-sm font-medium z-10 transition-colors",
