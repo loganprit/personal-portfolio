@@ -72,7 +72,7 @@ export default function ContactPage() {
 
             <button
               type="submit"
-              className="flex h-14 w-full items-center justify-center gap-3 rounded-md bg-slate-950 px-6 text-lg font-semibold text-white shadow-xs transition hover:-translate-y-0.5 hover:bg-slate-800 focus:outline-hidden focus:ring-4 focus:ring-slate-400/30 dark:bg-white dark:text-slate-950 dark:hover:bg-slate-200"
+              className="flex h-14 w-full items-center justify-center gap-3 rounded-md bg-slate-950 px-6 text-lg font-semibold text-white shadow-xs transition hover:-translate-y-0.5 hover:bg-slate-800 focus:outline-hidden focus:ring-4 focus:ring-slate-400/30 motion-reduce:transform-none motion-reduce:transition-none dark:bg-white dark:text-slate-950 dark:hover:bg-slate-200"
             >
               Send Message
               <Send className="h-5 w-5" />

@@ -13,8 +13,6 @@ export function ThemeToggle({ className }: { className?: string }) {
     setMounted(true);
   }, []);
 
-  if (!mounted) return null;
-
   const cycle = () => {
     const next = theme === "light" ? "dark" : theme === "dark" ? "system" : "light";
     setTheme(next);
@@ -22,16 +20,19 @@ export function ThemeToggle({ className }: { className?: string }) {
 
   return (
     <button
+      type="button"
       onClick={cycle}
       className={cn(
-        "rounded-lg p-2 transition-colors hover:bg-muted",
+        "h-9 w-9 rounded-lg p-2 transition-colors hover:bg-muted",
         className,
       )}
-      aria-label={`Current theme: ${theme}. Click to switch.`}
+      aria-label={
+        mounted ? `Current theme: ${theme}. Click to switch.` : "Switch theme"
+      }
     >
-      {theme === "light" && <Sun className="h-5 w-5" />}
-      {theme === "dark" && <Moon className="h-5 w-5" />}
-      {theme === "system" && <Monitor className="h-5 w-5" />}
+      {mounted && theme === "light" && <Sun className="h-5 w-5" />}
+      {mounted && theme === "dark" && <Moon className="h-5 w-5" />}
+      {(!mounted || theme === "system") && <Monitor className="h-5 w-5" />}
     </button>
   );
 }

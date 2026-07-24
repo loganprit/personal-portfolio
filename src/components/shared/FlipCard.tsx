@@ -1,7 +1,7 @@
 "use client";
 
 import { useState, useEffect, useRef } from "react";
-import { motion, useAnimate } from "framer-motion";
+import { motion, useAnimate, useReducedMotion } from "framer-motion";
 import Image from "next/image";
 import { personal } from "@/data/personal";
 import { flipCardEntrance, flipCardPeek } from "@/lib/animations";
@@ -12,17 +12,17 @@ interface FlipCardProps {
 
 export function FlipCard({ className }: FlipCardProps) {
   const [flipped, setFlipped] = useState(false);
-  const hasInteractedRef = useRef(false);
+  const [hasInteracted, setHasInteracted] = useState(false);
   const [peekScope, peekAnimate] = useAnimate();
   const peekRan = useRef(false);
+  const prefersReducedMotion = useReducedMotion();
 
   // Run peek animation once after entrance completes
   useEffect(() => {
-    if (peekRan.current) return;
+    if (peekRan.current || prefersReducedMotion || hasInteracted) return;
     peekRan.current = true;
 
     const timer = setTimeout(async () => {
-      if (hasInteractedRef.current) return;
       try {
         await peekAnimate(
           peekScope.current,
@@ -35,23 +35,32 @@ export function FlipCard({ className }: FlipCardProps) {
     }, 1500);
 
     return () => clearTimeout(timer);
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, []);
+  }, [hasInteracted, peekAnimate, peekScope, prefersReducedMotion]);
 
   return (
     <div className={`relative flex flex-col items-center ${className ?? ""}`}>
       {/* Card with 3D perspective — click/hover scoped here */}
       <motion.div
+        role="button"
+        tabIndex={0}
+        aria-pressed={flipped}
+        aria-label="Show more about me"
         variants={flipCardEntrance}
         initial="initial"
         animate="animate"
-        className="[perspective:1000px] cursor-pointer"
+        className="[perspective:1000px] cursor-pointer rounded-2xl focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-accent"
         onClick={() => {
-          hasInteractedRef.current = true;
+          setHasInteracted(true);
           setFlipped((f) => !f);
         }}
+        onKeyDown={(event) => {
+          if (event.key !== "Enter" && event.key !== " ") return;
+          event.preventDefault();
+          setHasInteracted(true);
+          setFlipped((current) => !current);
+        }}
         onMouseEnter={() => {
-          hasInteractedRef.current = true;
+          setHasInteracted(true);
           setFlipped(true);
         }}
         onMouseLeave={() => setFlipped(false)}
@@ -59,12 +68,15 @@ export function FlipCard({ className }: FlipCardProps) {
         {/* Peek wrapper — animated independently from the CSS flip */}
         <motion.div ref={peekScope} className="[transform-style:preserve-3d]">
           <div
-            className={`relative w-72 h-96 transition-transform duration-700 [transform-style:preserve-3d] ${
+            className={`relative w-72 h-96 transition-transform duration-700 motion-reduce:transition-none [transform-style:preserve-3d] ${
               flipped ? "[transform:rotateY(180deg)]" : ""
             }`}
           >
             {/* Front face — avatar */}
-            <div className="absolute inset-0 [backface-visibility:hidden] rounded-2xl overflow-hidden shadow-lg">
+            <div
+              aria-hidden={flipped}
+              className="absolute inset-0 [backface-visibility:hidden] rounded-2xl overflow-hidden shadow-lg"
+            >
               <Image
                 src={personal.avatar}
                 alt={personal.name}
@@ -75,7 +87,10 @@ export function FlipCard({ className }: FlipCardProps) {
             </div>
 
             {/* Back face — About Me */}
-            <div className="absolute inset-0 [backface-visibility:hidden] [transform:rotateY(180deg)] rounded-2xl border border-border bg-card p-5 shadow-lg flex flex-col justify-center gap-2.5 overflow-hidden">
+            <div
+              aria-hidden={!flipped}
+              className="absolute inset-0 [backface-visibility:hidden] [transform:rotateY(180deg)] rounded-2xl border border-border bg-card p-5 shadow-lg flex flex-col justify-center gap-2.5 overflow-hidden"
+            >
               <h3 className="text-base font-bold text-foreground text-center">
                 More About Me
               </h3>
@@ -105,7 +120,7 @@ export function FlipCard({ className }: FlipCardProps) {
         }}
         transition={{
           duration: 0.4,
-          delay: !flipped && !hasInteractedRef.current ? 0.4 : 0,
+          delay: !flipped && !hasInteracted ? 0.4 : 0,
         }}
         className="pointer-events-none mt-2 flex flex-col items-end text-muted-foreground md:absolute md:left-1/2 md:top-full md:mt-2 md:-translate-x-1/2"
       >
@@ -126,13 +141,13 @@ export function FlipCard({ className }: FlipCardProps) {
             fill="none"
             initial={{ pathLength: 0, opacity: 1 }}
             animate={
-              hasInteractedRef.current
+              hasInteracted
                 ? { pathLength: 1, opacity: flipped ? 0 : 1 }
                 : { pathLength: flipped ? 0 : 1, opacity: 1 }
             }
             transition={{
-              duration: hasInteractedRef.current ? 0.3 : 0.8,
-              delay: !flipped && !hasInteractedRef.current ? 0.4 : 0,
+              duration: hasInteracted ? 0.3 : 0.8,
+              delay: !flipped && !hasInteracted ? 0.4 : 0,
               ease: "easeInOut",
             }}
           />
@@ -148,7 +163,7 @@ export function FlipCard({ className }: FlipCardProps) {
             animate={{ opacity: flipped ? 0 : 1 }}
             transition={{
               duration: 0.2,
-              delay: !flipped && !hasInteractedRef.current ? 1.2 : 0,
+              delay: !flipped && !hasInteracted ? 1.2 : 0,
             }}
           />
           {/* Text wrapped around the arrow path */}
@@ -160,7 +175,7 @@ export function FlipCard({ className }: FlipCardProps) {
             animate={{ opacity: flipped ? 0 : 1 }}
             transition={{
               duration: 0.5,
-              delay: !flipped && !hasInteractedRef.current ? 1.2 : 0,
+              delay: !flipped && !hasInteracted ? 1.2 : 0,
             }}
           >
             <textPath href="#arrow-path" startOffset="50%">
