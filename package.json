@@ -11,7 +11,8 @@
     "build": "next build",
     "start": "next start",
     "lint": "eslint src",
-    "typecheck": "tsc --noEmit"
+    "typecheck": "tsc --noEmit",
+    "doctor": "npx react-doctor@latest"
   },
   "dependencies": {
     "@tailwindcss/postcss": "^4.2.1",
@@ -32,6 +33,7 @@
     "eslint": "^9.39.3",
     "eslint-config-next": "16.2.9",
     "postcss": "^8.4.47",
+    "react-doctor": "^0.9.12",
     "tailwindcss": "^4.2.1",
     "typescript": "^5"
   },
