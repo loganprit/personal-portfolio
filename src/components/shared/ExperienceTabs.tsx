@@ -115,6 +115,26 @@ function groupConsecutiveWorkEntries(entries: WorkEntry[]): WorkGroup[] {
   }, []);
 }
 
+const TIMELINE_LINE_STYLE = {
+  left: `${TIMELINE_LINE_OFFSET_PX}px`,
+  width: `${TIMELINE_LINE_WIDTH_PX}px`,
+};
+
+const WORK_GROUPS = groupConsecutiveWorkEntries([
+  {
+    title: currentRole.title,
+    company: currentRole.company,
+    location: currentRole.location,
+    period: currentRole.period,
+    description: currentRole.description,
+    achievements: Array<string>(),
+    technologies: currentRole.technologies,
+    logo: currentRole.logo,
+    logoFill: currentRole.logoFill,
+  },
+  ...experiences,
+]);
+
 interface TimelineLogoMarkerProps {
   label: string;
   logo?: string;
@@ -170,26 +190,6 @@ export function ExperienceTabs({
   className,
 }: ExperienceTabsProps) {
   const [activeTab, setActiveTab] = useState<Tab>("work");
-  const timelineLineStyle = {
-    left: `${TIMELINE_LINE_OFFSET_PX}px`,
-    width: `${TIMELINE_LINE_WIDTH_PX}px`,
-  };
-
-  const workEntries = [
-    {
-      title: currentRole.title,
-      company: currentRole.company,
-      location: currentRole.location,
-      period: currentRole.period,
-      description: currentRole.description,
-      achievements: Array<string>(),
-      technologies: currentRole.technologies,
-      logo: currentRole.logo,
-      logoFill: currentRole.logoFill,
-    },
-    ...experiences,
-  ];
-  const workGroups = groupConsecutiveWorkEntries(workEntries);
 
   return (
     <section id={id} className={cn("", className)}>
@@ -245,9 +245,9 @@ export function ExperienceTabs({
                   whileInView="animate"
                   viewport={{ once: true }}
                   className="pointer-events-none absolute inset-y-0 bg-border origin-top"
-                  style={timelineLineStyle}
+                  style={TIMELINE_LINE_STYLE}
                 />
-                {workGroups.map((group) => {
+                {WORK_GROUPS.map((group) => {
                   const [primaryRole, ...previousRoles] = group.roles;
 
                   return (
@@ -324,7 +324,7 @@ export function ExperienceTabs({
                   whileInView="animate"
                   viewport={{ once: true }}
                   className="pointer-events-none absolute inset-y-0 bg-border origin-top"
-                  style={timelineLineStyle}
+                  style={TIMELINE_LINE_STYLE}
                 />
                 {education.map((edu) => (
                   <motion.div
