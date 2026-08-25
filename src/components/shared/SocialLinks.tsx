@@ -4,18 +4,21 @@ import { Github, Linkedin, Mail } from "lucide-react";
 import { personal } from "@/data/personal";
 import { cn } from "@/lib/cn";
 
-const iconMap: Record<string, React.ComponentType<{ className?: string }>> = {
+const iconMap = {
   github: Github,
   linkedin: Linkedin,
   mail: Mail,
-};
+} satisfies Record<string, React.ComponentType<{ className?: string }>>;
 
 interface SocialLinksProps {
   className?: string;
   iconSize?: string;
 }
 
-export function SocialLinks({ className, iconSize = "h-5 w-5" }: SocialLinksProps) {
+export function SocialLinks({
+  className,
+  iconSize = "h-5 w-5",
+}: SocialLinksProps) {
   return (
     <div className={cn("flex items-center gap-3", className)}>
       {personal.socials.map((link) => {

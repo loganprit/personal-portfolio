@@ -18,8 +18,9 @@
 
   /* Typography */
   --font-sans: var(--font-geist-sans), ui-sans-serif, system-ui, sans-serif;
-  --font-mono: var(--font-geist-mono), ui-monospace, "Cascadia Code", "Source Code Pro", monospace;
-
+  --font-mono:
+    var(--font-geist-mono), ui-monospace, "Cascadia Code", "Source Code Pro",
+    monospace;
 }
 
 /* ── Dark mode overrides ───────────────────────────────── */
@@ -43,7 +44,9 @@ html {
 body {
   color: var(--color-foreground);
   background-color: var(--color-background);
-  transition: background-color 0.3s ease, color 0.3s ease;
+  transition:
+    background-color 0.3s ease,
+    color 0.3s ease;
   min-height: 100vh;
   overflow-x: clip;
 }

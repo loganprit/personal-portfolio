@@ -40,9 +40,8 @@ export function FlipCard({ className }: FlipCardProps) {
   return (
     <div className={`relative flex flex-col items-center ${className ?? ""}`}>
       {/* Card with 3D perspective — click/hover scoped here */}
-      <motion.div
-        role="button"
-        tabIndex={0}
+      <motion.button
+        type="button"
         aria-pressed={flipped}
         aria-label="Show more about me"
         variants={flipCardEntrance}
@@ -109,7 +108,7 @@ export function FlipCard({ className }: FlipCardProps) {
             </div>
           </div>
         </motion.div>
-      </motion.div>
+      </motion.button>
 
       {/* Hand-drawn arrow + "about me!" below card */}
       <motion.div

@@ -36,9 +36,7 @@ function applyTheme(theme: Theme) {
 
 export function ThemeToggle({ className }: { className?: string }) {
   const [mounted, setMounted] = useState(false);
-  const [theme, setTheme] = useState<Theme>(() =>
-    typeof window === "undefined" ? "system" : getStoredTheme(),
-  );
+  const [theme, setTheme] = useState<Theme>(getStoredTheme);
 
   useEffect(() => {
     const media = window.matchMedia("(prefers-color-scheme: dark)");
@@ -61,7 +59,8 @@ export function ThemeToggle({ className }: { className?: string }) {
   }, [theme]);
 
   const cycle = () => {
-    const next = theme === "light" ? "dark" : theme === "dark" ? "system" : "light";
+    const next =
+      theme === "light" ? "dark" : theme === "dark" ? "system" : "light";
     try {
       localStorage.setItem("theme", next);
     } catch {}

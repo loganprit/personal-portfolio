@@ -37,11 +37,7 @@ export const education: Education[] = [
       "Research apprentice studying bio-oil catalytic conversion using proprietary GC/MS reactor integration",
       "Operated and maintained GC/MS and Shimadzu TOC analytical instruments",
     ],
-    technologies: [
-      "MATLAB",
-      "GC/MS",
-      "Process Simulation",
-    ],
+    technologies: ["MATLAB", "GC/MS", "Process Simulation"],
     logo: "/logos/ull.png",
   },
 ];
