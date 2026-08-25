@@ -9,7 +9,12 @@ import { experiences } from "@/data/work-history";
 import { education } from "@/data/education";
 import { TechBadge } from "./TechBadge";
 import { cn } from "@/lib/cn";
-import { tabContent, timelineLine, staggerContainer, staggerItem } from "@/lib/animations";
+import {
+  tabContent,
+  timelineLine,
+  staggerContainer,
+  staggerItem,
+} from "@/lib/animations";
 
 type Tab = "work" | "education";
 
@@ -17,7 +22,9 @@ const TIMELINE_MARKER_SIZE_PX = 53;
 const TIMELINE_MARKER_OFFSET_PX = -27.5;
 const TIMELINE_LINE_WIDTH_PX = 2;
 const TIMELINE_LINE_OFFSET_PX =
-  TIMELINE_MARKER_OFFSET_PX + TIMELINE_MARKER_SIZE_PX / 2 - TIMELINE_LINE_WIDTH_PX / 2;
+  TIMELINE_MARKER_OFFSET_PX +
+  TIMELINE_MARKER_SIZE_PX / 2 -
+  TIMELINE_LINE_WIDTH_PX / 2;
 
 interface WorkEntry {
   title: string;
@@ -108,13 +115,37 @@ function groupConsecutiveWorkEntries(entries: WorkEntry[]): WorkGroup[] {
   }, []);
 }
 
+const TIMELINE_LINE_STYLE = {
+  left: `${TIMELINE_LINE_OFFSET_PX}px`,
+  width: `${TIMELINE_LINE_WIDTH_PX}px`,
+};
+
+const WORK_GROUPS = groupConsecutiveWorkEntries([
+  {
+    title: currentRole.title,
+    company: currentRole.company,
+    location: currentRole.location,
+    period: currentRole.period,
+    description: currentRole.description,
+    achievements: Array<string>(),
+    technologies: currentRole.technologies,
+    logo: currentRole.logo,
+    logoFill: currentRole.logoFill,
+  },
+  ...experiences,
+]);
+
 interface TimelineLogoMarkerProps {
   label: string;
   logo?: string;
   logoFill?: boolean;
 }
 
-function TimelineLogoMarker({ label, logo, logoFill }: TimelineLogoMarkerProps) {
+function TimelineLogoMarker({
+  label,
+  logo,
+  logoFill,
+}: TimelineLogoMarkerProps) {
   return (
     <div
       className={cn(
@@ -154,28 +185,11 @@ interface ExperienceTabsProps {
   className?: string;
 }
 
-export function ExperienceTabs({ id = "experience", className }: ExperienceTabsProps) {
+export function ExperienceTabs({
+  id = "experience",
+  className,
+}: ExperienceTabsProps) {
   const [activeTab, setActiveTab] = useState<Tab>("work");
-  const timelineLineStyle = {
-    left: `${TIMELINE_LINE_OFFSET_PX}px`,
-    width: `${TIMELINE_LINE_WIDTH_PX}px`,
-  };
-
-  const workEntries = [
-    {
-      title: currentRole.title,
-      company: currentRole.company,
-      location: currentRole.location,
-      period: currentRole.period,
-      description: currentRole.description,
-      achievements: [] as string[],
-      technologies: currentRole.technologies,
-      logo: currentRole.logo,
-      logoFill: currentRole.logoFill,
-    },
-    ...experiences,
-  ];
-  const workGroups = groupConsecutiveWorkEntries(workEntries);
 
   return (
     <section id={id} className={cn("", className)}>
@@ -231,9 +245,9 @@ export function ExperienceTabs({ id = "experience", className }: ExperienceTabsP
                   whileInView="animate"
                   viewport={{ once: true }}
                   className="pointer-events-none absolute inset-y-0 bg-border origin-top"
-                  style={timelineLineStyle}
+                  style={TIMELINE_LINE_STYLE}
                 />
-                {workGroups.map((group) => {
+                {WORK_GROUPS.map((group) => {
                   const [primaryRole, ...previousRoles] = group.roles;
 
                   return (
@@ -310,7 +324,7 @@ export function ExperienceTabs({ id = "experience", className }: ExperienceTabsP
                   whileInView="animate"
                   viewport={{ once: true }}
                   className="pointer-events-none absolute inset-y-0 bg-border origin-top"
-                  style={timelineLineStyle}
+                  style={TIMELINE_LINE_STYLE}
                 />
                 {education.map((edu) => (
                   <motion.div
@@ -339,7 +353,9 @@ export function ExperienceTabs({ id = "experience", className }: ExperienceTabsP
                       <span>{edu.period}</span>
                     </div>
 
-                    <p className="mt-3 text-muted-foreground">{edu.description}</p>
+                    <p className="mt-3 text-muted-foreground">
+                      {edu.description}
+                    </p>
 
                     {edu.achievements.length > 0 && (
                       <ul className="mt-3 space-y-1.5">

@@ -14,7 +14,5 @@ export function ThemeProvider({ children }: { children: ReactNode }) {
     });
   }, []);
 
-  return (
-    <MotionConfig reducedMotion="user">{children}</MotionConfig>
-  );
+  return <MotionConfig reducedMotion="user">{children}</MotionConfig>;
 }

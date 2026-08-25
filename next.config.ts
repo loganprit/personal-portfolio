@@ -9,7 +9,7 @@ const nextConfig: NextConfig = {
       {
         protocol: "https",
         hostname: "docs.google.com",
-      }
+      },
     ],
     formats: ["image/avif", "image/webp"],
     deviceSizes: [96, 128, 256, 384],

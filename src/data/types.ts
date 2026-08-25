@@ -24,7 +24,7 @@ export interface CurrentRole {
 export interface SocialLink {
   name: string;
   url: string;
-  icon: string;
+  icon: "github" | "linkedin" | "mail";
 }
 
 export interface PersonalInfo {

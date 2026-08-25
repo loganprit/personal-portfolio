@@ -3,15 +3,14 @@
   "version": "0.1.0",
   "private": true,
   "type": "module",
-  "engines": {
-    "node": ">=20.9.0"
-  },
   "scripts": {
     "dev": "next dev",
     "build": "next build",
     "start": "next start",
-    "lint": "eslint src",
-    "typecheck": "tsc --noEmit",
+    "lint": "oxlint --deny-warnings src",
+    "format": "oxfmt",
+    "format:check": "oxfmt --check",
+    "typecheck": "./node_modules/@typescript/native/bin/tsc --noEmit",
     "doctor": "npx react-doctor@latest"
   },
   "dependencies": {
@@ -27,18 +26,23 @@
     "tailwind-merge": "^3.5.0"
   },
   "devDependencies": {
+    "@oxlint/plugins": "1.80.0",
     "@types/node": "^20",
     "@types/react": "19.2.14",
     "@types/react-dom": "19.2.3",
-    "eslint": "^9.39.3",
-    "eslint-config-next": "16.2.9",
+    "@typescript/native": "npm:typescript@^7.0.2",
+    "oxfmt": "0.65.0",
+    "oxlint": "1.80.0",
     "postcss": "^8.4.47",
     "react-doctor": "^0.9.12",
     "tailwindcss": "^4.2.1",
-    "typescript": "^5"
+    "typescript": "^5.9.3"
   },
   "overrides": {
     "@types/react": "19.2.14",
     "@types/react-dom": "19.2.3"
+  },
+  "engines": {
+    "node": ">=20.9.0"
   }
 }

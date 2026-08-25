@@ -59,11 +59,7 @@ export const experiences: WorkExperience[] = [
       "Developed real-time monitoring systems by integrating PI ProcessBook tags with Excel",
       "Automated chemical usage tracking for refinery-wide chemical management",
     ],
-    technologies: [
-      "Microsoft Excel",
-      "PI ProcessBook",
-      "Petro-SIM",
-    ],
+    technologies: ["Microsoft Excel", "PI ProcessBook", "Petro-SIM"],
     logo: "/logos/valero.svg",
   },
   {
@@ -79,12 +75,7 @@ export const experiences: WorkExperience[] = [
       "Developed and presented research findings through collaborative poster presentations",
       "Conducted zeolite cracking optimization studies to determine ideal production parameters",
     ],
-    technologies: [
-      "GC/MS",
-      "TOC Analyzer",
-      "Catalytic Reactor",
-      "LIMS",
-    ],
+    technologies: ["GC/MS", "TOC Analyzer", "Catalytic Reactor", "LIMS"],
     logo: "/logos/ull.png",
   },
 ];
