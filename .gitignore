@@ -18,6 +18,11 @@ next-env.d.ts
 
 # AI tool configs
 .agents/
+.claude/
 .codex/
 .pi/
+.superpowers/
 .worktrees/
+
+# local scratch files
+/tmp/
