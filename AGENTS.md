@@ -4,7 +4,7 @@ This is a Next.js App Router portfolio. Keep this file limited to stable constra
 
 ## Local Development
 
-- Use Node `>=20.9.0`.
+- Use Node `>=24.0.0`.
 - Do not start `bun dev` automatically. Assume the dev server is already running; if browser validation needs it and it is unavailable, ask Logan to
   start it.
 - Use `$browser-use:browser` for localhost inspection, screenshots, and browser

@@ -27,7 +27,7 @@
   },
   "devDependencies": {
     "@oxlint/plugins": "1.80.0",
-    "@types/node": "^20",
+    "@types/node": "^24",
     "@types/react": "19.2.14",
     "@types/react-dom": "19.2.3",
     "@typescript/native": "npm:typescript@^7.0.2",
@@ -43,6 +43,6 @@
     "@types/react-dom": "19.2.3"
   },
   "engines": {
-    "node": ">=20.9.0"
+    "node": ">=24.0.0"
   }
 }
