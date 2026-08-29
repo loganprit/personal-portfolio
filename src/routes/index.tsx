@@ -7,7 +7,7 @@ import { ExperienceTabsFromSearch } from "@/components/shared/ExperienceTabsFrom
 import { FlipCard } from "@/components/shared/FlipCard";
 import { SiteFooter } from "@/components/shared/SiteFooter";
 import { SplitHero } from "@/components/shared/SplitHero";
-import { getExperienceTimeline } from "@/data/experience.functions";
+import { getExperienceTimelines } from "@/data/experience.functions";
 import { personal } from "@/data/personal";
 import { parseExperienceSearch } from "@/lib/experience";
 
@@ -19,10 +19,7 @@ export const Route = createFileRoute("/")({
   ssr: true,
   staleTime: Infinity,
   loader: () => ({
-    timelines: Promise.all([
-      getExperienceTimeline({ data: { experience: "work" } }),
-      getExperienceTimeline({ data: { experience: "education" } }),
-    ]).then(([work, education]) => ({ work, education })),
+    timelines: getExperienceTimelines(),
   }),
   component: Home,
 });
