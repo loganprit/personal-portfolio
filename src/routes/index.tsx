@@ -3,7 +3,7 @@ import {
   createFileRoute,
   stripSearchParams,
 } from "@tanstack/react-router";
-import { ExperienceTabs } from "@/components/shared/ExperienceTabs";
+import { ExperienceTabsFromSearch } from "@/components/shared/ExperienceTabsFromSearch";
 import { FlipCard } from "@/components/shared/FlipCard";
 import { SiteFooter } from "@/components/shared/SiteFooter";
 import { SplitHero } from "@/components/shared/SplitHero";
@@ -29,7 +29,6 @@ export const Route = createFileRoute("/")({
 
 function Home() {
   const { timelines } = Route.useLoaderData();
-  const { experience } = Route.useSearch();
 
   return (
     <div className="min-h-screen bg-background text-foreground">
@@ -39,13 +38,7 @@ function Home() {
         </SplitHero>
 
         <Await promise={timelines} fallback={<ExperienceFallback />}>
-          {(data) => (
-            <ExperienceTabs
-              timeline={data[experience]}
-              id="experience"
-              className="pt-8 pb-10 sm:pb-14"
-            />
-          )}
+          {(data) => <ExperienceTabsFromSearch timelines={data} />}
         </Await>
 
         <section id="skills" className="py-10 sm:py-14">
