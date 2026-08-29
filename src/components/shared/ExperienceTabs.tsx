@@ -162,14 +162,12 @@ function TimelineLogoMarker({
 
 interface ExperienceTabsProps {
   timeline: ExperienceTimeline;
-  onTabChange: (experience: ExperienceTimeline["experience"]) => void;
   id?: string;
   className?: string;
 }
 
 export function ExperienceTabs({
   timeline,
-  onTabChange,
   id = "experience",
   className,
 }: ExperienceTabsProps) {
@@ -197,7 +195,6 @@ export function ExperienceTabs({
               search={{ experience: tab }}
               replace
               resetScroll={false}
-              onClick={() => onTabChange(tab)}
               className={cn(
                 "relative flex-1 rounded-full py-2 text-center text-sm font-medium z-10 transition-colors",
                 activeTab === tab
