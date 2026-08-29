@@ -6,12 +6,14 @@ import { staggerContainer, staggerItem } from "@/lib/animations";
 import type { ReactNode } from "react";
 
 interface SplitHeroProps {
+  age: number;
   children?: ReactNode;
   id?: string;
   className?: string;
 }
 
 export function SplitHero({
+  age,
   children,
   id = "hero",
   className,
@@ -52,7 +54,7 @@ export function SplitHero({
             variants={staggerItem}
             className="mt-2 text-muted-foreground"
           >
-            {personal.headline}
+            I'm a {age}-year-old {personal.headline}
           </motion.p>
 
           <motion.p

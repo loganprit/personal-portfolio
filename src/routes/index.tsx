@@ -18,19 +18,36 @@ export const Route = createFileRoute("/")({
   },
   ssr: true,
   staleTime: Infinity,
-  loader: () => ({
-    timelines: getExperienceTimelines(),
-  }),
+  loader: () => {
+    const today = new Date();
+    today.setHours(0, 0, 0, 0);
+    const birthDate = new Date(2001, 0, 21);
+
+    return {
+      age:
+        today.getFullYear() -
+        birthDate.getFullYear() -
+        Number(
+          today <
+            new Date(
+              today.getFullYear(),
+              birthDate.getMonth(),
+              birthDate.getDate(),
+            ),
+        ),
+      timelines: getExperienceTimelines(),
+    };
+  },
   component: Home,
 });
 
 function Home() {
-  const { timelines } = Route.useLoaderData();
+  const { age, timelines } = Route.useLoaderData();
 
   return (
     <div className="min-h-screen bg-background text-foreground">
       <main className="overflow-hidden">
-        <SplitHero id="hero">
+        <SplitHero age={age} id="hero">
           <FlipCard />
         </SplitHero>
 
