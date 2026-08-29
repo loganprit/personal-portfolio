@@ -1,6 +1,7 @@
-import { useSearch } from "@tanstack/react-router";
+import { useRouterState } from "@tanstack/react-router";
 import { ExperienceTabs } from "./ExperienceTabs";
 import type { ExperienceTimeline, ExperienceView } from "@/lib/experience";
+import { parseExperienceSearch } from "@/lib/experience";
 
 interface ExperienceTabsFromSearchProps {
   timelines: Record<ExperienceView, ExperienceTimeline>;
@@ -9,7 +10,9 @@ interface ExperienceTabsFromSearchProps {
 export function ExperienceTabsFromSearch({
   timelines,
 }: ExperienceTabsFromSearchProps) {
-  const { experience } = useSearch({ from: "/" });
+  const experience = useRouterState({
+    select: (state) => parseExperienceSearch(state.location.search).experience,
+  });
 
   return (
     <ExperienceTabs
