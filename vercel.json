@@ -1,20 +1,4 @@
 {
-  "version": 2,
-  "framework": "nextjs",
-  "buildCommand": "next build",
-  "devCommand": "next dev",
-  "installCommand": "bun install",
-  "outputDirectory": ".next",
-  "routes": [
-    {
-      "src": "/_next/static/(.*)",
-      "headers": {
-        "cache-control": "public, max-age=31536000, immutable"
-      },
-      "continue": true
-    },
-    {
-      "handle": "filesystem"
-    }
-  ]
+  "$schema": "https://openapi.vercel.sh/vercel.json",
+  "framework": "tanstack-start"
 }

@@ -1,18 +1,23 @@
-"use client";
-
+import { createFileRoute } from "@tanstack/react-router";
 import { motion } from "framer-motion";
 import type { Variants } from "framer-motion";
 import { Send } from "lucide-react";
-import { personal } from "@/data/personal";
 import { SiteFooter } from "@/components/shared/SiteFooter";
+import { personal } from "@/data/personal";
 import { staggerContainer } from "@/lib/animations";
+
+export const Route = createFileRoute("/contact")({
+  ssr: true,
+  head: () => ({ meta: [{ title: "Contact | Logan Pritchett" }] }),
+  component: ContactPage,
+});
 
 const contactFadeItem: Variants = {
   initial: { opacity: 0 },
   animate: { opacity: 1, transition: { duration: 0.5, ease: "easeOut" } },
 };
 
-export default function ContactPage() {
+function ContactPage() {
   return (
     <div className="min-h-screen bg-background text-foreground">
       <main className="min-h-screen pt-36 pb-16 sm:pt-44">

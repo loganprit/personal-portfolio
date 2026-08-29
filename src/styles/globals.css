@@ -2,6 +2,28 @@
 
 @custom-variant dark (&:where(.dark, .dark *));
 
+@font-face {
+  font-family: "Geist";
+  src: url("./fonts/GeistVF.woff") format("woff");
+  font-weight: 100 900;
+  font-style: normal;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: "Geist Mono";
+  src: url("./fonts/GeistMonoVF.woff") format("woff");
+  font-weight: 100 900;
+  font-style: normal;
+  font-display: swap;
+}
+
+:root {
+  --font-geist-sans: "Geist";
+  --font-geist-mono: "Geist Mono";
+  --font-caveat: "Caveat";
+}
+
 /* ── Theme tokens ──────────────────────────────────────── */
 @theme {
   /* Accent (R1 blue) */

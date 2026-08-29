@@ -13,9 +13,10 @@
     ".roo/**",
     ".windsurf/**",
     ".vercel/**",
+    "src/routeTree.gen.ts",
     "tools/oxlint/anti-slop/**"
   ],
-  "plugins": ["typescript", "react", "jsx-a11y", "nextjs"],
+  "plugins": ["typescript", "react", "jsx-a11y"],
   "jsPlugins": [
     {
       "name": "anti-slop",

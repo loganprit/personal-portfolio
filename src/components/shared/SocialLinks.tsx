@@ -1,5 +1,3 @@
-"use client";
-
 import { Github, Linkedin, Mail } from "lucide-react";
 import { personal } from "@/data/personal";
 import { cn } from "@/lib/cn";

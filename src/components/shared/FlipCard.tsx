@@ -1,8 +1,5 @@
-"use client";
-
 import { useState, useEffect, useRef } from "react";
 import { motion, useAnimate, useReducedMotion } from "framer-motion";
-import Image from "next/image";
 import { personal } from "@/data/personal";
 import { flipCardEntrance, flipCardPeek } from "@/lib/animations";
 
@@ -76,12 +73,13 @@ export function FlipCard({ className }: FlipCardProps) {
               aria-hidden={flipped}
               className="absolute inset-0 [backface-visibility:hidden] rounded-2xl overflow-hidden shadow-lg"
             >
-              <Image
+              <img
                 src={personal.avatar}
                 alt={personal.name}
-                fill
-                className="object-cover"
-                sizes="288px"
+                width={288}
+                height={384}
+                fetchPriority="high"
+                className="absolute inset-0 h-full w-full object-cover"
               />
             </div>
 

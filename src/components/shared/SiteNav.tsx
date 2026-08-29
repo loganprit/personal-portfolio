@@ -1,7 +1,4 @@
-"use client";
-
-import Link from "next/link";
-import { usePathname } from "next/navigation";
+import { Link, useRouterState } from "@tanstack/react-router";
 import { ThemeToggle } from "@/components/theme/ThemeToggle";
 import { cn } from "@/lib/cn";
 
@@ -11,7 +8,9 @@ const SECTIONS = [
 ] as const;
 
 export function SiteNav() {
-  const pathname = usePathname();
+  const pathname = useRouterState({
+    select: (state) => state.location.pathname,
+  });
   const activeSection = pathname === "/contact" ? "contact" : "home";
 
   return (
@@ -22,7 +21,7 @@ export function SiteNav() {
             {SECTIONS.map((section) => (
               <Link
                 key={section.id}
-                href={section.href}
+                to={section.href}
                 className={cn(
                   "px-3 py-1.5 text-sm font-medium rounded-full transition-colors whitespace-nowrap",
                   activeSection === section.id

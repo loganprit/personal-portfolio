@@ -1,5 +1,3 @@
-"use client";
-
 import { MotionConfig } from "framer-motion";
 import { useEffect, type ReactNode } from "react";
 

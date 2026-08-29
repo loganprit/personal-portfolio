@@ -1,100 +1,40 @@
 # Personal Portfolio V3
 
-A modern, minimalist portfolio site built with Next.js 16, TypeScript, and Tailwind CSS. Features a responsive design with dark mode support, smooth page transitions, and glass-morphism UI effects.
+Logan Pritchett's portfolio, built with TanStack Start, React, TypeScript, and
+Tailwind CSS.
 
-Want to visit the live site? [Click here](https://loganpritchett.me)
+[Visit the live site](https://loganpritchett.me)
 
 ## Features
 
-- Server-side rendering with Next.js 16
-- Type-safe development with TypeScript
-- Responsive design that adapts to both portrait and landscape orientations
-- Dark mode with smooth theme transitions
-- Glass-morphism UI effects with backdrop blur
-- Animated page transitions using Framer Motion
-- Optimized images and performance metrics with Vercel Analytics
-- PDF resume caching for improved performance
-- Custom scrollbar styling
-- SEO optimized
-
-## Tech Stack
-
-- **Framework**: Next.js 16
-- **Language**: TypeScript
-- **Styling**: Tailwind CSS
-- **Animations**: Framer Motion
-- **Deployment**: Vercel
-- **Analytics**: Vercel Analytics & Speed Insights
-- **Fonts**: Geist Sans & Geist Mono
+- Full-document server rendering with streamed route data
+- File-based, type-safe routing and validated search parameters
+- Responsive light and dark themes without a flash on page load
+- Framer Motion page and timeline animations
+- Cached PDF resume proxy at `/api/resume`
+- Vercel Analytics and Speed Insights
 
 ## Development
 
-```bash
-# Install dependencies
-bun install
+Node 24 or newer and Bun are required.
 
-# Run development server
+```bash
+bun install
 bun dev
 
-# Typecheck
+bun run test
+bun run lint
 bun run typecheck
-
-# Lint
-bun lint
-
-# Build for production
 bun run build
-
-# Start production server
-bun start
 ```
 
-## Project Structure
+## Project structure
 
-- `/src/app/*` - App router pages and layouts
-- `/src/components/*` - Reusable UI components
-- `/src/data/*` - Static data stores
-- `/src/lib/*` - Utility functions and animations
-- `/public/*` - Static assets
+- `src/routes` contains TanStack Router file routes and the document shell.
+- `src/components` contains reusable UI components.
+- `src/data` contains portfolio data and server functions.
+- `src/lib` contains shared types and utilities.
+- `public` contains static assets.
 
-## Performance
-
-- Optimized image loading with next/image
-- PDF caching implementation
-- Static asset optimization
-- Responsive image sizing
-- Code splitting and lazy loading
-
-# Findings
-
-This was my first experience with several modern web technologies:
-
-- Next.js
-
-  - App Router architecture and implementation
-  - Server-side actions and data fetching
-
-- TypeScript
-
-  - Static typing fundamentals
-  - Type-safe development practices
-  - Compile-time error detection
-
-- Tailwind CSS
-
-  - Theme configuration and switching
-  - Integration with styled-jsx for custom styling
-
-- Framer Motion
-
-  - Custom animation development
-  - Page transition effects
-
-- Vercel Platform
-  - Deployment workflow optimization
-  - Analytics and Speed Insights integration
-  - Performance monitoring and optimization
-
-## License
-
-No license file is currently included.
+Vite builds the app through Nitro for the deployment runtime. The route and
+server-function code does not depend on Vercel-specific request APIs.
