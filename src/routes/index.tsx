@@ -13,19 +13,22 @@ import { parseExperienceSearch } from "@/lib/experience";
 
 export const Route = createFileRoute("/")({
   validateSearch: parseExperienceSearch,
-  loaderDeps: ({ search }) => ({ experience: search.experience }),
   search: {
     middlewares: [stripSearchParams({ experience: "work" })],
   },
   ssr: true,
-  loader: ({ deps }) => ({
-    timeline: getExperienceTimeline({ data: deps }),
+  staleTime: Infinity,
+  loader: () => ({
+    timelines: Promise.all([
+      getExperienceTimeline({ data: { experience: "work" } }),
+      getExperienceTimeline({ data: { experience: "education" } }),
+    ]).then(([work, education]) => ({ work, education })),
   }),
   component: Home,
 });
 
 function Home() {
-  const { timeline } = Route.useLoaderData();
+  const { timelines } = Route.useLoaderData();
   const { experience } = Route.useSearch();
 
   return (
@@ -35,14 +38,10 @@ function Home() {
           <FlipCard />
         </SplitHero>
 
-        <Await
-          key={experience}
-          promise={timeline}
-          fallback={<ExperienceFallback />}
-        >
+        <Await promise={timelines} fallback={<ExperienceFallback />}>
           {(data) => (
             <ExperienceTabs
-              timeline={data}
+              timeline={data[experience]}
               id="experience"
               className="pt-8 pb-10 sm:pb-14"
             />
