@@ -4,9 +4,10 @@
   "private": true,
   "type": "module",
   "scripts": {
-    "dev": "next dev",
-    "build": "next build",
-    "start": "next start",
+    "dev": "vite dev",
+    "build": "vite build",
+    "start": "node .output/server/index.mjs",
+    "test": "node --experimental-strip-types src/lib/experience.test.ts",
     "lint": "oxlint --deny-warnings src",
     "format": "oxfmt",
     "format:check": "oxfmt --check",
@@ -14,29 +15,32 @@
     "doctor": "npx react-doctor@latest"
   },
   "dependencies": {
-    "@tailwindcss/postcss": "^4.2.1",
+    "@fontsource/caveat": "5.3.0",
+    "@tanstack/react-router": "1.170.32",
+    "@tanstack/react-start": "1.168.49",
     "@vercel/analytics": "^1.4.1",
     "@vercel/speed-insights": "^1.1.0",
     "clsx": "^2.1.1",
     "framer-motion": "^12.34.3",
     "lucide-react": "^0.575.0",
-    "next": "16.2.9",
     "react": "19.2.4",
     "react-dom": "19.2.4",
     "tailwind-merge": "^3.5.0"
   },
   "devDependencies": {
     "@oxlint/plugins": "1.80.0",
+    "@tailwindcss/vite": "4.3.3",
     "@types/node": "^24",
     "@types/react": "19.2.14",
     "@types/react-dom": "19.2.3",
     "@typescript/native": "npm:typescript@^7.0.2",
+    "@vitejs/plugin-react": "6.1.1",
+    "nitro": "3.0.260610-beta",
     "oxfmt": "0.65.0",
     "oxlint": "1.80.0",
-    "postcss": "^8.4.47",
     "react-doctor": "^0.9.12",
-    "tailwindcss": "^4.2.1",
-    "typescript": "^5.9.3"
+    "tailwindcss": "4.3.3",
+    "vite": "8.2.2"
   },
   "overrides": {
     "@types/react": "19.2.14",

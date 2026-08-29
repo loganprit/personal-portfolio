@@ -1,6 +1,6 @@
 # Repository Guardrails
 
-This is a Next.js App Router portfolio. Keep this file limited to stable constraints that are easy to miss; discover scripts, structure, and ordinary style rules from the repo.
+This is a TanStack Start portfolio. Keep this file limited to stable constraints that are easy to miss; discover scripts, structure, and ordinary style rules from the repo.
 
 ## Local Development
 
@@ -14,7 +14,7 @@ This is a Next.js App Router portfolio. Keep this file limited to stable constra
 ## Portfolio Landmines
 
 - Treat `src/lib/theme-script.ts`, `src/components/theme/ThemeProvider.tsx`, and
-  `src/app/layout.tsx` as sensitive theme boot code. Preserve the pre-hydration
+  `src/routes/__root.tsx` as sensitive theme boot code. Preserve the pre-hydration
   theme script, `suppressHydrationWarning`, and mobile `--vh` handling unless an
   equivalent no-FOUC replacement is included.
 - Keep resume links pointed at `/api/resume`. The API route owns the upstream

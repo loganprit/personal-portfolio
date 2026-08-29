@@ -4,8 +4,10 @@
   "ignorePatterns": [
     ".gitignore",
     ".codex/**",
-    ".next/**",
+    ".impeccable/**",
+    ".output/**",
     ".vercel/**",
+    "src/routeTree.gen.ts",
     "tools/oxlint/anti-slop/**"
   ]
 }

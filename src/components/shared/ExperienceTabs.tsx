@@ -1,22 +1,15 @@
-"use client";
-
-import { useState } from "react";
 import { motion, AnimatePresence } from "framer-motion";
-import Image from "next/image";
 import { MapPin, Briefcase, GraduationCap } from "lucide-react";
-import { currentRole } from "@/data/current-role";
-import { experiences } from "@/data/work-history";
-import { education } from "@/data/education";
+import { Link } from "@tanstack/react-router";
 import { TechBadge } from "./TechBadge";
 import { cn } from "@/lib/cn";
+import type { ExperienceTimeline } from "@/lib/experience";
 import {
   tabContent,
   timelineLine,
   staggerContainer,
   staggerItem,
 } from "@/lib/animations";
-
-type Tab = "work" | "education";
 
 const TIMELINE_MARKER_SIZE_PX = 53;
 const TIMELINE_MARKER_OFFSET_PX = -27.5;
@@ -120,21 +113,6 @@ const TIMELINE_LINE_STYLE = {
   width: `${TIMELINE_LINE_WIDTH_PX}px`,
 };
 
-const WORK_GROUPS = groupConsecutiveWorkEntries([
-  {
-    title: currentRole.title,
-    company: currentRole.company,
-    location: currentRole.location,
-    period: currentRole.period,
-    description: currentRole.description,
-    achievements: Array<string>(),
-    technologies: currentRole.technologies,
-    logo: currentRole.logo,
-    logoFill: currentRole.logoFill,
-  },
-  ...experiences,
-]);
-
 interface TimelineLogoMarkerProps {
   label: string;
   logo?: string;
@@ -163,11 +141,13 @@ function TimelineLogoMarker({
       }}
     >
       {logo ? (
-        <Image
+        <img
           src={logo}
           alt={`${label} logo`}
           width={TIMELINE_MARKER_SIZE_PX}
           height={TIMELINE_MARKER_SIZE_PX}
+          loading="lazy"
+          decoding="async"
           className={cn(
             "h-full w-full",
             logoFill ? "object-cover" : "object-contain p-1",
@@ -181,15 +161,27 @@ function TimelineLogoMarker({
 }
 
 interface ExperienceTabsProps {
+  timeline: ExperienceTimeline;
   id?: string;
   className?: string;
 }
 
 export function ExperienceTabs({
+  timeline,
   id = "experience",
   className,
 }: ExperienceTabsProps) {
-  const [activeTab, setActiveTab] = useState<Tab>("work");
+  const activeTab = timeline.experience;
+  const workGroups =
+    timeline.experience === "work"
+      ? groupConsecutiveWorkEntries([
+          {
+            ...timeline.currentRole,
+            achievements: [],
+          },
+          ...timeline.entries,
+        ])
+      : [];
 
   return (
     <section id={id} className={cn("", className)}>
@@ -197,10 +189,12 @@ export function ExperienceTabs({
         {/* Sliding pill toggle */}
         <div className="flex rounded-full bg-muted p-1 mb-6">
           {(["work", "education"] as const).map((tab) => (
-            <button
+            <Link
               key={tab}
-              type="button"
-              onClick={() => setActiveTab(tab)}
+              to="/"
+              search={{ experience: tab }}
+              replace
+              resetScroll={false}
               className={cn(
                 "relative flex-1 rounded-full py-2 text-sm font-medium z-10 transition-colors",
                 activeTab === tab
@@ -217,13 +211,13 @@ export function ExperienceTabs({
                   transition={{ type: "spring", bounce: 0.2, duration: 0.5 }}
                 />
               )}
-            </button>
+            </Link>
           ))}
         </div>
 
         {/* Tab content */}
         <AnimatePresence mode="wait">
-          {activeTab === "work" ? (
+          {timeline.experience === "work" ? (
             <motion.div
               key="work"
               variants={tabContent}
@@ -247,7 +241,7 @@ export function ExperienceTabs({
                   className="pointer-events-none absolute inset-y-0 bg-border origin-top"
                   style={TIMELINE_LINE_STYLE}
                 />
-                {WORK_GROUPS.map((group) => {
+                {workGroups.map((group) => {
                   const [primaryRole, ...previousRoles] = group.roles;
 
                   return (
@@ -326,7 +320,7 @@ export function ExperienceTabs({
                   className="pointer-events-none absolute inset-y-0 bg-border origin-top"
                   style={TIMELINE_LINE_STYLE}
                 />
-                {education.map((edu) => (
+                {timeline.entries.map((edu) => (
                   <motion.div
                     key={`${edu.institution}-${edu.period}`}
                     variants={staggerItem}

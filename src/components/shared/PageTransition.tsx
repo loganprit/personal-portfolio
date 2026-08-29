@@ -1,7 +1,5 @@
-"use client";
-
 import { motion } from "framer-motion";
-import { usePathname } from "next/navigation";
+import { useRouterState } from "@tanstack/react-router";
 import type { ReactNode } from "react";
 
 interface PageTransitionProps {
@@ -9,7 +7,9 @@ interface PageTransitionProps {
 }
 
 export function PageTransition({ children }: PageTransitionProps) {
-  const pathname = usePathname();
+  const pathname = useRouterState({
+    select: (state) => state.location.pathname,
+  });
   const x = pathname === "/contact" ? 72 : -48;
 
   return (
