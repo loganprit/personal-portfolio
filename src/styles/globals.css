@@ -1148,6 +1148,12 @@ body {
   }
 }
 
+@media (max-width: 360px) {
+  .manual-mark {
+    display: none;
+  }
+}
+
 .dark .field-manual {
   --manual-paper: #10284c;
   --manual-paper-deep: #0b203e;
