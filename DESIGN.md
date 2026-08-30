@@ -4,7 +4,7 @@ description: A personally owned cobalt field manual for Logan's engineering work
 colors:
   manual-navy: "#071a3a"
   manual-spine: "#061630"
-  manual-cobalt: "#146cff"
+  manual-cobalt: "#0757dc"
   manual-cobalt-hover: "#0757dc"
   manual-cobalt-dark: "#6aa3ff"
   manual-paper: "#edf0ed"
@@ -63,13 +63,13 @@ typography:
     lineHeight: 1.65
   label:
     fontFamily: "Courier Prime, ui-monospace, monospace"
-    fontSize: "0.72rem"
+    fontSize: "0.75rem"
     fontWeight: 500
     lineHeight: 1.35
     letterSpacing: "0.08em"
   caption:
     fontFamily: "Courier Prime, ui-monospace, monospace"
-    fontSize: "clamp(0.58rem, 0.7vw, 0.72rem)"
+    fontSize: "0.75rem"
     fontWeight: 400
     lineHeight: 1.35
     letterSpacing: "0.09em"

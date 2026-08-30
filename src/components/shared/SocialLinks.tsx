@@ -28,7 +28,7 @@ export function SocialLinks({
             href={link.url}
             target={link.url.startsWith("mailto:") ? undefined : "_blank"}
             rel="noopener noreferrer"
-            className="rounded-lg p-2 text-muted-foreground transition-colors hover:text-foreground hover:bg-muted"
+            className="grid min-h-11 min-w-11 place-items-center rounded-lg text-muted-foreground transition-colors hover:text-foreground hover:bg-muted"
             aria-label={link.name}
           >
             <Icon className={iconSize} />
