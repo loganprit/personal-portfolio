@@ -24,8 +24,7 @@ export const Route = createRootRoute({
       { charSet: "utf-8" },
       {
         name: "viewport",
-        content:
-          "width=device-width, initial-scale=1.0, viewport-fit=cover, maximum-scale=1",
+        content: "width=device-width, initial-scale=1.0, viewport-fit=cover",
       },
       { name: "darkreader-lock", content: "" },
       { name: "color-scheme", content: "light dark" },

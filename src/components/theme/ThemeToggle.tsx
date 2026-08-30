@@ -71,7 +71,7 @@ export function ThemeToggle({ className }: { className?: string }) {
       type="button"
       onClick={cycle}
       className={cn(
-        "h-9 w-9 rounded-lg p-2 transition-colors hover:bg-muted",
+        "h-11 w-11 rounded-lg p-3 transition-colors hover:bg-muted",
         className,
       )}
       aria-label={

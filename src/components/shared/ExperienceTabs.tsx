@@ -196,7 +196,7 @@ export function ExperienceTabs({
               replace
               resetScroll={false}
               className={cn(
-                "relative flex-1 rounded-full py-2 text-center text-sm font-medium z-10 transition-colors",
+                "relative flex min-h-11 flex-1 items-center justify-center rounded-full px-2 text-center text-sm font-medium z-10 transition-colors",
                 activeTab === tab
                   ? "text-foreground"
                   : "text-muted-foreground hover:text-foreground",

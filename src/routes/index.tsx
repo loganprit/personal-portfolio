@@ -51,7 +51,7 @@ function Home() {
           <div className="manual-sheet">
             <div className="manual-paper" aria-hidden="true" />
             <div className="manual-copy">
-              <p className="manual-stamp">
+              <p className="manual-stamp" aria-hidden="true">
                 Field manual
                 <span>LP—01</span>
               </p>
@@ -156,7 +156,9 @@ function Home() {
             <ul className="manual-skills">
               {personal.skills.map((skill, index) => (
                 <li key={skill}>
-                  <span>{String(index + 1).padStart(2, "0")}</span>
+                  <span aria-hidden="true">
+                    {String(index + 1).padStart(2, "0")}
+                  </span>
                   {skill}
                 </li>
               ))}
