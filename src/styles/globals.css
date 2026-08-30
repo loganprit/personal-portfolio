@@ -6,6 +6,8 @@
   --font-geist-sans: "Courier Prime";
   --font-geist-mono: "Courier Prime";
   --font-caveat: "Caveat";
+  /* Essential field-manual labels and metadata never render below this step. */
+  --manual-text-small: 0.75rem;
 }
 
 /* ── Theme tokens ──────────────────────────────────────── */
@@ -130,8 +132,6 @@ body {
   --manual-ink: #0c214e;
   --manual-graphite: #747f8f;
   --manual-red: #b4324f;
-  /* Essential labels and metadata never render below this step. */
-  --manual-text-small: 0.75rem;
   min-height: 100vh;
   background: var(--manual-navy);
   color: var(--manual-ink);
@@ -599,6 +599,11 @@ body {
   color: white;
 }
 
+.dark .manual-routes a:hover,
+.dark .manual-routes a:hover > span {
+  color: var(--manual-navy);
+}
+
 .manual-routes svg {
   width: 1.2rem;
   height: 1.2rem;
@@ -687,6 +692,10 @@ body {
 
 .manual-timeline > div > div:first-child > a:has(> div) {
   color: white;
+}
+
+.dark .manual-timeline > div > div:first-child > a:has(> div) {
+  color: var(--manual-navy);
 }
 
 .manual-timeline > div > div:first-child > a > div {
@@ -924,7 +933,7 @@ body {
   flex: 1;
   color: var(--color-muted-foreground);
   font-family: var(--font-geist-mono), ui-monospace, monospace;
-  font-size: 0.72rem;
+  font-size: var(--manual-text-small);
   letter-spacing: 0.08em;
   text-align: center;
   text-transform: uppercase;
@@ -956,7 +965,7 @@ body {
 
   .manual-spine > p {
     margin: 0 1rem;
-    font-size: 0.68rem;
+    font-size: var(--manual-text-small);
   }
 
   .manual-spine-links {
@@ -1049,7 +1058,7 @@ body {
     justify-items: start;
     gap: 0.3rem;
     padding: 0.7rem;
-    font-size: 0.7rem;
+    font-size: var(--manual-text-small);
   }
 
   .manual-routes a > span {
