@@ -1204,6 +1204,10 @@ body {
   color: var(--manual-navy);
 }
 
+.dark .manual-contact-actions > a:hover {
+  background: #8fb8ff;
+}
+
 .dark .manual-section,
 .dark .manual-timeline {
   border-color: rgb(255 255 255 / 16%);
