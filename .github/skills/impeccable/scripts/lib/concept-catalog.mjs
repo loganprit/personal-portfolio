@@ -170,7 +170,6 @@ export function conceptContentHash(concept) {
   ].join('\n');
   return crypto.createHash('sha256').update(payload).digest('hex').slice(0, 12);
 }
-
 export function readConceptCatalog(catalogPath, reviewsPath) {
   const catalog = JSON.parse(readFileSync(catalogPath, 'utf8'));
   const reviewData = JSON.parse(readFileSync(reviewsPath, 'utf8'));
@@ -393,4 +392,3 @@ export function approvedPoolRevision(concepts) {
     .join('\n');
   return crypto.createHash('sha256').update(payload).digest('hex').slice(0, 12);
 }
-
