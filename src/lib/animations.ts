@@ -24,22 +24,3 @@ export const tabContent: Variants = {
   animate: { opacity: 1, y: 0, transition: { duration: 0.3 } },
   exit: { opacity: 0, y: -10, transition: { duration: 0.2 } },
 };
-
-export const flipCardEntrance: Variants = {
-  initial: { opacity: 0, rotateY: -90, scale: 0.8 },
-  animate: {
-    opacity: 1,
-    rotateY: 0,
-    scale: 1,
-    transition: { duration: 0.8, ease: [0.21, 1.02, 0.73, 0.97] },
-  },
-};
-
-export const flipCardPeek = {
-  rotateY: [0, 15, -10, 5, 0],
-  transition: {
-    duration: 0.8,
-    ease: "easeInOut" as const,
-    times: [0, 0.3, 0.55, 0.8, 1],
-  },
-};

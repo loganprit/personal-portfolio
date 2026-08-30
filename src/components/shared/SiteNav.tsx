@@ -1,41 +1,45 @@
 import { Link, useRouterState } from "@tanstack/react-router";
 import { ThemeToggle } from "@/components/theme/ThemeToggle";
-import { cn } from "@/lib/cn";
 
-const SECTIONS = [
-  { label: "Home", id: "home", href: "/" },
-  { label: "Contact", id: "contact", href: "/contact" },
+const HOME_SECTIONS = [
+  { label: "Index", href: "#hero" },
+  { label: "Plates", href: "#experience" },
+  { label: "Notes", href: "#story" },
+  { label: "Appendix", href: "#skills" },
 ] as const;
 
 export function SiteNav() {
   const pathname = useRouterState({
     select: (state) => state.location.pathname,
   });
-  const activeSection = pathname === "/contact" ? "contact" : "home";
+
+  if (pathname === "/") {
+    return (
+      <nav className="manual-spine" aria-label="Field manual index">
+        <a href="#hero" className="manual-mark" aria-label="Back to top">
+          <img src="/favicon-source.svg" alt="" width={42} height={42} />
+        </a>
+        <p>Cobalt field manual</p>
+        <div className="manual-spine-links">
+          {HOME_SECTIONS.map((section) => (
+            <a key={section.href} href={section.href}>
+              {section.label}
+            </a>
+          ))}
+        </div>
+        <span className="manual-edition">LP—01</span>
+        <ThemeToggle className="manual-theme-toggle" />
+      </nav>
+    );
+  }
 
   return (
-    <nav className="fixed top-0 left-0 right-0 z-40">
-      <div className="max-w-3xl mx-auto">
-        <div className="bg-card/80 backdrop-blur-xl border border-border rounded-full mx-4 mt-6 px-6 py-3 flex items-center justify-between">
-          <div className="flex items-center gap-8 overflow-x-auto scrollbar-hide">
-            {SECTIONS.map((section) => (
-              <Link
-                key={section.id}
-                to={section.href}
-                className={cn(
-                  "px-3 py-1.5 text-sm font-medium rounded-full transition-colors whitespace-nowrap",
-                  activeSection === section.id
-                    ? "text-accent dark:text-accent-light bg-accent/10"
-                    : "text-muted-foreground hover:text-foreground",
-                )}
-              >
-                {section.label}
-              </Link>
-            ))}
-          </div>
-          <ThemeToggle className="ml-2 shrink-0" />
-        </div>
-      </div>
+    <nav className="site-nav" aria-label="Primary navigation">
+      <Link to="/" search={{ experience: "work" }}>
+        Index
+      </Link>
+      <span>Contact plate</span>
+      <ThemeToggle />
     </nav>
   );
 }

@@ -3,10 +3,10 @@ import {
   createFileRoute,
   stripSearchParams,
 } from "@tanstack/react-router";
+import { ArrowRight, FileText } from "lucide-react";
 import { ExperienceTabsFromSearch } from "@/components/shared/ExperienceTabsFromSearch";
-import { FlipCard } from "@/components/shared/FlipCard";
 import { SiteFooter } from "@/components/shared/SiteFooter";
-import { SplitHero } from "@/components/shared/SplitHero";
+import { SocialLinks } from "@/components/shared/SocialLinks";
 import { getExperienceTimelines } from "@/data/experience.functions";
 import { personal } from "@/data/personal";
 import { parseExperienceSearch } from "@/lib/experience";
@@ -45,36 +45,142 @@ function Home() {
   const { age, timelines } = Route.useLoaderData();
 
   return (
-    <div className="min-h-screen bg-background text-foreground">
-      <main className="overflow-hidden">
-        <SplitHero age={age} id="hero">
-          <FlipCard />
-        </SplitHero>
+    <div className="field-manual min-h-screen">
+      <main>
+        <section id="hero" className="manual-hero" aria-labelledby="name">
+          <div className="manual-sheet">
+            <div className="manual-paper" aria-hidden="true" />
+            <div className="manual-copy">
+              <p className="manual-stamp">
+                Field manual
+                <span>LP—01</span>
+              </p>
+              <h1 id="name" className="manual-name">
+                <span>Logan</span>
+                <span>Pritchett</span>
+              </h1>
+              <p className="manual-role">{personal.title}</p>
+              <p className="manual-thesis">{personal.shortBio}</p>
+            </div>
 
-        <Await promise={timelines} fallback={<ExperienceFallback />}>
-          {(data) => <ExperienceTabsFromSearch timelines={data} />}
-        </Await>
+            <figure className="manual-portrait">
+              <img
+                src={personal.avatar}
+                alt="Logan Pritchett smiling in a blue-lit room"
+                width={953}
+                height={953}
+                fetchPriority="high"
+              />
+              <div className="portrait-frame" aria-hidden="true" />
+              <div className="portrait-registration" aria-hidden="true">
+                <i />
+                <i />
+                <i />
+                <i />
+              </div>
+              <figcaption>
+                <span>Plate LP—01</span>
+                <span>Portrait / verified</span>
+              </figcaption>
+              <div className="portrait-notes" aria-hidden="true">
+                <span>focus</span>
+                <span>ship</span>
+                <span>iterate</span>
+              </div>
+              <div className="portrait-calibration" aria-hidden="true">
+                <strong>CAL 1.0</strong>
+                <span>verify assumptions</span>
+              </div>
+            </figure>
 
-        <section id="skills" className="py-10 sm:py-14">
-          <div className="max-w-3xl mx-auto px-4 sm:px-6">
-            <h2 className="text-2xl font-bold text-foreground mb-6">
-              Skills &amp; Technologies
-            </h2>
-            <div className="flex flex-wrap gap-2.5">
-              {personal.skills.map((skill) => (
-                <span
-                  key={skill}
-                  className="rounded-full border border-border bg-card px-4 py-2 text-sm font-medium text-foreground"
-                >
-                  {skill}
-                </span>
-              ))}
+            <nav className="manual-routes" aria-label="Portfolio sections">
+              <a href="#experience">
+                <span>01</span>
+                Work
+                <ArrowRight aria-hidden="true" />
+              </a>
+              <a href="#story">
+                <span>02</span>
+                Story
+                <ArrowRight aria-hidden="true" />
+              </a>
+              <a href="#contact">
+                <span>03</span>
+                Contact
+                <ArrowRight aria-hidden="true" />
+              </a>
+              <a href={personal.resumeUrl}>
+                <FileText aria-hidden="true" />
+                Resume
+              </a>
+            </nav>
+
+            <div className="manual-index-tabs" aria-hidden="true">
+              <span>01</span>
+              <span>02</span>
+              <span>03</span>
+              <span>R</span>
             </div>
           </div>
         </section>
 
-        <div className="max-w-3xl mx-auto px-4 pb-16 pt-10 sm:px-6 sm:pt-14">
-          <SiteFooter />
+        <div className="manual-sections">
+          <Await promise={timelines} fallback={<ExperienceFallback />}>
+            {(data) => (
+              <ExperienceTabsFromSearch
+                timelines={data}
+                className="manual-timeline"
+              />
+            )}
+          </Await>
+
+          <section id="story" className="manual-section story-sheet">
+            <header className="manual-section-heading">
+              <h2>The route here wasn’t linear.</h2>
+              <span>Age {age} · Orange, Texas</span>
+            </header>
+            <div className="story-ledger">
+              {personal.bio.map((item) => (
+                <article key={item.label}>
+                  <h3>{item.label}</h3>
+                  <p>{item.description}</p>
+                </article>
+              ))}
+            </div>
+          </section>
+
+          <section id="skills" className="manual-section skills-sheet">
+            <header className="manual-section-heading">
+              <h2>Tools I reach for.</h2>
+            </header>
+            <ul className="manual-skills">
+              {personal.skills.map((skill, index) => (
+                <li key={skill}>
+                  <span>{String(index + 1).padStart(2, "0")}</span>
+                  {skill}
+                </li>
+              ))}
+            </ul>
+          </section>
+
+          <section id="contact" className="manual-section contact-sheet">
+            <div>
+              <h2>Have a hard problem worth solving?</h2>
+              <p>
+                I’m always interested in thoughtful engineering work, useful
+                tools, and the people building them.
+              </p>
+            </div>
+            <div className="manual-contact-actions">
+              <a href={`mailto:${personal.email}`}>
+                Email Logan
+                <ArrowRight aria-hidden="true" />
+              </a>
+              <SocialLinks />
+            </div>
+          </section>
+
+          <SiteFooter className="manual-footer" />
         </div>
       </main>
     </div>
@@ -87,12 +193,9 @@ function ExperienceFallback() {
       id="experience"
       aria-busy="true"
       aria-label="Loading experience"
-      className="pt-8 pb-10 sm:pb-14"
+      className="manual-section manual-loading"
     >
-      <div className="max-w-3xl mx-auto px-4 sm:px-6">
-        <div className="h-11 animate-pulse rounded-full bg-muted motion-reduce:animate-none" />
-        <div className="mt-6 h-72 animate-pulse rounded-2xl bg-muted motion-reduce:animate-none" />
-      </div>
+      <p>Opening work plates…</p>
     </section>
   );
 }
