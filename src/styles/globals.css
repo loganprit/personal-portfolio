@@ -175,6 +175,11 @@ body {
   height: 3.4rem;
 }
 
+.manual-mark[aria-current="location"] {
+  background: rgb(20 108 255 / 20%);
+  box-shadow: inset -3px 0 #6aa3ff;
+}
+
 .manual-spine > p {
   margin: 2rem 1.55rem 1.5rem;
   color: white;
@@ -218,6 +223,12 @@ body {
 
 .manual-spine-links a:hover {
   background: rgb(20 108 255 / 12%);
+  color: white;
+}
+
+.manual-spine-links a[aria-current="location"] {
+  background: rgb(20 108 255 / 20%);
+  box-shadow: inset 3px 0 #6aa3ff;
   color: white;
 }
 
@@ -990,8 +1001,7 @@ body {
   }
 
   .manual-spine > p {
-    margin: 0 1rem;
-    font-size: var(--manual-text-small);
+    display: none;
   }
 
   .manual-spine-links {
@@ -1004,6 +1014,7 @@ body {
   .manual-spine-links a {
     min-width: 3.2rem;
     min-height: 0;
+    flex: 1;
     border-top: 0;
     border-left: 1px solid rgb(255 255 255 / 16%);
     writing-mode: horizontal-tb;
@@ -1012,6 +1023,14 @@ body {
 
   .manual-spine-links a:last-child {
     border-bottom: 0;
+  }
+
+  .manual-spine-links a[aria-current="location"] {
+    box-shadow: inset 0 -3px #6aa3ff;
+  }
+
+  .manual-mark[aria-current="location"] {
+    box-shadow: inset 0 -3px #6aa3ff;
   }
 
   .manual-edition {
@@ -1038,6 +1057,7 @@ body {
   .manual-copy {
     position: relative;
     inset: auto;
+    order: 1;
     width: auto;
     margin: 2.85rem 7% 0;
   }
@@ -1064,9 +1084,10 @@ body {
   .manual-portrait {
     position: relative;
     inset: auto;
+    order: 3;
     width: auto;
     height: 20rem;
-    margin: 2rem 7% 9rem;
+    margin: 2rem 7% 2.85rem;
   }
 
   .manual-portrait img {
@@ -1074,9 +1095,11 @@ body {
   }
 
   .manual-routes {
-    right: 7%;
-    bottom: 3.5%;
-    left: 7%;
+    position: relative;
+    inset: auto;
+    order: 2;
+    width: auto;
+    margin: 1.5rem 7% 0;
     grid-template-columns: repeat(4, 1fr);
   }
 
@@ -1140,10 +1163,6 @@ body {
 }
 
 @media (max-width: 560px) {
-  .manual-spine > p {
-    display: none;
-  }
-
   .manual-mark {
     width: 3.8rem;
   }
@@ -1157,10 +1176,6 @@ body {
 
   .manual-theme-toggle {
     margin-inline: 0.25rem;
-  }
-
-  .manual-spine-links {
-    flex: 1;
   }
 
   .manual-section-heading {
