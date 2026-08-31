@@ -4,12 +4,7 @@ This is a TanStack Start portfolio. Keep this file limited to stable constraints
 
 ## Local Development
 
-- Use Node `>=24.0.0`.
-- Do not start `bun dev` automatically. Assume the dev server is already running; if browser validation needs it and it is unavailable, ask Logan to
-  start it.
-- Use `$browser-use:browser` for localhost inspection, screenshots, and browser
-  interaction. Prefer it over Playwright, Computer Use, or shell-launched
-  browsers unless it is unavailable or explicitly unsuitable.
+- Start or reuse `bun dev` when browser validation needs the site.
 
 ## Portfolio Landmines
 
@@ -22,10 +17,3 @@ This is a TanStack Start portfolio. Keep this file limited to stable constraints
   flow.
 - Treat `tmp/` as scratch/vendor material, not production source, unless a task
   explicitly says otherwise.
-
-## Task Workflows
-
-- For portfolio UI, content, or theme changes, use the local
-  `portfolio-guidelines` skill when available.
-- Before claiming portfolio work is complete, use the local `verify` skill when
-  available and report the automated commands that passed.

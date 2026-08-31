@@ -376,6 +376,32 @@ body {
   line-height: 1.65;
 }
 
+.manual-evidence {
+  display: grid;
+  max-width: 47ch;
+  gap: 0.55rem;
+  margin: 1.3rem 0 0;
+  padding: 0;
+  color: #17294e;
+  font-size: var(--manual-text-small);
+  line-height: 1.45;
+  list-style: none;
+}
+
+.manual-evidence li {
+  display: flex;
+  gap: 0.65rem;
+}
+
+.manual-evidence li::before {
+  content: "";
+  flex: 0 0 auto;
+  width: 0.45rem;
+  height: 0.45rem;
+  margin-top: 0.3rem;
+  background: var(--manual-cobalt);
+}
+
 .manual-portrait {
   position: absolute;
   top: 4.8%;
@@ -1116,6 +1142,11 @@ body {
     display: none;
   }
 
+  .manual-portrait {
+    top: calc(52% + 0.25rem);
+    height: 33%;
+  }
+
   .manual-mark {
     width: 3.8rem;
   }
@@ -1193,6 +1224,7 @@ body {
 }
 
 .dark .manual-thesis,
+.dark .manual-evidence,
 .dark .manual-timeline p,
 .dark .manual-timeline div[class*="text-muted"],
 .dark .story-ledger p,

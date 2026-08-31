@@ -46,7 +46,7 @@ function WorkRoleBody({ entry }: { entry: WorkEntry }) {
 
       {entry.achievements.length > 0 && (
         <ul className="mt-3 space-y-1.5">
-          {entry.achievements.map((achievement) => (
+          {entry.achievements.slice(0, 3).map((achievement) => (
             <li
               key={achievement}
               className="text-sm text-muted-foreground flex gap-2"
@@ -59,12 +59,6 @@ function WorkRoleBody({ entry }: { entry: WorkEntry }) {
           ))}
         </ul>
       )}
-
-      <div className="flex flex-wrap gap-1.5 mt-4">
-        {entry.technologies.map((tech) => (
-          <TechBadge key={tech} name={tech} />
-        ))}
-      </div>
     </>
   );
 }
@@ -243,6 +237,11 @@ export function ExperienceTabs({
                 />
                 {workGroups.map((group) => {
                   const [primaryRole, ...previousRoles] = group.roles;
+                  const technologies = [
+                    ...new Set(
+                      group.roles.flatMap((role) => role.technologies),
+                    ),
+                  ];
 
                   return (
                     <motion.div
@@ -291,6 +290,12 @@ export function ExperienceTabs({
                           ))}
                         </div>
                       )}
+
+                      <div className="flex flex-wrap gap-1.5 mt-4">
+                        {technologies.map((tech) => (
+                          <TechBadge key={tech} name={tech} />
+                        ))}
+                      </div>
                     </motion.div>
                   );
                 })}
