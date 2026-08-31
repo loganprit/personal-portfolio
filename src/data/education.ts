@@ -27,12 +27,11 @@ export const education: Education[] = [
   },
   {
     institution: "University of Louisiana at Lafayette",
-    degree: "B.S. Chemical Engineering",
-    field: "Engineering",
+    degree: "Chemical Engineering",
     location: "Lafayette, LA",
     period: "AUGUST 2018 — DECEMBER 2022",
     description:
-      "Studied Chemical Engineering with hands-on research experience at the Energy Institute of Louisiana, later transitioned to software engineering.",
+      "Studied chemical engineering and conducted hands-on Energy Institute research through December 2022 before transitioning to software engineering.",
     achievements: [
       "Research apprentice studying bio-oil catalytic conversion using proprietary GC/MS reactor integration",
       "Operated and maintained GC/MS and Shimadzu TOC analytical instruments",

@@ -8,7 +8,7 @@ export const personal: PersonalInfo = {
   email: "logan.pritchett01@gmail.com",
   avatar: "/images/profile.jpg",
   shortBio:
-    "Full-stack with a bias toward backend by profession, macOS and terminal applications by passion. I'm also playing around with building agents.",
+    "Full-stack engineer with a bias toward backend systems. I build macOS apps, terminal tools, and agents for fun.",
   resumeUrl: "/api/resume",
   socials: [
     {

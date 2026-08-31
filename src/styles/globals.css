@@ -399,6 +399,20 @@ body {
   list-style: none;
 }
 
+.manual-evidence-label {
+  margin: 1.3rem 0 0;
+  color: var(--manual-cobalt);
+  font-size: var(--manual-text-small);
+  font-weight: 650;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+}
+
+.manual-evidence--compact,
+.manual-routes .manual-route-mobile {
+  display: none;
+}
+
 .manual-evidence li {
   display: flex;
   gap: 0.65rem;
@@ -742,8 +756,8 @@ body {
   box-shadow: none;
 }
 
-.manual-timeline h4,
-.manual-timeline h5 {
+.manual-timeline h3,
+.manual-timeline h4 {
   color: var(--manual-ink);
   font-family: var(--font-geist-mono), ui-monospace, monospace;
 }
@@ -1048,18 +1062,20 @@ body {
   }
 
   .manual-sheet {
-    display: flex;
-    flex-direction: column;
-    min-height: 57rem;
+    display: grid;
+    grid-template-columns: minmax(0, 1fr) minmax(14rem, 31%);
+    grid-template-rows: 1fr auto;
+    min-height: max(38rem, calc(100svh - 5.85rem));
     border-radius: 0.35rem 0.9rem 0.9rem 0.35rem;
   }
 
   .manual-copy {
     position: relative;
     inset: auto;
-    order: 1;
+    grid-column: 1;
+    grid-row: 1;
     width: auto;
-    margin: 2.85rem 7% 0;
+    margin: 2.85rem 0 2rem 7%;
   }
 
   .manual-stamp {
@@ -1084,10 +1100,11 @@ body {
   .manual-portrait {
     position: relative;
     inset: auto;
-    order: 3;
+    grid-column: 2;
+    grid-row: 1;
     width: auto;
-    height: 20rem;
-    margin: 2rem 7% 2.85rem;
+    height: clamp(15rem, 36vw, 22rem);
+    margin: 2.85rem 7% 0 1.5rem;
   }
 
   .manual-portrait img {
@@ -1097,9 +1114,10 @@ body {
   .manual-routes {
     position: relative;
     inset: auto;
-    order: 2;
+    grid-column: 1 / -1;
+    grid-row: 2;
     width: auto;
-    margin: 1.5rem 7% 0;
+    margin: 1.5rem 7% 3rem;
     grid-template-columns: repeat(4, 1fr);
   }
 
@@ -1163,6 +1181,121 @@ body {
 }
 
 @media (max-width: 560px) {
+  .manual-sheet {
+    grid-template-columns: minmax(0, 1fr) clamp(6.5rem, 31vw, 7.25rem);
+    grid-template-rows: auto auto;
+    min-height: 0;
+  }
+
+  .manual-copy {
+    grid-column: 1;
+    grid-row: 1;
+    margin: 2rem 0 0 7%;
+  }
+
+  .manual-name {
+    font-size: clamp(2rem, 9vw, 2.7rem);
+  }
+
+  .manual-thesis {
+    max-width: none;
+    font-size: 0.75rem;
+    line-height: 1.45;
+  }
+
+  .manual-evidence-label {
+    margin-top: 1rem;
+    font-size: 0.65rem;
+  }
+
+  .manual-evidence--full {
+    display: none;
+  }
+
+  .manual-evidence--compact {
+    display: grid;
+    gap: 0.5rem;
+    margin-top: 0.5rem;
+    font-size: 0.67rem;
+    line-height: 1.35;
+  }
+
+  .manual-portrait {
+    grid-column: 2;
+    grid-row: 1;
+    width: auto;
+    height: auto;
+    aspect-ratio: 1;
+    margin: 2rem 0 0;
+  }
+
+  .manual-portrait figcaption {
+    font-size: 0.58rem;
+  }
+
+  .portrait-caption-detail {
+    display: none;
+  }
+
+  .portrait-frame::before,
+  .portrait-frame::after {
+    display: none;
+  }
+
+  .portrait-notes,
+  .portrait-calibration {
+    display: none;
+  }
+
+  .manual-routes {
+    grid-column: 1 / -1;
+    grid-row: 2;
+    grid-template-columns: minmax(0, 1.2fr) minmax(0, 1fr);
+    margin: 1.5rem 7% 2rem;
+  }
+
+  .manual-routes .manual-route-desktop {
+    display: none;
+  }
+
+  .manual-routes .manual-route-mobile {
+    display: grid;
+    min-height: 3.4rem;
+    grid-template-columns: auto 1fr auto;
+    justify-items: initial;
+    align-items: center;
+    gap: 0.5rem;
+    padding: 0.75rem;
+    white-space: nowrap;
+  }
+
+  .manual-route-mobile svg {
+    display: block;
+    width: 1.1rem;
+    height: 1.1rem;
+  }
+
+  .manual-route-primary {
+    background: var(--manual-cobalt);
+    color: white;
+  }
+
+  .manual-route-primary:hover {
+    background: var(--manual-cobalt);
+  }
+
+  .dark .manual-route-primary {
+    color: var(--manual-navy);
+  }
+
+  .dark .manual-route-primary:hover {
+    color: var(--manual-navy);
+  }
+
+  .manual-route-mobile:last-child {
+    border-right: 0;
+  }
+
   .manual-mark {
     width: 3.8rem;
   }
@@ -1192,6 +1325,22 @@ body {
 }
 
 @media (max-width: 360px) {
+  .manual-copy {
+    margin-top: 1.5rem;
+  }
+
+  .manual-stamp {
+    display: none;
+  }
+
+  .manual-portrait {
+    margin-top: 1.5rem;
+  }
+
+  .manual-routes {
+    margin-top: 0.5rem;
+  }
+
   .manual-mark {
     display: none;
   }

@@ -45,6 +45,12 @@ typography:
     fontWeight: 520
     lineHeight: 0.93
     letterSpacing: "-0.035em"
+  displayCompact:
+    fontFamily: "Courier Prime, ui-monospace, monospace"
+    fontSize: "clamp(2rem, 9vw, 2.7rem)"
+    fontWeight: 520
+    lineHeight: 0.93
+    letterSpacing: "-0.035em"
   headline:
     fontFamily: "Courier Prime, ui-monospace, monospace"
     fontSize: "clamp(2rem, 4vw, 4rem)"
@@ -67,12 +73,29 @@ typography:
     fontWeight: 500
     lineHeight: 1.35
     letterSpacing: "0.08em"
+  labelCompact:
+    fontFamily: "Courier Prime, ui-monospace, monospace"
+    fontSize: "0.65rem"
+    fontWeight: 500
+    lineHeight: 1.35
+    letterSpacing: "0.08em"
   caption:
     fontFamily: "Courier Prime, ui-monospace, monospace"
     fontSize: "0.75rem"
     fontWeight: 400
     lineHeight: 1.35
     letterSpacing: "0.09em"
+  captionCompact:
+    fontFamily: "Courier Prime, ui-monospace, monospace"
+    fontSize: "0.58rem"
+    fontWeight: 400
+    lineHeight: 1.35
+    letterSpacing: "0.09em"
+  bodyCompact:
+    fontFamily: "Courier Prime, ui-monospace, monospace"
+    fontSize: "0.67rem"
+    fontWeight: 400
+    lineHeight: 1.35
   handwritten:
     fontFamily: "Caveat, cursive"
     fontSize: "clamp(0.82rem, 1.2vw, 1.15rem)"
@@ -226,7 +249,7 @@ The light manual state maps to Manual Navy, Light Paper, Light Ink, Light Graphi
 
 ### Hierarchy
 
-- **Display** (520, `clamp(3rem, 6.2vw, 6rem)`, line-height 0.93, letter-spacing -0.035em): The two-line Logan Pritchett identity on the opening sheet; the mobile range tightens to `clamp(2.7rem, 11vw, 4.5rem)`.
+- **Display** (520, `clamp(3rem, 6.2vw, 6rem)`, line-height 0.93, letter-spacing -0.035em): The two-line Logan Pritchett identity on the opening sheet; the compact phone range tightens to `clamp(2rem, 9vw, 2.7rem)`.
 - **Headline** (520, `clamp(2rem, 4vw, 4rem)`, line-height 1): Section titles such as “The route here wasn’t linear.” and “Tools I reach for.”
 - **Title** (600, `clamp(1.05rem, 1.7vw, 1.55rem)`): The role line and compact local hierarchy anchors.
 - **Body** (400, 1rem, line-height 1.65): Thesis copy, story ledger text, and reading descriptions. Contact compatibility copy remains 1.125rem with 1.5 line-height.
@@ -246,7 +269,7 @@ The desktop composition is an open dossier anchored by a fixed 9rem spine. The h
 
 Below the hero, experience, story, skills, and contact are separate ruled paper plates capped at 76rem. Plates use a `clamp(2rem, 5vw, 5rem)` interior pad, a 3rem inter-plate rhythm, and a final footer gutter. Experience keeps a narrow reading structure inside the plate: a full-width Work/Education switch, a two-pixel timeline, 53px markers, source-backed role details, and compact technology labels. Story uses three ledger columns on wide screens; skills use a three-column ruled index; contact pairs a wide prompt with a right-aligned action.
 
-At 900px and below, the spine translates to a 4.6rem horizontal header, the hero loses its left offset, and the sheet becomes a stacked field notebook with a 57rem minimum height. The copy becomes a full-width upper field, the portrait moves to `top: 46%` with 7% side insets and 36% height, and the four route cells remain visible in a four-column strip. At 560px and below, the spine label disappears, navigation labels tighten, section headings stack, skills become one column, and contact actions align to the start. No route depends on horizontal scrolling.
+At 900px and below, the spine translates to a 4.6rem horizontal header and the hero loses its left offset. The sheet becomes a two-column field notebook: copy leads, a medium portrait occupies the trailing column, and the four route cells close the sheet. At 560px and below, the portrait tightens to a 6.5–7.5rem square beside the identity, compact evidence replaces the full result copy, and the duplicated route strip becomes `View resume` plus `Email Logan`. The portrait keeps its frame, corner registration, and `LP—01` caption while hiding its crosshair and micro-annotations. At 360px and below, the sheet stamp and header mark yield enough vertical and horizontal space for the actions to remain in the first viewport. Section headings stack, skills become one column, and contact actions align to the start. No route depends on horizontal scrolling.
 
 ## Elevation & Depth
 
@@ -274,8 +297,8 @@ The home/manual route strip is square and ruled, not pill-shaped. The retained `
 
 ### Buttons
 
-- **Shape:** Manual route actions and the Email Logan action are square cobalt blocks with no pill radius. The action height is 3.4rem with 0.8rem 1.2rem padding.
-- **Primary:** Cobalt background, light manual text, Courier Prime title treatment, and an inline arrow for route movement.
+- **Shape:** Manual route actions and the Email Logan action are square with no pill radius. Standard actions are 3.4rem high with 0.8rem 1.2rem padding; the compact phone pair uses 0.75rem padding.
+- **Primary:** On phones, View resume is the cobalt primary action while Email Logan remains a quieter paper action. Both use the Courier Prime title treatment and an inline icon for movement or file intent.
 - **Hover / Focus:** Route cells fill with cobalt and invert to light text. The contact action deepens to Manual Cobalt Hover. Manual focus is a visible three-pixel ring with a three-pixel offset; reduced motion removes movement rather than removing focus.
 - **Compatibility:** `/contact` retains the existing inverted action: 3.5rem height, 0.375rem corner, semantic foreground/card inversion by theme, and the shared small control shadow.
 

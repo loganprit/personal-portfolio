@@ -10,7 +10,7 @@ import { SocialLinks } from "@/components/shared/SocialLinks";
 import { currentRole } from "@/data/current-role";
 import { getExperienceTimelines } from "@/data/experience.functions";
 import { personal } from "@/data/personal";
-import { experiences } from "@/data/work-history";
+import { experiences, selectedFloqastOutcomes } from "@/data/work-history";
 import { parseExperienceSearch } from "@/lib/experience";
 
 const floqastEvidence =
@@ -53,11 +53,20 @@ function Home() {
                 {currentRole.title} · {currentRole.company}
               </p>
               <p className="manual-thesis">{personal.shortBio}</p>
+              <p className="manual-evidence-label">Selected outcomes</p>
               <ul
-                className="manual-evidence"
+                className="manual-evidence manual-evidence--full"
                 aria-label="Selected FloQast results"
               >
                 {floqastEvidence.map((achievement) => (
+                  <li key={achievement}>{achievement}</li>
+                ))}
+              </ul>
+              <ul
+                className="manual-evidence manual-evidence--compact"
+                aria-label="Selected FloQast results"
+              >
+                {selectedFloqastOutcomes.map((achievement) => (
                   <li key={achievement}>{achievement}</li>
                 ))}
               </ul>
@@ -79,8 +88,10 @@ function Home() {
                 <i />
               </div>
               <figcaption>
-                <span>Plate LP—01</span>
-                <span>Portrait / verified</span>
+                <span>LP—01</span>
+                <span className="portrait-caption-detail">
+                  Portrait / verified
+                </span>
               </figcaption>
               <div className="portrait-notes" aria-hidden="true">
                 <span>focus</span>
@@ -93,25 +104,39 @@ function Home() {
               </div>
             </figure>
 
-            <nav className="manual-routes" aria-label="Portfolio sections">
-              <a href="#experience">
+            <nav className="manual-routes" aria-label="Portfolio routes">
+              <a className="manual-route-desktop" href="#experience">
                 <span>01</span>
                 Work
                 <ArrowRight aria-hidden="true" />
               </a>
-              <a href="#story">
+              <a className="manual-route-desktop" href="#story">
                 <span>02</span>
                 Story
                 <ArrowRight aria-hidden="true" />
               </a>
-              <a href="#contact">
+              <a className="manual-route-desktop" href="#contact">
                 <span>03</span>
                 Contact
                 <ArrowRight aria-hidden="true" />
               </a>
-              <a href={personal.resumeUrl}>
+              <a className="manual-route-desktop" href={personal.resumeUrl}>
                 <FileText aria-hidden="true" />
                 Resume
+              </a>
+              <a
+                className="manual-route-mobile manual-route-primary"
+                href={personal.resumeUrl}
+              >
+                <FileText aria-hidden="true" />
+                View resume
+              </a>
+              <a
+                className="manual-route-mobile"
+                href={`mailto:${personal.email}`}
+              >
+                Email Logan
+                <ArrowRight aria-hidden="true" />
               </a>
             </nav>
 
