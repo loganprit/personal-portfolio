@@ -1029,15 +1029,17 @@ body {
   }
 
   .manual-sheet {
+    display: flex;
+    flex-direction: column;
     min-height: 57rem;
     border-radius: 0.35rem 0.9rem 0.9rem 0.35rem;
   }
 
   .manual-copy {
-    top: 5%;
-    right: 7%;
-    left: 7%;
+    position: relative;
+    inset: auto;
     width: auto;
+    margin: 2.85rem 7% 0;
   }
 
   .manual-stamp {
@@ -1060,11 +1062,11 @@ body {
   }
 
   .manual-portrait {
-    top: 46%;
-    right: 7%;
-    left: 7%;
+    position: relative;
+    inset: auto;
     width: auto;
-    height: 36%;
+    height: 20rem;
+    margin: 2rem 7% 9rem;
   }
 
   .manual-portrait img {
@@ -1140,11 +1142,6 @@ body {
 @media (max-width: 560px) {
   .manual-spine > p {
     display: none;
-  }
-
-  .manual-portrait {
-    top: calc(52% + 0.25rem);
-    height: 33%;
   }
 
   .manual-mark {
