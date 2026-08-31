@@ -246,7 +246,7 @@ body {
 .manual-sheet {
   position: relative;
   isolation: isolate;
-  min-height: calc(100vh - 1.5rem);
+  min-height: max(50rem, calc(100vh - 1.5rem));
   overflow: hidden;
   border-radius: 0.5rem 1.35rem 1.35rem 0.5rem;
   background-color: var(--manual-paper);
