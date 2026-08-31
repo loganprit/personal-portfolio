@@ -7,9 +7,16 @@ import { ArrowRight, FileText } from "lucide-react";
 import { ExperienceTabsFromSearch } from "@/components/shared/ExperienceTabsFromSearch";
 import { SiteFooter } from "@/components/shared/SiteFooter";
 import { SocialLinks } from "@/components/shared/SocialLinks";
+import { currentRole } from "@/data/current-role";
 import { getExperienceTimelines } from "@/data/experience.functions";
 import { personal } from "@/data/personal";
+import { experiences } from "@/data/work-history";
 import { parseExperienceSearch } from "@/lib/experience";
+
+const floqastEvidence =
+  experiences
+    .find(({ company }) => company === currentRole.company)
+    ?.achievements.slice(1, 3) ?? [];
 
 export const Route = createFileRoute("/")({
   validateSearch: parseExperienceSearch,
@@ -19,30 +26,13 @@ export const Route = createFileRoute("/")({
   ssr: true,
   staleTime: Infinity,
   loader: () => {
-    const today = new Date();
-    today.setHours(0, 0, 0, 0);
-    const birthDate = new Date(2001, 0, 21);
-
-    return {
-      age:
-        today.getFullYear() -
-        birthDate.getFullYear() -
-        Number(
-          today <
-            new Date(
-              today.getFullYear(),
-              birthDate.getMonth(),
-              birthDate.getDate(),
-            ),
-        ),
-      timelines: getExperienceTimelines(),
-    };
+    return { timelines: getExperienceTimelines() };
   },
   component: Home,
 });
 
 function Home() {
-  const { age, timelines } = Route.useLoaderData();
+  const { timelines } = Route.useLoaderData();
 
   return (
     <div className="field-manual min-h-screen">
@@ -59,8 +49,18 @@ function Home() {
                 <span>Logan</span>
                 <span>Pritchett</span>
               </h1>
-              <p className="manual-role">{personal.title}</p>
+              <p className="manual-role">
+                {currentRole.title} · {currentRole.company}
+              </p>
               <p className="manual-thesis">{personal.shortBio}</p>
+              <ul
+                className="manual-evidence"
+                aria-label="Selected FloQast results"
+              >
+                {floqastEvidence.map((achievement) => (
+                  <li key={achievement}>{achievement}</li>
+                ))}
+              </ul>
             </div>
 
             <figure className="manual-portrait">
@@ -137,7 +137,7 @@ function Home() {
           <section id="story" className="manual-section story-sheet">
             <header className="manual-section-heading">
               <h2>The route here wasn’t linear.</h2>
-              <span>Age {age} · Orange, Texas</span>
+              <span>Orange, Texas · Chemical engineering to software</span>
             </header>
             <div className="story-ledger">
               {personal.bio.map((item) => (
