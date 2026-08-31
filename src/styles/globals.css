@@ -1275,20 +1275,20 @@ body {
     height: 1.1rem;
   }
 
-  .manual-route-primary {
+  .manual-routes a.manual-route-primary {
     background: var(--manual-cobalt);
     color: white;
   }
 
-  .manual-route-primary:hover {
+  .manual-routes a.manual-route-primary:hover {
     background: var(--manual-cobalt);
   }
 
-  .dark .manual-route-primary {
+  .dark .manual-routes a.manual-route-primary {
     color: var(--manual-navy);
   }
 
-  .dark .manual-route-primary:hover {
+  .dark .manual-routes a.manual-route-primary:hover {
     color: var(--manual-navy);
   }
 
