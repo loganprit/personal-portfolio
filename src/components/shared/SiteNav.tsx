@@ -18,7 +18,7 @@ export function SiteNav() {
   useEffect(() => {
     if (pathname !== "/") return;
 
-    const updateActiveSection = () => {
+    const updateActiveSection = (honorHash = false) => {
       const atBottom =
         window.scrollY > 0 &&
         window.scrollY + window.innerHeight >=
@@ -30,9 +30,9 @@ export function SiteNav() {
           element.getBoundingClientRect().top <= window.innerHeight * 0.3
         );
       });
-      const linkedSection = HOME_SECTIONS.find(
-        ({ id }) => window.location.hash === `#${id}`,
-      );
+      const linkedSection = honorHash
+        ? HOME_SECTIONS.find(({ id }) => window.location.hash === `#${id}`)
+        : undefined;
       const linkedBounds =
         linkedSection &&
         document.getElementById(linkedSection.id)?.getBoundingClientRect();
@@ -42,14 +42,17 @@ export function SiteNav() {
       setActiveSection(atBottom ? bottomSection : (section?.id ?? "hero"));
     };
 
-    updateActiveSection();
-    window.addEventListener("scroll", updateActiveSection, { passive: true });
-    window.addEventListener("resize", updateActiveSection);
-    window.addEventListener("hashchange", updateActiveSection);
+    const updateFromViewport = () => updateActiveSection();
+    const updateFromHash = () => updateActiveSection(true);
+
+    updateFromHash();
+    window.addEventListener("scroll", updateFromViewport, { passive: true });
+    window.addEventListener("resize", updateFromViewport);
+    window.addEventListener("hashchange", updateFromHash);
     return () => {
-      window.removeEventListener("scroll", updateActiveSection);
-      window.removeEventListener("resize", updateActiveSection);
-      window.removeEventListener("hashchange", updateActiveSection);
+      window.removeEventListener("scroll", updateFromViewport);
+      window.removeEventListener("resize", updateFromViewport);
+      window.removeEventListener("hashchange", updateFromHash);
     };
   }, [pathname]);
 

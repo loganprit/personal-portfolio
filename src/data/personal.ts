@@ -5,7 +5,7 @@ export const personal: PersonalInfo = {
   title: "Software Engineer",
   headline: "software engineer based in Orange, Texas",
   location: "Remote",
-  email: "logan.pritchett01@gmail.com",
+  email: "contact@loganpritchett.me",
   avatar: "/images/profile.jpg",
   shortBio:
     "Full-stack engineer with a bias toward backend systems. I build macOS apps, terminal tools, and agents for fun.",
@@ -23,7 +23,7 @@ export const personal: PersonalInfo = {
     },
     {
       name: "Email",
-      url: "mailto:logan.pritchett01@gmail.com",
+      url: "mailto:contact@loganpritchett.me",
       icon: "mail",
     },
   ],

@@ -47,6 +47,16 @@ try {
       browser("click", `.manual-spine a[href="#${id}"]`);
       checkActive(id);
     }
+    if (width === 1203) {
+      browser("click", '.manual-spine a[href="#story"]');
+      checkActive("story");
+      browser("eval", "window.scrollTo(0, Math.max(0, window.scrollY - 100))");
+      browser(
+        "eval",
+        "window.scrollTo(0, document.documentElement.scrollHeight)",
+      );
+      checkActive("contact");
+    }
     // Manual scrolling must update selection independently of the URL hash.
     browser(
       "eval",

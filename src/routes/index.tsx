@@ -36,10 +36,6 @@ function Home() {
           <div className="manual-sheet">
             <div className="manual-paper" aria-hidden="true" />
             <div className="manual-copy">
-              <p className="manual-stamp" aria-hidden="true">
-                Field manual
-                <span>LP—01</span>
-              </p>
               <h1 id="name" className="manual-name">
                 <span>Logan</span>
                 <span>Pritchett</span>
@@ -69,7 +65,7 @@ function Home() {
                   GitHub
                 </a>
               </nav>
-              <p className="manual-evidence-label">Selected outcomes</p>
+              <p className="manual-evidence-label">At FloQast</p>
               <ul
                 className="manual-evidence"
                 aria-label="Selected FloQast results"
@@ -153,7 +149,6 @@ function Home() {
                 Email Logan
                 <ArrowRight aria-hidden="true" />
               </a>
-              <p className="manual-email-address">{personal.email}</p>
               <SocialLinks />
             </div>
           </section>
