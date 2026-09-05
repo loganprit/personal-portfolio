@@ -1,5 +1,10 @@
 import type { WorkExperience } from "./types";
 
+export const selectedFloqastOutcomes = [
+  "Led a backend test migration that ran roughly 40× faster",
+  "Contributed to a 91% YoY reduction in open Close Engineering defects",
+];
+
 export const experiences: WorkExperience[] = [
   {
     title: "Software Engineer I",

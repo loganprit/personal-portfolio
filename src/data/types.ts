@@ -44,7 +44,7 @@ export interface PersonalInfo {
 export interface Education {
   institution: string;
   degree: string;
-  field: string;
+  field?: string;
   location: string;
   period: string;
   description: string;

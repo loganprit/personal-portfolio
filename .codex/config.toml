@@ -1,3 +1,4 @@
+model = "gpt-6-astra"
 suppress_unstable_features_warning = true
 
 [features]
