@@ -18,7 +18,7 @@ export const personal: PersonalInfo = {
     },
     {
       name: "LinkedIn",
-      url: "https://linkedin.com/in/loganpritchett",
+      url: "https://www.linkedin.com/in/logan-pritchett/",
       icon: "linkedin",
     },
     {
