@@ -190,7 +190,7 @@ components:
 
 The hero background has square corners. The mobile name scales with viewport width and stays centered beside the portrait. Experience, Story, Skills, and Contact share the same heading scale and section padding.
 
-The current branch revises the dossier composition after visual feedback. A horizontal header, centered content, a smaller square portrait, and Geist display/body text replace the vertical spine and typewriter-led hero. Courier Prime remains for metadata. Cobalt, navy, paper texture, and ruled sections remain; portrait calibration marks and decorative metal tabs are removed. The CSS is the source of truth for the revised responsive values; the original specification below records the preceding design.
+The current branch revises the dossier composition after visual feedback. A horizontal header, centered content, a smaller square portrait, and Space Grotesk display/body text replace the vertical spine and typewriter-led hero. Courier Prime remains for navigation, the experience toggle, and metadata. Cobalt, navy, paper texture, and ruled sections remain; portrait calibration marks and decorative metal tabs are removed. The CSS is the source of truth for the revised responsive values; the original specification below records the preceding design.
 
 ## Overview
 

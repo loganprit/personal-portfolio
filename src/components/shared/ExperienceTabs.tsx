@@ -1,15 +1,9 @@
-import { motion, AnimatePresence, useReducedMotion } from "framer-motion";
+import { motion, useReducedMotion } from "framer-motion";
 import { MapPin, Briefcase, GraduationCap } from "lucide-react";
 import { Link } from "@tanstack/react-router";
 import { TechBadge } from "./TechBadge";
 import { cn } from "@/lib/cn";
 import type { ExperienceTimeline } from "@/lib/experience";
-import {
-  tabContent,
-  timelineLine,
-  staggerContainer,
-  staggerItem,
-} from "@/lib/animations";
 
 const TIMELINE_MARKER_SIZE_PX = 53;
 const TIMELINE_MARKER_OFFSET_PX = -27.5;
@@ -207,9 +201,6 @@ export function ExperienceTabs({
 }: ExperienceTabsProps) {
   const activeTab = timeline.experience;
   const prefersReducedMotion = useReducedMotion() ?? false;
-  const motionInitial = prefersReducedMotion ? false : "initial";
-  const motionAnimate = prefersReducedMotion ? undefined : "animate";
-  const motionExit = prefersReducedMotion ? undefined : "exit";
   const workGroups =
     timeline.experience === "work"
       ? groupConsecutiveWorkEntries([
@@ -260,64 +251,69 @@ export function ExperienceTabs({
         </div>
 
         {/* Tab content */}
-        <AnimatePresence initial={false} mode="wait">
-          {timeline.experience === "work" ? (
-            <motion.div
-              key="work"
-              variants={tabContent}
-              initial={motionInitial}
-              animate={motionAnimate}
-              exit={motionExit}
-            >
-              <motion.div
-                variants={staggerContainer}
-                initial={motionInitial}
-                whileInView={motionAnimate}
-                viewport={{ once: true }}
-                className="manual-experience-list relative ml-6"
-              >
-                <motion.div
-                  aria-hidden="true"
-                  variants={timelineLine}
-                  initial={motionInitial}
-                  whileInView={motionAnimate}
-                  viewport={{ once: true }}
-                  className="manual-experience-rail pointer-events-none absolute inset-y-0 bg-border origin-top"
-                  style={TIMELINE_LINE_STYLE}
-                />
-                {workGroups.map((group, groupIndex) => {
-                  const [primaryRole, ...previousRoles] = group.roles;
-                  const technologies = [
-                    ...new Set(
-                      group.roles.flatMap((role) => role.technologies),
-                    ),
-                  ];
-                  const isCurrentRoleGroup = groupIndex === 0;
+        {timeline.experience === "work" ? (
+          <div key="work">
+            <div className="manual-experience-list relative ml-6">
+              <div
+                aria-hidden="true"
+                className="manual-experience-rail pointer-events-none absolute inset-y-0 bg-border origin-top"
+                style={TIMELINE_LINE_STYLE}
+              />
+              {workGroups.map((group, groupIndex) => {
+                const [primaryRole, ...previousRoles] = group.roles;
+                const technologies = [
+                  ...new Set(group.roles.flatMap((role) => role.technologies)),
+                ];
+                const isCurrentRoleGroup = groupIndex === 0;
 
-                  return (
-                    <motion.div
-                      key={`${group.company}-${group.location}-${primaryRole.period}`}
-                      variants={staggerItem}
-                      className={cn(
-                        "manual-experience-item relative z-10 pl-10 pb-8 last:pb-0",
-                        isCurrentRoleGroup
-                          ? "manual-experience-current"
-                          : "manual-experience-earlier",
-                      )}
-                    >
-                      <TimelineLogoMarker
-                        label={group.company}
-                        logo={group.logo}
-                        logoFill={group.logoFill}
-                      />
+                return (
+                  <div
+                    key={`${group.company}-${group.location}-${primaryRole.period}`}
+                    className={cn(
+                      "manual-experience-item relative z-10 pl-10 pb-8 last:pb-0",
+                      isCurrentRoleGroup
+                        ? "manual-experience-current"
+                        : "manual-experience-earlier",
+                    )}
+                  >
+                    <TimelineLogoMarker
+                      label={group.company}
+                      logo={group.logo}
+                      logoFill={group.logoFill}
+                    />
 
-                      {isCurrentRoleGroup ? (
-                        <>
-                          <h3 className="text-lg font-bold text-foreground">
+                    {isCurrentRoleGroup ? (
+                      <>
+                        <h3 className="text-lg font-bold text-foreground">
+                          {primaryRole.title}
+                        </h3>
+
+                        <div className="manual-experience-meta flex flex-wrap items-center gap-x-4 gap-y-1 mt-1 text-sm text-muted-foreground">
+                          <span className="inline-flex items-center gap-1">
+                            <Briefcase className="h-3.5 w-3.5" />
+                            {group.company}
+                          </span>
+                          <span className="inline-flex items-center gap-1">
+                            <MapPin className="h-3.5 w-3.5" />
+                            {group.location}
+                          </span>
+                          <span>{primaryRole.period}</span>
+                        </div>
+
+                        <WorkGroupContent
+                          primaryRole={primaryRole}
+                          previousRoles={previousRoles}
+                          technologies={technologies}
+                        />
+                      </>
+                    ) : (
+                      <details className="manual-experience-earlier-details">
+                        <summary className="manual-experience-earlier-summary min-h-11">
+                          <span className="manual-experience-earlier-title text-lg font-bold text-foreground">
                             {primaryRole.title}
-                          </h3>
+                          </span>
 
-                          <div className="manual-experience-meta flex flex-wrap items-center gap-x-4 gap-y-1 mt-1 text-sm text-muted-foreground">
+                          <span className="manual-experience-meta flex flex-wrap items-center gap-x-4 gap-y-1 mt-1 text-sm text-muted-foreground">
                             <span className="inline-flex items-center gap-1">
                               <Briefcase className="h-3.5 w-3.5" />
                               {group.company}
@@ -327,128 +323,85 @@ export function ExperienceTabs({
                               {group.location}
                             </span>
                             <span>{primaryRole.period}</span>
-                          </div>
+                          </span>
+                        </summary>
 
-                          <WorkGroupContent
-                            primaryRole={primaryRole}
-                            previousRoles={previousRoles}
-                            technologies={technologies}
-                          />
-                        </>
-                      ) : (
-                        <details className="manual-experience-earlier-details">
-                          <summary className="manual-experience-earlier-summary min-h-11">
-                            <span className="manual-experience-earlier-title text-lg font-bold text-foreground">
-                              {primaryRole.title}
-                            </span>
-
-                            <span className="manual-experience-meta flex flex-wrap items-center gap-x-4 gap-y-1 mt-1 text-sm text-muted-foreground">
-                              <span className="inline-flex items-center gap-1">
-                                <Briefcase className="h-3.5 w-3.5" />
-                                {group.company}
-                              </span>
-                              <span className="inline-flex items-center gap-1">
-                                <MapPin className="h-3.5 w-3.5" />
-                                {group.location}
-                              </span>
-                              <span>{primaryRole.period}</span>
-                            </span>
-                          </summary>
-
-                          <WorkGroupContent
-                            primaryRole={primaryRole}
-                            previousRoles={previousRoles}
-                            technologies={technologies}
-                          />
-                        </details>
-                      )}
-                    </motion.div>
-                  );
-                })}
-              </motion.div>
-            </motion.div>
-          ) : (
-            <motion.div
-              key="education"
-              variants={tabContent}
-              initial={motionInitial}
-              animate={motionAnimate}
-              exit={motionExit}
-            >
-              <motion.div
-                variants={staggerContainer}
-                initial={motionInitial}
-                whileInView={motionAnimate}
-                viewport={{ once: true }}
-                className="manual-experience-list relative ml-6"
-              >
-                <motion.div
-                  aria-hidden="true"
-                  variants={timelineLine}
-                  initial={motionInitial}
-                  whileInView={motionAnimate}
-                  viewport={{ once: true }}
-                  className="manual-experience-rail pointer-events-none absolute inset-y-0 bg-border origin-top"
-                  style={TIMELINE_LINE_STYLE}
-                />
-                {timeline.entries.map((edu) => (
-                  <motion.div
-                    key={`${edu.institution}-${edu.period}`}
-                    variants={staggerItem}
-                    className="manual-experience-item relative z-10 pl-10 pb-8 last:pb-0"
-                  >
-                    <TimelineLogoMarker
-                      label={edu.institution}
-                      logo={edu.logo}
-                      logoFill={edu.logoFill}
-                    />
-
-                    <h3 className="text-lg font-bold text-foreground">
-                      {edu.degree}
-                      {edu.field && ` — ${edu.field}`}
-                    </h3>
-                    <div className="flex flex-wrap items-center gap-x-4 gap-y-1 mt-1 text-sm text-muted-foreground">
-                      <span className="inline-flex items-center gap-1">
-                        <GraduationCap className="h-3.5 w-3.5" />
-                        {edu.institution}
-                      </span>
-                      <span className="inline-flex items-center gap-1">
-                        <MapPin className="h-3.5 w-3.5" />
-                        {edu.location}
-                      </span>
-                      <span>{edu.period}</span>
-                    </div>
-
-                    <p className="mt-3 text-muted-foreground">
-                      {edu.description}
-                    </p>
-
-                    {edu.achievements.length > 0 && (
-                      <ul className="mt-3 space-y-1.5">
-                        {edu.achievements.map((achievement) => (
-                          <li
-                            key={achievement}
-                            className="text-sm text-muted-foreground flex gap-2"
-                          >
-                            <span className="text-accent dark:text-accent-light shrink-0">
-                              &bull;
-                            </span>
-                            {achievement}
-                          </li>
-                        ))}
-                      </ul>
+                        <WorkGroupContent
+                          primaryRole={primaryRole}
+                          previousRoles={previousRoles}
+                          technologies={technologies}
+                        />
+                      </details>
                     )}
-                    <div className="flex flex-wrap gap-1.5 mt-4">
-                      {edu.technologies.map((tech) => (
-                        <TechBadge key={tech} name={tech} />
+                  </div>
+                );
+              })}
+            </div>
+          </div>
+        ) : (
+          <div key="education">
+            <div className="manual-experience-list relative ml-6">
+              <div
+                aria-hidden="true"
+                className="manual-experience-rail pointer-events-none absolute inset-y-0 bg-border origin-top"
+                style={TIMELINE_LINE_STYLE}
+              />
+              {timeline.entries.map((edu) => (
+                <div
+                  key={`${edu.institution}-${edu.period}`}
+                  className="manual-experience-item relative z-10 pl-10 pb-8 last:pb-0"
+                >
+                  <TimelineLogoMarker
+                    label={edu.institution}
+                    logo={edu.logo}
+                    logoFill={edu.logoFill}
+                  />
+
+                  <h3 className="text-lg font-bold text-foreground">
+                    {edu.degree}
+                    {edu.field && ` — ${edu.field}`}
+                  </h3>
+                  <div className="flex flex-wrap items-center gap-x-4 gap-y-1 mt-1 text-sm text-muted-foreground">
+                    <span className="inline-flex items-center gap-1">
+                      <GraduationCap className="h-3.5 w-3.5" />
+                      {edu.institution}
+                    </span>
+                    <span className="inline-flex items-center gap-1">
+                      <MapPin className="h-3.5 w-3.5" />
+                      {edu.location}
+                    </span>
+                    <span>{edu.period}</span>
+                  </div>
+
+                  <p className="mt-3 text-muted-foreground">
+                    {edu.description}
+                  </p>
+
+                  {edu.achievements.length > 0 && (
+                    <ul className="mt-3 space-y-1.5">
+                      {edu.achievements.map((achievement) => (
+                        <li
+                          key={achievement}
+                          className="text-sm text-muted-foreground flex gap-2"
+                        >
+                          <span className="text-accent dark:text-accent-light shrink-0">
+                            &bull;
+                          </span>
+                          {achievement}
+                        </li>
                       ))}
-                    </div>
-                  </motion.div>
-                ))}
-              </motion.div>
-            </motion.div>
-          )}
-        </AnimatePresence>
+                    </ul>
+                  )}
+                  <div className="flex flex-wrap gap-1.5 mt-4">
+                    {edu.technologies.map((tech) => (
+                      <TechBadge key={tech} name={tech} />
+                    ))}
+                  </div>
+                </div>
+              ))}
+            </div>
+          </div>
+        )}
       </div>
     </section>
   );

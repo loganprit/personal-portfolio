@@ -36,7 +36,33 @@ try {
     );
   }
   browser("open", previewUrl);
+  browser("set", "media", "dark", "reduced-motion");
+  browser("reload");
   browser("wait", "#experience h3");
+  browser(
+    "eval",
+    `for (let element = document.querySelector('main'); element; element = element.parentElement) {
+      const style = getComputedStyle(element);
+      if (Number(style.opacity) !== 1 || style.transform !== 'none') {
+        throw new Error('Reduced motion must render page content without an entrance animation');
+      }
+    }`,
+  );
+  browser("press", "Tab");
+  browser(
+    "eval",
+    `const link = document.activeElement;
+    if (link.textContent !== 'Skip to content' || link.getBoundingClientRect().top < 0) {
+      throw new Error('The first Tab must reveal Skip to content');
+    }`,
+  );
+  browser("press", "Enter");
+  browser(
+    "eval",
+    `if (document.activeElement !== document.querySelector('main')) {
+      throw new Error('Skip to content must focus main');
+    }`,
+  );
   browser("eval", "document.documentElement.style.scrollBehavior = 'auto'");
   for (const [width, height] of [
     [1203, 1198],
@@ -66,6 +92,7 @@ try {
     browser("eval", "window.scrollTo(0, 0)");
     checkActive("hero");
   }
+  browser("set", "media", "dark");
   for (const view of ["education", "work"]) {
     browser(
       "click",
@@ -75,6 +102,15 @@ try {
       "wait",
       "--fn",
       `document.querySelectorAll('#experience [aria-current="page"]').length === 1 && document.querySelector('#experience [aria-current="page"]').textContent.toLowerCase() === '${view}' && document.querySelectorAll('#experience details').length === ${view === "work" ? 3 : 0}`,
+    );
+    browser(
+      "eval",
+      `for (let element = document.querySelector('#experience h3'); element; element = element.parentElement) {
+        const style = getComputedStyle(element);
+        if (Number(style.opacity) !== 1 || style.transform !== 'none') {
+          throw new Error('The selected experience must be immediately readable');
+        }
+      }`,
     );
   }
   browser(

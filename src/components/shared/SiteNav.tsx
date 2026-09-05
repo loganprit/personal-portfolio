@@ -56,42 +56,45 @@ export function SiteNav() {
     };
   }, [pathname]);
 
-  if (pathname === "/") {
-    return (
-      <nav className="manual-spine" aria-label="Field manual index">
-        <a
-          href="#hero"
-          className="manual-mark"
-          aria-label="Back to top"
-          aria-current={activeSection === "hero" ? "location" : undefined}
-        >
-          <img src="/favicon-source.svg" alt="" width={42} height={42} />
-        </a>
-        <div className="manual-spine-links">
-          {HOME_SECTIONS.map((section) => (
-            <a
-              key={section.id}
-              href={`#${section.id}`}
-              aria-current={
-                activeSection === section.id ? "location" : undefined
-              }
-            >
-              {section.label}
-            </a>
-          ))}
-        </div>
-        <ThemeToggle className="manual-theme-toggle" />
-      </nav>
-    );
-  }
-
   return (
-    <nav className="site-nav" aria-label="Primary navigation">
-      <Link to="/" search={{ experience: "work" }}>
-        Home
-      </Link>
-      <span>Contact</span>
-      <ThemeToggle />
-    </nav>
+    <>
+      <a className="skip-link" href="#main-content">
+        Skip to content
+      </a>
+      {pathname === "/" ? (
+        <nav className="manual-spine" aria-label="Field manual index">
+          <a
+            href="#hero"
+            className="manual-mark"
+            aria-label="Back to top"
+            aria-current={activeSection === "hero" ? "location" : undefined}
+          >
+            <img src="/favicon-source.svg" alt="" width={42} height={42} />
+          </a>
+          <div className="manual-spine-links">
+            {HOME_SECTIONS.map((section) => (
+              <a
+                key={section.id}
+                href={`#${section.id}`}
+                aria-current={
+                  activeSection === section.id ? "location" : undefined
+                }
+              >
+                {section.label}
+              </a>
+            ))}
+          </div>
+          <ThemeToggle className="manual-theme-toggle" />
+        </nav>
+      ) : (
+        <nav className="site-nav" aria-label="Primary navigation">
+          <Link to="/" search={{ experience: "work" }}>
+            Home
+          </Link>
+          <span>Contact</span>
+          <ThemeToggle />
+        </nav>
+      )}
+    </>
   );
 }

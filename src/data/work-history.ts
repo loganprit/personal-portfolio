@@ -71,7 +71,7 @@ export const experiences: WorkExperience[] = [
     title: "Research Apprentice",
     company: "Energy Institute — University of Louisiana at Lafayette",
     location: "Lafayette, LA",
-    period: "AUGUST 2018 — MAY 2022",
+    period: "AUGUST 2018 — DECEMBER 2022",
     description:
       "Conducted research in a high-throughput laboratory environment, focusing on bio-oil catalytic conversion studies.",
     achievements: [
