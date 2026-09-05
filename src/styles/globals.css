@@ -573,7 +573,7 @@ body {
   margin: 0;
   max-width: 19ch;
   color: var(--manual-ink);
-  font-size: clamp(2rem, 4vw, 3.75rem);
+  font-size: clamp(2rem, 3vw, 2.75rem);
   font-weight: 520;
   letter-spacing: -0.035em;
   line-height: 1;
@@ -643,17 +643,11 @@ body {
 
 .story-sheet .manual-section-heading h2 {
   max-width: none;
-  font-size: clamp(1.5rem, 2.5vw, 2rem);
 }
 
 .skills-sheet .manual-section-heading {
   padding-bottom: 0;
   border: 0;
-}
-
-.skills-sheet .manual-section-heading h2 {
-  font-size: 1.25rem;
-  letter-spacing: normal;
 }
 
 .skills-sheet {
