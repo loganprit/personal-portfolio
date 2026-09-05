@@ -18,20 +18,39 @@ export function SiteNav() {
   useEffect(() => {
     if (pathname !== "/") return;
 
-    const observer = new IntersectionObserver(
-      (entries) => {
-        const visible = entries.find((entry) => entry.isIntersecting);
-        if (visible) setActiveSection(visible.target.id);
-      },
-      { rootMargin: "-20% 0px -70%" },
-    );
+    const updateActiveSection = () => {
+      const atBottom =
+        window.scrollY > 0 &&
+        window.scrollY + window.innerHeight >=
+          document.documentElement.scrollHeight - 2;
+      const section = [...HOME_SECTIONS].reverse().find(({ id }) => {
+        const element = document.getElementById(id);
+        return (
+          element &&
+          element.getBoundingClientRect().top <= window.innerHeight * 0.3
+        );
+      });
+      const linkedSection = HOME_SECTIONS.find(
+        ({ id }) => window.location.hash === `#${id}`,
+      );
+      const linkedBounds =
+        linkedSection &&
+        document.getElementById(linkedSection.id)?.getBoundingClientRect();
+      // Multiple final sections can fit at the scroll limit; honor the visible anchor.
+      const bottomSection =
+        linkedBounds && linkedBounds.top >= 0 ? linkedSection.id : "contact";
+      setActiveSection(atBottom ? bottomSection : (section?.id ?? "hero"));
+    };
 
-    ["hero", ...HOME_SECTIONS.map(({ id }) => id)].forEach((id) => {
-      const section = document.getElementById(id);
-      if (section) observer.observe(section);
-    });
-
-    return () => observer.disconnect();
+    updateActiveSection();
+    window.addEventListener("scroll", updateActiveSection, { passive: true });
+    window.addEventListener("resize", updateActiveSection);
+    window.addEventListener("hashchange", updateActiveSection);
+    return () => {
+      window.removeEventListener("scroll", updateActiveSection);
+      window.removeEventListener("resize", updateActiveSection);
+      window.removeEventListener("hashchange", updateActiveSection);
+    };
   }, [pathname]);
 
   if (pathname === "/") {
@@ -45,7 +64,6 @@ export function SiteNav() {
         >
           <img src="/favicon-source.svg" alt="" width={42} height={42} />
         </a>
-        <p>Cobalt field manual</p>
         <div className="manual-spine-links">
           {HOME_SECTIONS.map((section) => (
             <a
@@ -59,7 +77,6 @@ export function SiteNav() {
             </a>
           ))}
         </div>
-        <span className="manual-edition">LP—01</span>
         <ThemeToggle className="manual-theme-toggle" />
       </nav>
     );
