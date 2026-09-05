@@ -10,11 +10,11 @@ import { currentRole } from "@/data/current-role";
 import { getExperienceTimelines } from "@/data/experience.functions";
 import { personal } from "@/data/personal";
 import { selectedFloqastOutcomes } from "@/data/work-history";
-import { MotionPrototypePanel } from "@/components/shared/MotionPrototypePanel";
-import { parseHomeSearch } from "@/lib/experience";
+import { PageStagger } from "@/components/shared/PageStagger";
+import { parseExperienceSearch } from "@/lib/experience";
 
 export const Route = createFileRoute("/")({
-  validateSearch: parseHomeSearch,
+  validateSearch: parseExperienceSearch,
   search: {
     middlewares: [stripSearchParams({ experience: "work" })],
   },
@@ -28,7 +28,6 @@ export const Route = createFileRoute("/")({
 
 function Home() {
   const { timelines } = Route.useLoaderData();
-  const search = Route.useSearch();
 
   return (
     <div className="field-manual min-h-screen">
@@ -104,10 +103,13 @@ function Home() {
         <div className="manual-sections">
           <Await promise={timelines} fallback={<ExperienceFallback />}>
             {(data) => (
-              <ExperienceTabsFromSearch
-                timelines={data}
-                className="manual-timeline"
-              />
+              <>
+                <ExperienceTabsFromSearch
+                  timelines={data}
+                  className="manual-timeline"
+                />
+                <PageStagger />
+              </>
             )}
           </Await>
 
@@ -155,18 +157,6 @@ function Home() {
           <SiteFooter className="manual-footer" />
         </div>
       </main>
-      {import.meta.env.DEV && (
-        <MotionPrototypePanel
-          motionSection={search.motionSection ?? "hero"}
-          motionChoices={{
-            hero: search.motionHero ?? "off",
-            experience: search.motionExperience ?? "off",
-            story: search.motionStory ?? "off",
-            skills: search.motionSkills ?? "off",
-            contact: search.motionContact ?? "off",
-          }}
-        />
-      )}
     </div>
   );
 }
