@@ -650,10 +650,6 @@ body {
   border: 0;
 }
 
-.skills-sheet {
-  padding-block: 1.5rem;
-}
-
 .contact-sheet {
   display: grid;
   grid-template-columns: 1fr auto;
