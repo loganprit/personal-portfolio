@@ -80,28 +80,6 @@ function Home() {
                 height={953}
                 fetchPriority="high"
               />
-              <div className="portrait-frame" aria-hidden="true" />
-              <div className="portrait-registration" aria-hidden="true">
-                <i />
-                <i />
-                <i />
-                <i />
-              </div>
-              <figcaption>
-                <span>LP—01</span>
-                <span className="portrait-caption-detail">
-                  Portrait / verified
-                </span>
-              </figcaption>
-              <div className="portrait-notes" aria-hidden="true">
-                <span>focus</span>
-                <span>ship</span>
-                <span>iterate</span>
-              </div>
-              <div className="portrait-calibration" aria-hidden="true">
-                <strong>CAL 1.0</strong>
-                <span>verify assumptions</span>
-              </div>
             </figure>
 
             <nav className="manual-routes" aria-label="Portfolio routes">
@@ -139,13 +117,6 @@ function Home() {
                 <ArrowRight aria-hidden="true" />
               </a>
             </nav>
-
-            <div className="manual-index-tabs" aria-hidden="true">
-              <span>01</span>
-              <span>02</span>
-              <span>03</span>
-              <span>R</span>
-            </div>
           </div>
         </section>
 

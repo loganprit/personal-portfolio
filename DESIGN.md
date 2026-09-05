@@ -186,6 +186,10 @@ components:
 
 # Design System: Cobalt Field Manual / Foldout Dossier
 
+## Current refinement
+
+The current branch revises the dossier composition after visual feedback. A horizontal header, centered content, a smaller square portrait, and Geist display/body text replace the vertical spine and typewriter-led hero. Courier Prime remains for metadata. Cobalt, navy, paper texture, and ruled sections remain; portrait calibration marks and decorative metal tabs are removed. The CSS is the source of truth for the revised responsive values; the original specification below records the preceding design.
+
 ## Overview
 
 **Creative North Star: "Cobalt Field Manual — Foldout Dossier"**
