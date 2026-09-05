@@ -3,10 +3,14 @@ import { execFileSync } from "node:child_process";
 
 const session = `navigation-check-${process.pid}`;
 const browser = (...args) =>
-  execFileSync("npx", ["-y", "agent-browser", "--session", session, ...args], {
-    encoding: "utf8",
-    stdio: ["ignore", "pipe", "pipe"],
-  });
+  execFileSync(
+    "bunx",
+    ["agent-browser@0.36.0", "--session", session, ...args],
+    {
+      encoding: "utf8",
+      stdio: ["ignore", "pipe", "pipe"],
+    },
+  );
 const checkActive = (id) =>
   browser(
     "eval",
