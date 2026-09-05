@@ -3,20 +3,15 @@ import {
   createFileRoute,
   stripSearchParams,
 } from "@tanstack/react-router";
-import { ArrowRight, FileText } from "lucide-react";
+import { ArrowRight, FileText, Github } from "lucide-react";
 import { ExperienceTabsFromSearch } from "@/components/shared/ExperienceTabsFromSearch";
 import { SiteFooter } from "@/components/shared/SiteFooter";
 import { SocialLinks } from "@/components/shared/SocialLinks";
 import { currentRole } from "@/data/current-role";
 import { getExperienceTimelines } from "@/data/experience.functions";
 import { personal } from "@/data/personal";
-import { experiences, selectedFloqastOutcomes } from "@/data/work-history";
+import { selectedFloqastOutcomes } from "@/data/work-history";
 import { parseExperienceSearch } from "@/lib/experience";
-
-const floqastEvidence =
-  experiences
-    .find(({ company }) => company === currentRole.company)
-    ?.achievements.slice(1, 3) ?? [];
 
 export const Route = createFileRoute("/")({
   validateSearch: parseExperienceSearch,
@@ -53,21 +48,46 @@ function Home() {
                 {currentRole.title} · {currentRole.company}
               </p>
               <p className="manual-thesis">{personal.shortBio}</p>
+              <nav
+                className="manual-routes"
+                aria-label="Get in touch and view work"
+              >
+                <a className="manual-route-primary" href={personal.resumeUrl}>
+                  <FileText aria-hidden="true" />
+                  View resume
+                </a>
+                <a href={`mailto:${personal.email}`}>
+                  Email Logan
+                  <ArrowRight aria-hidden="true" />
+                </a>
+                <a
+                  href={
+                    personal.socials.find(({ name }) => name === "GitHub")?.url
+                  }
+                >
+                  <Github aria-hidden="true" />
+                  GitHub
+                </a>
+              </nav>
               <p className="manual-evidence-label">Selected outcomes</p>
               <ul
-                className="manual-evidence manual-evidence--full"
-                aria-label="Selected FloQast results"
-              >
-                {floqastEvidence.map((achievement) => (
-                  <li key={achievement}>{achievement}</li>
-                ))}
-              </ul>
-              <ul
-                className="manual-evidence manual-evidence--compact"
+                className="manual-evidence"
                 aria-label="Selected FloQast results"
               >
                 {selectedFloqastOutcomes.map((achievement) => (
-                  <li key={achievement}>{achievement}</li>
+                  <li key={achievement}>
+                    <span>
+                      {achievement
+                        .split(/(40×|91%)/)
+                        .map((part) =>
+                          part === "40×" || part === "91%" ? (
+                            <strong key={part}>{part}</strong>
+                          ) : (
+                            part
+                          ),
+                        )}
+                    </span>
+                  </li>
                 ))}
               </ul>
             </div>
@@ -81,42 +101,6 @@ function Home() {
                 fetchPriority="high"
               />
             </figure>
-
-            <nav className="manual-routes" aria-label="Portfolio routes">
-              <a className="manual-route-desktop" href="#experience">
-                <span>01</span>
-                Work
-                <ArrowRight aria-hidden="true" />
-              </a>
-              <a className="manual-route-desktop" href="#story">
-                <span>02</span>
-                Story
-                <ArrowRight aria-hidden="true" />
-              </a>
-              <a className="manual-route-desktop" href="#contact">
-                <span>03</span>
-                Contact
-                <ArrowRight aria-hidden="true" />
-              </a>
-              <a className="manual-route-desktop" href={personal.resumeUrl}>
-                <FileText aria-hidden="true" />
-                Resume
-              </a>
-              <a
-                className="manual-route-mobile manual-route-primary"
-                href={personal.resumeUrl}
-              >
-                <FileText aria-hidden="true" />
-                View resume
-              </a>
-              <a
-                className="manual-route-mobile"
-                href={`mailto:${personal.email}`}
-              >
-                Email Logan
-                <ArrowRight aria-hidden="true" />
-              </a>
-            </nav>
           </div>
         </section>
 
@@ -150,13 +134,8 @@ function Home() {
               <h2>Tools I reach for.</h2>
             </header>
             <ul className="manual-skills">
-              {personal.skills.map((skill, index) => (
-                <li key={skill}>
-                  <span aria-hidden="true">
-                    {String(index + 1).padStart(2, "0")}
-                  </span>
-                  {skill}
-                </li>
+              {personal.skills.map((skill) => (
+                <li key={skill}>{skill}</li>
               ))}
             </ul>
           </section>
@@ -174,6 +153,7 @@ function Home() {
                 Email Logan
                 <ArrowRight aria-hidden="true" />
               </a>
+              <p className="manual-email-address">{personal.email}</p>
               <SocialLinks />
             </div>
           </section>

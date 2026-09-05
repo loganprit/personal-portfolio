@@ -63,6 +63,46 @@ function WorkRoleBody({ entry }: { entry: WorkEntry }) {
   );
 }
 
+function WorkGroupContent({
+  primaryRole,
+  previousRoles,
+  technologies,
+}: {
+  primaryRole: WorkEntry;
+  previousRoles: WorkEntry[];
+  technologies: string[];
+}) {
+  return (
+    <>
+      <WorkRoleBody entry={primaryRole} />
+
+      {previousRoles.length > 0 && (
+        <div className="mt-8 space-y-6">
+          {previousRoles.map((entry) => (
+            <div key={`${entry.title}-${entry.period}`}>
+              <h4 className="text-lg font-bold text-foreground">
+                {entry.title}
+              </h4>
+
+              <div className="manual-experience-meta mt-1 text-sm text-muted-foreground">
+                {entry.period}
+              </div>
+
+              <WorkRoleBody entry={entry} />
+            </div>
+          ))}
+        </div>
+      )}
+
+      <div className="flex flex-wrap gap-1.5 mt-4">
+        {technologies.map((tech) => (
+          <TechBadge key={tech} name={tech} />
+        ))}
+      </div>
+    </>
+  );
+}
+
 function getInitials(name: string): string {
   const words = name.split(/\s+/);
   if (words.length > 3) return words[0][0].toUpperCase();
@@ -183,7 +223,7 @@ export function ExperienceTabs({
 
   return (
     <section id={id} className={cn("", className)}>
-      <h2 className="sr-only">Experience</h2>
+      <h2 className="manual-experience-heading">Experience</h2>
       <div className="max-w-3xl mx-auto px-4 sm:px-6">
         {/* Sliding pill toggle */}
         <div className="flex rounded-full bg-muted p-1 mb-6">
@@ -200,6 +240,7 @@ export function ExperienceTabs({
                   ? "text-foreground"
                   : "text-muted-foreground hover:text-foreground",
               )}
+              activeOptions={{ exact: true }}
             >
               {tab === "work" ? "Work" : "Education"}
               {activeTab === tab && (
@@ -233,7 +274,7 @@ export function ExperienceTabs({
                 initial={motionInitial}
                 whileInView={motionAnimate}
                 viewport={{ once: true }}
-                className="relative ml-6"
+                className="manual-experience-list relative ml-6"
               >
                 <motion.div
                   aria-hidden="true"
@@ -241,22 +282,28 @@ export function ExperienceTabs({
                   initial={motionInitial}
                   whileInView={motionAnimate}
                   viewport={{ once: true }}
-                  className="pointer-events-none absolute inset-y-0 bg-border origin-top"
+                  className="manual-experience-rail pointer-events-none absolute inset-y-0 bg-border origin-top"
                   style={TIMELINE_LINE_STYLE}
                 />
-                {workGroups.map((group) => {
+                {workGroups.map((group, groupIndex) => {
                   const [primaryRole, ...previousRoles] = group.roles;
                   const technologies = [
                     ...new Set(
                       group.roles.flatMap((role) => role.technologies),
                     ),
                   ];
+                  const isCurrentRoleGroup = groupIndex === 0;
 
                   return (
                     <motion.div
                       key={`${group.company}-${group.location}-${primaryRole.period}`}
                       variants={staggerItem}
-                      className="relative z-10 pl-10 pb-8 last:pb-0"
+                      className={cn(
+                        "manual-experience-item relative z-10 pl-10 pb-8 last:pb-0",
+                        isCurrentRoleGroup
+                          ? "manual-experience-current"
+                          : "manual-experience-earlier",
+                      )}
                     >
                       <TimelineLogoMarker
                         label={group.company}
@@ -264,47 +311,57 @@ export function ExperienceTabs({
                         logoFill={group.logoFill}
                       />
 
-                      <h3 className="text-lg font-bold text-foreground">
-                        {primaryRole.title}
-                      </h3>
+                      {isCurrentRoleGroup ? (
+                        <>
+                          <h3 className="text-lg font-bold text-foreground">
+                            {primaryRole.title}
+                          </h3>
 
-                      <div className="flex flex-wrap items-center gap-x-4 gap-y-1 mt-1 text-sm text-muted-foreground">
-                        <span className="inline-flex items-center gap-1">
-                          <Briefcase className="h-3.5 w-3.5" />
-                          {group.company}
-                        </span>
-                        <span className="inline-flex items-center gap-1">
-                          <MapPin className="h-3.5 w-3.5" />
-                          {group.location}
-                        </span>
-                        <span>{primaryRole.period}</span>
-                      </div>
+                          <div className="manual-experience-meta flex flex-wrap items-center gap-x-4 gap-y-1 mt-1 text-sm text-muted-foreground">
+                            <span className="inline-flex items-center gap-1">
+                              <Briefcase className="h-3.5 w-3.5" />
+                              {group.company}
+                            </span>
+                            <span className="inline-flex items-center gap-1">
+                              <MapPin className="h-3.5 w-3.5" />
+                              {group.location}
+                            </span>
+                            <span>{primaryRole.period}</span>
+                          </div>
 
-                      <WorkRoleBody entry={primaryRole} />
+                          <WorkGroupContent
+                            primaryRole={primaryRole}
+                            previousRoles={previousRoles}
+                            technologies={technologies}
+                          />
+                        </>
+                      ) : (
+                        <details className="manual-experience-earlier-details">
+                          <summary className="manual-experience-earlier-summary min-h-11">
+                            <span className="manual-experience-earlier-title text-lg font-bold text-foreground">
+                              {primaryRole.title}
+                            </span>
 
-                      {previousRoles.length > 0 && (
-                        <div className="mt-8 space-y-6">
-                          {previousRoles.map((entry) => (
-                            <div key={`${entry.title}-${entry.period}`}>
-                              <h4 className="text-lg font-bold text-foreground">
-                                {entry.title}
-                              </h4>
+                            <span className="manual-experience-meta flex flex-wrap items-center gap-x-4 gap-y-1 mt-1 text-sm text-muted-foreground">
+                              <span className="inline-flex items-center gap-1">
+                                <Briefcase className="h-3.5 w-3.5" />
+                                {group.company}
+                              </span>
+                              <span className="inline-flex items-center gap-1">
+                                <MapPin className="h-3.5 w-3.5" />
+                                {group.location}
+                              </span>
+                              <span>{primaryRole.period}</span>
+                            </span>
+                          </summary>
 
-                              <div className="mt-1 text-sm text-muted-foreground">
-                                {entry.period}
-                              </div>
-
-                              <WorkRoleBody entry={entry} />
-                            </div>
-                          ))}
-                        </div>
+                          <WorkGroupContent
+                            primaryRole={primaryRole}
+                            previousRoles={previousRoles}
+                            technologies={technologies}
+                          />
+                        </details>
                       )}
-
-                      <div className="flex flex-wrap gap-1.5 mt-4">
-                        {technologies.map((tech) => (
-                          <TechBadge key={tech} name={tech} />
-                        ))}
-                      </div>
                     </motion.div>
                   );
                 })}
@@ -323,7 +380,7 @@ export function ExperienceTabs({
                 initial={motionInitial}
                 whileInView={motionAnimate}
                 viewport={{ once: true }}
-                className="relative ml-6"
+                className="manual-experience-list relative ml-6"
               >
                 <motion.div
                   aria-hidden="true"
@@ -331,14 +388,14 @@ export function ExperienceTabs({
                   initial={motionInitial}
                   whileInView={motionAnimate}
                   viewport={{ once: true }}
-                  className="pointer-events-none absolute inset-y-0 bg-border origin-top"
+                  className="manual-experience-rail pointer-events-none absolute inset-y-0 bg-border origin-top"
                   style={TIMELINE_LINE_STYLE}
                 />
                 {timeline.entries.map((edu) => (
                   <motion.div
                     key={`${edu.institution}-${edu.period}`}
                     variants={staggerItem}
-                    className="relative z-10 pl-10 pb-8 last:pb-0"
+                    className="manual-experience-item relative z-10 pl-10 pb-8 last:pb-0"
                   >
                     <TimelineLogoMarker
                       label={edu.institution}
@@ -381,7 +438,6 @@ export function ExperienceTabs({
                         ))}
                       </ul>
                     )}
-
                     <div className="flex flex-wrap gap-1.5 mt-4">
                       {edu.technologies.map((tech) => (
                         <TechBadge key={tech} name={tech} />
