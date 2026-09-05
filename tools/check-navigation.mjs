@@ -22,6 +22,58 @@ const checkActive = (id) =>
       }
     })`,
   );
+const checkExperiencePill = (view, expectedDuration) => {
+  browser(
+    "wait",
+    "--fn",
+    `(() => {
+      const selected = document.querySelector('#experience a[data-active="true"]');
+      const pill = document.querySelector('#experience .experience-tabs-pill');
+      if (!selected || !pill) return false;
+      const selectedRect = selected.getBoundingClientRect();
+      const pillRect = pill.getBoundingClientRect();
+      return ['left', 'top', 'width', 'height'].every(
+        edge => Math.abs(pillRect[edge] - selectedRect[edge]) <= 1,
+      );
+    })()`,
+  );
+  return browser(
+    "eval",
+    `
+    (() => {
+      const selected = document.querySelector('#experience a[data-active="true"]');
+      const pill = document.querySelector('#experience .experience-tabs-pill');
+      if (!selected || !pill || selected.textContent.trim().toLowerCase() !== '${view}') {
+        throw new Error('Expected ${view} to be the selected experience tab');
+      }
+
+      const selectedRect = selected.getBoundingClientRect();
+      const pillRect = pill.getBoundingClientRect();
+      for (const edge of ['left', 'top', 'width', 'height']) {
+        if (Math.abs(pillRect[edge] - selectedRect[edge]) > 1) {
+          throw new Error('Active pill must match the selected tab geometry');
+        }
+      }
+
+      const pillStyle = getComputedStyle(pill);
+      if (Number.parseFloat(pillStyle.transitionDuration) !== ${expectedDuration}) {
+        throw new Error('Unexpected active pill transition duration');
+      }
+
+      const selectedStyle = getComputedStyle(selected);
+      if (
+        selectedRect.width <= 0 ||
+        selectedRect.height <= 0 ||
+        selectedStyle.visibility === 'hidden' ||
+        selectedStyle.opacity === '0' ||
+        selectedStyle.color === 'rgba(0, 0, 0, 0)'
+      ) {
+        throw new Error('Selected experience tab must remain readable');
+      }
+    })()
+  `,
+  );
+};
 
 try {
   const response = await fetch(new URL("/contact", previewUrl), {
@@ -39,6 +91,7 @@ try {
   browser("set", "media", "dark", "reduced-motion");
   browser("reload");
   browser("wait", "#experience h3");
+  checkExperiencePill("work", 0);
   browser(
     "eval",
     `for (let element = document.querySelector('main'); element; element = element.parentElement) {
@@ -112,6 +165,7 @@ try {
         }
       }`,
     );
+    checkExperiencePill(view, 0.5);
   }
   browser(
     "eval",
@@ -147,6 +201,9 @@ try {
     }
   `,
   );
+  browser("open", new URL("/?experience=education", previewUrl).href);
+  browser("wait", "#experience h3");
+  checkExperiencePill("education", 0.5);
   for (const [width, height] of [
     [1280, 720],
     [375, 667],

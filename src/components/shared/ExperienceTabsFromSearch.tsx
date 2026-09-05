@@ -1,5 +1,4 @@
-import { useRouter, useRouterState } from "@tanstack/react-router";
-import { useEffect, useState } from "react";
+import { useRouterState } from "@tanstack/react-router";
 import { ExperienceTabs } from "./ExperienceTabs";
 import type { ExperienceTimeline, ExperienceView } from "@/lib/experience";
 import { parseExperienceSearch } from "@/lib/experience";
@@ -13,19 +12,9 @@ export function ExperienceTabsFromSearch({
   timelines,
   className,
 }: ExperienceTabsFromSearchProps) {
-  const router = useRouter();
-  const initialExperience = useRouterState({
+  const experience = useRouterState({
     select: (state) => parseExperienceSearch(state.location.search).experience,
   });
-  const [experience, setExperience] = useState(initialExperience);
-
-  useEffect(
-    () =>
-      router.subscribe("onResolved", ({ toLocation }) => {
-        setExperience(parseExperienceSearch(toLocation.search).experience);
-      }),
-    [router],
-  );
 
   return (
     <ExperienceTabs

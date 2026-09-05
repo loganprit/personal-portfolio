@@ -485,6 +485,22 @@ body {
   letter-spacing: -0.035em;
 }
 
+.experience-tabs-pill {
+  top: 0.25rem;
+  bottom: 0.25rem;
+  left: 0.25rem;
+  width: calc(50% - 0.25rem);
+  z-index: 0;
+  pointer-events: none;
+  @media (prefers-reduced-motion: no-preference) {
+    transition: transform 0.5s ease;
+  }
+}
+
+.experience-tabs[data-active-tab="education"] .experience-tabs-pill {
+  transform: translateX(100%);
+}
+
 .manual-experience-earlier-summary {
   cursor: pointer;
   padding-block: 0.5rem;
@@ -525,7 +541,7 @@ body {
   text-transform: uppercase;
 }
 
-.manual-timeline > div > div:first-child > a:has(> div) {
+.manual-timeline > div > div:first-child > a[data-active="true"] {
   color: white;
 }
 
@@ -533,11 +549,15 @@ body {
   border-color: rgb(255 255 255 / 35%);
 }
 
-.dark .manual-timeline > div > div:first-child > a:has(> div) {
+.dark .manual-timeline > div > div:first-child > a[data-active="true"] {
   color: var(--manual-navy);
 }
 
-.manual-timeline > div > div:first-child > a > div {
+.manual-timeline > div > div:first-child > .experience-tabs-pill {
+  top: 0;
+  bottom: 0;
+  left: 0;
+  width: 50%;
   border: 0;
   border-radius: 0;
   background: var(--manual-cobalt);

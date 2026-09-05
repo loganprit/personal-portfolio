@@ -1,4 +1,3 @@
-import { MotionConfig } from "framer-motion";
 import { useEffect, type ReactNode } from "react";
 
 export function ThemeProvider({ children }: { children: ReactNode }) {
@@ -12,5 +11,5 @@ export function ThemeProvider({ children }: { children: ReactNode }) {
     });
   }, []);
 
-  return <MotionConfig reducedMotion="user">{children}</MotionConfig>;
+  return children;
 }

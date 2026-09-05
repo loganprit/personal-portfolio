@@ -40,10 +40,9 @@ export function ThemeToggle({ className }: { className?: string }) {
     const media = window.matchMedia("(prefers-color-scheme: dark)");
     const syncSystemTheme = () => theme === "system" && applyTheme(theme);
     const syncStoredTheme = (event: StorageEvent) => {
-      if (event.key !== "theme") return;
+      if (event.key !== "theme" && event.key !== null) return;
       const nextTheme = getStoredTheme();
       setTheme(nextTheme);
-      applyTheme(nextTheme);
     };
 
     setMounted(true);
@@ -64,7 +63,6 @@ export function ThemeToggle({ className }: { className?: string }) {
       localStorage.setItem("theme", nextTheme);
     } catch {}
     setTheme(nextTheme);
-    applyTheme(nextTheme);
   };
 
   return (
