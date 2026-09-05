@@ -819,7 +819,7 @@ body {
 
   .manual-section,
   .manual-timeline {
-    padding: 1.6rem;
+    padding: 1.6rem clamp(2rem, 5vw, 5rem);
   }
 
   .story-ledger {
