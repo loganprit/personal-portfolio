@@ -40,7 +40,7 @@ function Home() {
                 <span>Pritchett</span>
               </h1>
               <p className="manual-role">
-                {currentRole.title} · {currentRole.company}
+                {currentRole.title} · {currentRole.company} · Orange, Texas
               </p>
               <p className="manual-thesis">{personal.shortBio}</p>
               <nav
@@ -112,7 +112,6 @@ function Home() {
           <section id="story" className="manual-section story-sheet">
             <header className="manual-section-heading">
               <h2>The route here wasn’t linear.</h2>
-              <span>Orange, Texas · Chemical engineering to software</span>
             </header>
             <div className="story-ledger">
               {personal.bio.map((item) => (
