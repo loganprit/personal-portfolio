@@ -3,20 +3,14 @@ import {
   createFileRoute,
   stripSearchParams,
 } from "@tanstack/react-router";
-import { ArrowRight, FileText } from "lucide-react";
+import { ArrowRight, FileText, Github } from "lucide-react";
 import { ExperienceTabsFromSearch } from "@/components/shared/ExperienceTabsFromSearch";
 import { SiteFooter } from "@/components/shared/SiteFooter";
-import { SocialLinks } from "@/components/shared/SocialLinks";
 import { currentRole } from "@/data/current-role";
 import { getExperienceTimelines } from "@/data/experience.functions";
 import { personal } from "@/data/personal";
-import { experiences, selectedFloqastOutcomes } from "@/data/work-history";
+import { selectedFloqastOutcomes } from "@/data/work-history";
 import { parseExperienceSearch } from "@/lib/experience";
-
-const floqastEvidence =
-  experiences
-    .find(({ company }) => company === currentRole.company)
-    ?.achievements.slice(1, 3) ?? [];
 
 export const Route = createFileRoute("/")({
   validateSearch: parseExperienceSearch,
@@ -41,33 +35,54 @@ function Home() {
           <div className="manual-sheet">
             <div className="manual-paper" aria-hidden="true" />
             <div className="manual-copy">
-              <p className="manual-stamp" aria-hidden="true">
-                Field manual
-                <span>LP—01</span>
-              </p>
               <h1 id="name" className="manual-name">
                 <span>Logan</span>
                 <span>Pritchett</span>
               </h1>
               <p className="manual-role">
-                {currentRole.title} · {currentRole.company}
+                {currentRole.title} · {currentRole.company} · Orange, Texas
               </p>
               <p className="manual-thesis">{personal.shortBio}</p>
-              <p className="manual-evidence-label">Selected outcomes</p>
-              <ul
-                className="manual-evidence manual-evidence--full"
-                aria-label="Selected FloQast results"
+              <nav
+                className="manual-routes"
+                aria-label="Get in touch and view work"
               >
-                {floqastEvidence.map((achievement) => (
-                  <li key={achievement}>{achievement}</li>
-                ))}
-              </ul>
+                <a className="manual-route-primary" href={personal.resumeUrl}>
+                  <FileText aria-hidden="true" />
+                  View resume
+                </a>
+                <a href={`mailto:${personal.email}`}>
+                  Email Logan
+                  <ArrowRight aria-hidden="true" />
+                </a>
+                <a
+                  href={
+                    personal.socials.find(({ name }) => name === "GitHub")?.url
+                  }
+                >
+                  <Github aria-hidden="true" />
+                  GitHub
+                </a>
+              </nav>
+              <p className="manual-evidence-label">At FloQast</p>
               <ul
-                className="manual-evidence manual-evidence--compact"
+                className="manual-evidence"
                 aria-label="Selected FloQast results"
               >
                 {selectedFloqastOutcomes.map((achievement) => (
-                  <li key={achievement}>{achievement}</li>
+                  <li key={achievement}>
+                    <span>
+                      {achievement
+                        .split(/(40×|91%)/)
+                        .map((part) =>
+                          part === "40×" || part === "91%" ? (
+                            <strong key={part}>{part}</strong>
+                          ) : (
+                            part
+                          ),
+                        )}
+                    </span>
+                  </li>
                 ))}
               </ul>
             </div>
@@ -81,42 +96,6 @@ function Home() {
                 fetchPriority="high"
               />
             </figure>
-
-            <nav className="manual-routes" aria-label="Portfolio routes">
-              <a className="manual-route-desktop" href="#experience">
-                <span>01</span>
-                Work
-                <ArrowRight aria-hidden="true" />
-              </a>
-              <a className="manual-route-desktop" href="#story">
-                <span>02</span>
-                Story
-                <ArrowRight aria-hidden="true" />
-              </a>
-              <a className="manual-route-desktop" href="#contact">
-                <span>03</span>
-                Contact
-                <ArrowRight aria-hidden="true" />
-              </a>
-              <a className="manual-route-desktop" href={personal.resumeUrl}>
-                <FileText aria-hidden="true" />
-                Resume
-              </a>
-              <a
-                className="manual-route-mobile manual-route-primary"
-                href={personal.resumeUrl}
-              >
-                <FileText aria-hidden="true" />
-                View resume
-              </a>
-              <a
-                className="manual-route-mobile"
-                href={`mailto:${personal.email}`}
-              >
-                Email Logan
-                <ArrowRight aria-hidden="true" />
-              </a>
-            </nav>
           </div>
         </section>
 
@@ -133,7 +112,6 @@ function Home() {
           <section id="story" className="manual-section story-sheet">
             <header className="manual-section-heading">
               <h2>The route here wasn’t linear.</h2>
-              <span>Orange, Texas · Chemical engineering to software</span>
             </header>
             <div className="story-ledger">
               {personal.bio.map((item) => (
@@ -150,13 +128,8 @@ function Home() {
               <h2>Tools I reach for.</h2>
             </header>
             <ul className="manual-skills">
-              {personal.skills.map((skill, index) => (
-                <li key={skill}>
-                  <span aria-hidden="true">
-                    {String(index + 1).padStart(2, "0")}
-                  </span>
-                  {skill}
-                </li>
+              {personal.skills.map((skill) => (
+                <li key={skill}>{skill}</li>
               ))}
             </ul>
           </section>
@@ -174,7 +147,6 @@ function Home() {
                 Email Logan
                 <ArrowRight aria-hidden="true" />
               </a>
-              <SocialLinks />
             </div>
           </section>
 
