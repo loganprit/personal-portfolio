@@ -133,12 +133,13 @@ body {
 .field-manual {
   --manual-navy: #071a3a;
   --manual-cobalt: #0757dc;
-  --manual-paper: #edf0ed;
+  --manual-background: #e3eaf3;
+  --manual-paper: #f8fafc;
   --manual-grain: rgb(12 33 78 / 5%);
   --manual-ink: #0c214e;
   --manual-graphite: #46546b;
   min-height: 100vh;
-  background: var(--manual-navy);
+  background: var(--manual-background);
   color: var(--manual-ink);
   font-family: var(--font-geist-sans), ui-sans-serif, system-ui, sans-serif;
 }
@@ -433,7 +434,7 @@ body {
 
 .manual-sections {
   padding: 2.5rem max(1rem, calc((100% - 1160px) / 2)) 2rem;
-  background: var(--manual-navy);
+  background: var(--manual-background);
 }
 
 .manual-section,
@@ -970,6 +971,7 @@ body {
 }
 
 .dark .field-manual {
+  --manual-background: #071a3a;
   --manual-paper: #10284c;
   --manual-grain: rgb(255 255 255 / 6%);
   --manual-ink: #eef4fc;
@@ -1043,4 +1045,56 @@ body {
     position: absolute;
     inset: 0;
   }
+}
+
+:root:not(.dark) .manual-spine {
+  background: #f8fafc;
+  color: #0c214e;
+  border-bottom-color: #c2cedf;
+  box-shadow: 0 4px 16px rgb(12 33 78 / 8%);
+}
+
+:root:not(.dark) .manual-spine-links a {
+  border-color: #c2cedf;
+  color: #46546b;
+}
+
+:root:not(.dark) .manual-theme-toggle {
+  color: #0c214e;
+}
+
+:root:not(.dark) .manual-mark:hover,
+:root:not(.dark) .manual-spine-links a:hover,
+:root:not(.dark) .manual-theme-toggle:hover {
+  background: #e3ecfa;
+  color: #0757dc;
+}
+
+:root:not(.dark) .manual-spine [aria-current="location"] {
+  background: #dae7fc;
+  color: #0757dc;
+  box-shadow: inset 0 -3px #0757dc;
+}
+
+:root:not(.dark) .manual-sheet {
+  box-shadow: 0 12px 36px rgb(12 33 78 / 10%);
+}
+
+:root:not(.dark) .manual-section,
+:root:not(.dark) .manual-timeline {
+  box-shadow: 0 4px 16px rgb(12 33 78 / 6%);
+}
+
+:root:not(.dark) .manual-footer {
+  border-color: #b8c7da;
+  color: #46546b;
+}
+
+:root:not(.dark) .manual-footer [aria-label] {
+  color: #46546b;
+}
+
+:root:not(.dark) .manual-spine :focus-visible,
+:root:not(.dark) .field-manual .manual-footer :focus-visible {
+  outline-color: #0757dc;
 }
