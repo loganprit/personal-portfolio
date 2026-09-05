@@ -4,7 +4,6 @@
   "ignorePatterns": [
     ".gitignore",
     ".codex/**",
-    ".impeccable/**",
     ".output/**",
     ".vercel/**",
     "src/routeTree.gen.ts",
