@@ -11,8 +11,7 @@ import { PageTransition } from "@/components/shared/PageTransition";
 import { SiteNav } from "@/components/shared/SiteNav";
 import { ThemeProvider } from "@/components/theme/ThemeProvider";
 import { themeScript } from "@/lib/theme-script";
-import "@fontsource/caveat/latin-400.css";
-import "@fontsource/caveat/latin-700.css";
+import sansFontUrl from "../styles/fonts/SpaceGroteskLatin.woff2?url";
 import "@fontsource/courier-prime/latin-400.css";
 import "@fontsource/courier-prime/latin-700.css";
 import "../styles/globals.css";
@@ -36,8 +35,13 @@ export const Route = createRootRoute({
     ],
     links: [
       { rel: "icon", href: "/favicon.ico" },
-      { rel: "preconnect", href: "https://docs.google.com" },
-      { rel: "dns-prefetch", href: "https://docs.google.com" },
+      {
+        rel: "preload",
+        href: sansFontUrl,
+        as: "font",
+        type: "font/woff2",
+        crossOrigin: "anonymous",
+      },
     ],
   }),
   component: RootLayout,
@@ -69,13 +73,6 @@ function RootDocument({ children }: Readonly<{ children: ReactNode }>) {
         <HeadContent />
       </head>
       <body className="antialiased">
-        <div
-          hidden
-          dangerouslySetInnerHTML={{
-            __html:
-              "<!-- Cobalt Field Manual: horizontal navigation, readable identity and work evidence, a compact full-color portrait, and ruled paper sections. -->",
-          }}
-        />
         {children}
         <Scripts />
       </body>

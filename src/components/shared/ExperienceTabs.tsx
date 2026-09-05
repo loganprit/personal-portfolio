@@ -1,4 +1,3 @@
-import { motion, useReducedMotion } from "framer-motion";
 import { MapPin, Briefcase, GraduationCap } from "lucide-react";
 import { Link } from "@tanstack/react-router";
 import { TechBadge } from "./TechBadge";
@@ -200,7 +199,6 @@ export function ExperienceTabs({
   className,
 }: ExperienceTabsProps) {
   const activeTab = timeline.experience;
-  const prefersReducedMotion = useReducedMotion() ?? false;
   const workGroups =
     timeline.experience === "work"
       ? groupConsecutiveWorkEntries([
@@ -217,7 +215,14 @@ export function ExperienceTabs({
       <h2 className="manual-experience-heading">Experience</h2>
       <div className="max-w-3xl mx-auto px-4 sm:px-6">
         {/* Sliding pill toggle */}
-        <div className="flex rounded-full bg-muted p-1 mb-6">
+        <div
+          className="experience-tabs relative flex rounded-full bg-muted p-1 mb-6"
+          data-active-tab={activeTab}
+        >
+          <span
+            aria-hidden="true"
+            className="experience-tabs-pill absolute rounded-full bg-card border border-border shadow-xs"
+          />
           {(["work", "education"] as const).map((tab) => (
             <Link
               key={tab}
@@ -232,20 +237,9 @@ export function ExperienceTabs({
                   : "text-muted-foreground hover:text-foreground",
               )}
               activeOptions={{ exact: true }}
+              data-active={activeTab === tab ? "true" : undefined}
             >
               {tab === "work" ? "Work" : "Education"}
-              {activeTab === tab && (
-                <motion.div
-                  layoutId="section-pill"
-                  className="absolute inset-0 rounded-full bg-card border border-border shadow-xs"
-                  style={{ zIndex: -1 }}
-                  transition={
-                    prefersReducedMotion
-                      ? { duration: 0 }
-                      : { type: "spring", bounce: 0, duration: 0.5 }
-                  }
-                />
-              )}
             </Link>
           ))}
         </div>

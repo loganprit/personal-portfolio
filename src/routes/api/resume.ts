@@ -11,28 +11,43 @@ export const Route = createFileRoute("/api/resume")({
     handlers: {
       GET: async () => {
         try {
-          const response = await fetch(GOOGLE_DRIVE_URL);
+          const response = await fetch(GOOGLE_DRIVE_URL, {
+            signal: AbortSignal.timeout(10_000),
+          });
+          const contentType = response.headers
+            .get("content-type")
+            ?.split(";")[0]
+            .trim()
+            .toLowerCase();
 
-          if (!response.ok || !response.body) {
+          if (
+            !response.ok ||
+            !response.body ||
+            (contentType !== "application/pdf" &&
+              contentType !== "application/octet-stream")
+          ) {
+            await response.body?.cancel();
             return new Response(RESUME_ERROR, {
               status: 502,
+              headers: { "Cache-Control": "no-store" },
             });
           }
 
           return new Response(response.body, {
             headers: {
-              "Content-Type":
-                response.headers.get("content-type") ?? "application/pdf",
+              "Content-Type": "application/pdf",
               "Content-Disposition": "inline; filename=resume.pdf",
               "Cache-Control":
                 "public, max-age=3600, stale-while-revalidate=86400",
               "X-Content-Type-Options": "nosniff",
-              "Accept-Ranges": "bytes",
             },
           });
         } catch (error) {
           console.error("Failed to fetch resume:", error);
-          return new Response(RESUME_ERROR, { status: 502 });
+          return new Response(RESUME_ERROR, {
+            status: 502,
+            headers: { "Cache-Control": "no-store" },
+          });
         }
       },
     },
