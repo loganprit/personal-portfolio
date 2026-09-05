@@ -42,17 +42,81 @@ export function SiteNav() {
       setActiveSection(atBottom ? bottomSection : (section?.id ?? "hero"));
     };
 
-    const updateFromViewport = () => updateActiveSection();
-    const updateFromHash = () => updateActiveSection(true);
+    let anchorScrollInProgress = false;
+    // A no-op anchor click emits no scrollend, so it must not arm scroll tracking.
+    const isAtAnchorPosition = (id: string) => {
+      const element = document.getElementById(id);
+      if (!element) return false;
+      const scrollPaddingTop =
+        Number.parseFloat(
+          getComputedStyle(document.documentElement).scrollPaddingTop,
+        ) || 0;
+      const maxScrollY = Math.max(
+        0,
+        document.documentElement.scrollHeight - window.innerHeight,
+      );
+      const anchorScrollY = Math.min(
+        maxScrollY,
+        Math.max(
+          0,
+          window.scrollY +
+            element.getBoundingClientRect().top -
+            scrollPaddingTop,
+        ),
+      );
+      return Math.abs(window.scrollY - anchorScrollY) <= 1;
+    };
+    const updateFromViewport = () =>
+      updateActiveSection(anchorScrollInProgress);
+    const updateFromHash = () => {
+      const linkedSection = HOME_SECTIONS.find(
+        ({ id }) => window.location.hash === `#${id}`,
+      );
+      anchorScrollInProgress = linkedSection
+        ? !isAtAnchorPosition(linkedSection.id)
+        : false;
+      updateActiveSection(Boolean(linkedSection));
+    };
+    const updateFromAnchorClick = (event: MouseEvent) => {
+      if (
+        event.defaultPrevented ||
+        event.button !== 0 ||
+        event.metaKey ||
+        event.ctrlKey ||
+        event.shiftKey ||
+        event.altKey
+      )
+        return;
+      const target = event.target;
+      if (!(target instanceof Element)) return;
+      const link = target.closest(".manual-spine a");
+      if (!(link instanceof HTMLAnchorElement)) return;
+      const linkedSection = HOME_SECTIONS.find(
+        ({ id }) => link.hash === `#${id}`,
+      );
+      if (!linkedSection) return;
+      anchorScrollInProgress = true;
+      if (window.location.hash === link.hash) {
+        anchorScrollInProgress = !isAtAnchorPosition(linkedSection.id);
+        updateActiveSection(true);
+      }
+    };
+    const endAnchorScroll = () => {
+      anchorScrollInProgress = false;
+    };
 
     updateFromHash();
+    window.addEventListener("click", updateFromAnchorClick);
     window.addEventListener("scroll", updateFromViewport, { passive: true });
     window.addEventListener("resize", updateFromViewport);
     window.addEventListener("hashchange", updateFromHash);
+    window.addEventListener("scrollend", endAnchorScroll);
     return () => {
+      window.removeEventListener("click", updateFromAnchorClick);
       window.removeEventListener("scroll", updateFromViewport);
       window.removeEventListener("resize", updateFromViewport);
       window.removeEventListener("hashchange", updateFromHash);
+      window.removeEventListener("scrollend", endAnchorScroll);
     };
   }, [pathname]);
 
