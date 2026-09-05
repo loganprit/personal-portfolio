@@ -12,9 +12,9 @@ import { SiteNav } from "@/components/shared/SiteNav";
 import { ThemeProvider } from "@/components/theme/ThemeProvider";
 import { themeScript } from "@/lib/theme-script";
 import sansFontUrl from "../styles/fonts/SpaceGroteskLatin.woff2?url";
-import "@fontsource/courier-prime/latin-400.css";
-import "@fontsource/courier-prime/latin-700.css";
-import "../styles/globals.css";
+import courierPrimeLatin400Url from "@fontsource/courier-prime/latin-400.css?url";
+import courierPrimeLatin700Url from "@fontsource/courier-prime/latin-700.css?url";
+import globalsCssUrl from "../styles/globals.css?url";
 
 export const Route = createRootRoute({
   ssr: true,
@@ -42,6 +42,9 @@ export const Route = createRootRoute({
         type: "font/woff2",
         crossOrigin: "anonymous",
       },
+      { rel: "stylesheet", href: courierPrimeLatin400Url },
+      { rel: "stylesheet", href: courierPrimeLatin700Url },
+      { rel: "stylesheet", href: globalsCssUrl },
     ],
   }),
   component: RootLayout,
