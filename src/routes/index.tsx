@@ -6,7 +6,6 @@ import {
 import { ArrowRight, FileText, Github } from "lucide-react";
 import { ExperienceTabsFromSearch } from "@/components/shared/ExperienceTabsFromSearch";
 import { SiteFooter } from "@/components/shared/SiteFooter";
-import { SocialLinks } from "@/components/shared/SocialLinks";
 import { currentRole } from "@/data/current-role";
 import { getExperienceTimelines } from "@/data/experience.functions";
 import { personal } from "@/data/personal";
@@ -149,7 +148,6 @@ function Home() {
                 Email Logan
                 <ArrowRight aria-hidden="true" />
               </a>
-              <SocialLinks />
             </div>
           </section>
 
