@@ -74,7 +74,7 @@ try {
     browser(
       "wait",
       "--fn",
-      `document.querySelectorAll('#experience [aria-current="page"]').length === 1 && document.querySelector('#experience [aria-current="page"]').textContent.toLowerCase() === '${view}'`,
+      `document.querySelectorAll('#experience [aria-current="page"]').length === 1 && document.querySelector('#experience [aria-current="page"]').textContent.toLowerCase() === '${view}' && document.querySelectorAll('#experience details').length === ${view === "work" ? 3 : 0}`,
     );
   }
   browser(
