@@ -138,6 +138,8 @@ function groupConsecutiveWorkEntries(entries: WorkEntry[]): WorkGroup[] {
 const TIMELINE_LINE_STYLE = {
   left: `${TIMELINE_LINE_OFFSET_PX}px`,
   width: `${TIMELINE_LINE_WIDTH_PX}px`,
+  top: `${TIMELINE_MARKER_SIZE_PX / 2}px`,
+  bottom: `${-TIMELINE_MARKER_SIZE_PX / 2}px`,
 };
 
 interface TimelineLogoMarkerProps {
@@ -152,38 +154,45 @@ function TimelineLogoMarker({
   logoFill,
 }: TimelineLogoMarkerProps) {
   return (
-    <div
-      className={cn(
-        "absolute top-0 rounded-full flex items-center justify-center overflow-hidden",
-        logo
-          ? logoFill
-            ? ""
-            : "bg-white"
-          : "bg-accent/10 border-2 border-accent dark:border-accent-light text-sm font-bold text-accent dark:text-accent-light",
-      )}
-      style={{
-        left: `${TIMELINE_MARKER_OFFSET_PX}px`,
-        width: `${TIMELINE_MARKER_SIZE_PX}px`,
-        height: `${TIMELINE_MARKER_SIZE_PX}px`,
-      }}
-    >
-      {logo ? (
-        <img
-          src={logo}
-          alt={`${label} logo`}
-          width={TIMELINE_MARKER_SIZE_PX}
-          height={TIMELINE_MARKER_SIZE_PX}
-          loading="lazy"
-          decoding="async"
-          className={cn(
-            "h-full w-full",
-            logoFill ? "object-cover" : "object-contain p-1",
-          )}
-        />
-      ) : (
-        getInitials(label)
-      )}
-    </div>
+    <>
+      <div
+        className={cn(
+          "absolute top-0 z-10 rounded-full flex items-center justify-center overflow-hidden",
+          logo
+            ? logoFill
+              ? ""
+              : "bg-white"
+            : "bg-accent/10 border-2 border-accent dark:border-accent-light text-sm font-bold text-accent dark:text-accent-light",
+        )}
+        style={{
+          left: `${TIMELINE_MARKER_OFFSET_PX}px`,
+          width: `${TIMELINE_MARKER_SIZE_PX}px`,
+          height: `${TIMELINE_MARKER_SIZE_PX}px`,
+        }}
+      >
+        {logo ? (
+          <img
+            src={logo}
+            alt={`${label} logo`}
+            width={TIMELINE_MARKER_SIZE_PX}
+            height={TIMELINE_MARKER_SIZE_PX}
+            loading="lazy"
+            decoding="async"
+            className={cn(
+              "h-full w-full",
+              logoFill ? "object-cover" : "object-contain p-1",
+            )}
+          />
+        ) : (
+          getInitials(label)
+        )}
+      </div>
+      <div
+        aria-hidden="true"
+        className="manual-experience-rail pointer-events-none absolute bg-border"
+        style={TIMELINE_LINE_STYLE}
+      />
+    </>
   );
 }
 
@@ -251,11 +260,6 @@ export function ExperienceTabs({
         {timeline.experience === "work" ? (
           <div key="work">
             <div className="manual-experience-list relative ml-6">
-              <div
-                aria-hidden="true"
-                className="manual-experience-rail pointer-events-none absolute inset-y-0 bg-border origin-top"
-                style={TIMELINE_LINE_STYLE}
-              />
               {workGroups.map((group, groupIndex) => {
                 const [primaryRole, ...previousRoles] = group.roles;
                 const technologies = [
@@ -338,11 +342,6 @@ export function ExperienceTabs({
         ) : (
           <div key="education">
             <div className="manual-experience-list relative ml-6">
-              <div
-                aria-hidden="true"
-                className="manual-experience-rail pointer-events-none absolute inset-y-0 bg-border origin-top"
-                style={TIMELINE_LINE_STYLE}
-              />
               {timeline.entries.map((edu) => (
                 <div
                   key={`${edu.institution}-${edu.period}`}

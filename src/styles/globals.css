@@ -1279,4 +1279,16 @@ body {
   .motion-prototype-status {
     align-self: center;
   }
+  .motion-prototype-actions {
+    grid-column: 2;
+    grid-row: 2;
+  }
+  .motion-prototype-status {
+    grid-column: 1;
+    grid-row: 2;
+  }
+}
+
+.manual-experience-item:last-child > .manual-experience-rail {
+  display: none;
 }
