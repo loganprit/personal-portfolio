@@ -1,8 +1,8 @@
 import { MapPin, Briefcase, GraduationCap } from "lucide-react";
-import { Link } from "@tanstack/react-router";
+import { Link, useRouterState } from "@tanstack/react-router";
 import { TechBadge } from "./TechBadge";
 import { cn } from "@/lib/cn";
-import type { ExperienceTimeline } from "@/lib/experience";
+import { parseHomeSearch, type ExperienceTimeline } from "@/lib/experience";
 
 const TIMELINE_MARKER_SIZE_PX = 53;
 const TIMELINE_MARKER_OFFSET_PX = -27.5;
@@ -198,6 +198,9 @@ export function ExperienceTabs({
   id = "experience",
   className,
 }: ExperienceTabsProps) {
+  const search = useRouterState({
+    select: (state) => parseHomeSearch(state.location.search),
+  });
   const activeTab = timeline.experience;
   const workGroups =
     timeline.experience === "work"
@@ -227,7 +230,7 @@ export function ExperienceTabs({
             <Link
               key={tab}
               to="/"
-              search={{ experience: tab }}
+              search={{ ...search, experience: tab }}
               replace
               resetScroll={false}
               className={cn(

@@ -1122,3 +1122,161 @@ body {
 :root:not(.dark) .field-manual .manual-footer :focus-visible {
   outline-color: #0757dc;
 }
+
+.motion-prototype-panel {
+  position: fixed;
+  left: 50%;
+  transform: translateX(-50%);
+  bottom: max(1rem, env(safe-area-inset-bottom));
+  z-index: 55;
+  width: min(48rem, calc(100vw - 2rem));
+  max-height: calc(100dvh - 5rem);
+  overflow: auto;
+  border: 1px solid #8ea8ca;
+  border-radius: 0.35rem;
+  background: #f8fafc;
+  color: #0c214e;
+  box-shadow: 0 12px 30px rgb(7 26 58 / 22%);
+  font-family: var(--font-geist-mono), ui-monospace, monospace;
+  font-size: 0.75rem;
+}
+
+.dark .motion-prototype-panel {
+  border-color: #46658e;
+  background: #10284c;
+  color: #eef4fc;
+}
+
+.motion-prototype-heading,
+.motion-prototype-controls,
+.motion-prototype-actions {
+  display: flex;
+  gap: 0.5rem;
+}
+
+.motion-prototype-heading {
+  align-items: center;
+  justify-content: space-between;
+  padding: 0.55rem 0.65rem;
+  border-bottom: 1px solid #c2cedf;
+  font-weight: 700;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+}
+
+.dark .motion-prototype-heading {
+  border-color: #46658e;
+}
+
+.motion-prototype-heading button,
+.motion-prototype-controls button,
+.motion-prototype-controls select {
+  min-height: 2.75rem;
+  border: 1px solid currentColor;
+  border-radius: 0.15rem;
+  background: transparent;
+  padding: 0.4rem 0.55rem;
+  color: inherit;
+  font: inherit;
+}
+
+.motion-prototype-heading button {
+  min-height: 1.8rem;
+  padding-block: 0.2rem;
+  font-size: 0.65rem;
+  letter-spacing: 0.04em;
+  text-transform: uppercase;
+}
+
+.motion-prototype-controls {
+  display: grid;
+  padding: 0.65rem;
+}
+
+.motion-prototype-select,
+.motion-prototype-controls fieldset {
+  display: grid;
+  gap: 0.35rem;
+  margin: 0;
+}
+
+.motion-prototype-select select {
+  width: 100%;
+}
+
+.motion-prototype-controls fieldset {
+  border: 0;
+  padding: 0;
+}
+
+.motion-prototype-controls legend {
+  padding: 0;
+}
+
+.motion-prototype-options {
+  display: grid;
+  grid-template-columns: repeat(6, minmax(0, 1fr));
+  gap: 0.3rem;
+}
+
+.motion-prototype-options button {
+  min-width: 0;
+  padding-inline: 0.25rem;
+  font-size: 0.68rem;
+  overflow-wrap: anywhere;
+}
+
+.motion-prototype-controls button:hover,
+.motion-prototype-controls button[data-active="true"] {
+  background: #0757dc;
+  color: white;
+}
+
+.dark .motion-prototype-controls button:hover,
+.dark .motion-prototype-controls button[data-active="true"] {
+  background: #8fb8ff;
+  color: #071a3a;
+}
+
+.motion-prototype-actions button {
+  flex: 1;
+}
+
+.motion-prototype-status {
+  margin: 0;
+  color: #46546b;
+  line-height: 1.35;
+}
+
+.dark .motion-prototype-status {
+  color: #c7d2e2;
+}
+
+@media (max-width: 520px) {
+  .motion-prototype-panel {
+    right: 0.5rem;
+    bottom: 0.5rem;
+    width: calc(100vw - 1rem);
+  }
+
+  .motion-prototype-options {
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+  }
+}
+
+.motion-prototype-panel[data-expanded="false"] {
+  width: min(16rem, calc(100vw - 1rem));
+}
+.motion-prototype-panel :focus-visible {
+  outline: 2px solid currentColor;
+  outline-offset: 3px;
+}
+@media (min-width: 700px) {
+  .motion-prototype-controls {
+    grid-template-columns: 9rem 1fr;
+    align-items: end;
+  }
+  .motion-prototype-status {
+    align-self: center;
+  }
+}
