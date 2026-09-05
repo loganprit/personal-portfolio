@@ -22,6 +22,38 @@ const checkActive = (id) =>
       }
     })`,
   );
+const anchorPosition = (id) => `(() => {
+  const anchor = document.getElementById('${id}');
+  if (!anchor) return false;
+  const scrollPaddingTop = Number.parseFloat(
+    getComputedStyle(document.documentElement).scrollPaddingTop,
+  ) || 0;
+  const maxScrollY = Math.max(0, document.documentElement.scrollHeight - innerHeight);
+  const targetY = Math.min(
+    maxScrollY,
+    Math.max(0, scrollY + anchor.getBoundingClientRect().top - scrollPaddingTop),
+  );
+  return Math.abs(scrollY - targetY) <= 1;
+})()`;
+const checkSmoothAnchor = (id) => {
+  const position = anchorPosition(id);
+  browser(
+    "eval",
+    `window.__navigationSettled = ${position};
+    if (!window.__navigationSettled) {
+      window.addEventListener('scrollend', () => {
+        window.__navigationSettled = true;
+      }, { once: true });
+    }`,
+  );
+  browser("click", `.manual-spine a[href="#${id}"]`);
+  browser(
+    "wait",
+    "--fn",
+    `${position} && location.hash === '#${id}' && window.__navigationSettled`,
+  );
+  checkActive(id);
+};
 const checkExperiencePill = (view, expectedDuration) => {
   browser(
     "wait",
@@ -145,6 +177,7 @@ try {
     browser("eval", "window.scrollTo(0, 0)");
     checkActive("hero");
   }
+  browser("eval", "document.documentElement.style.scrollBehavior = ''");
   browser("set", "media", "dark");
   for (const view of ["education", "work"]) {
     browser(
@@ -204,6 +237,52 @@ try {
   browser("open", new URL("/?experience=education", previewUrl).href);
   browser("wait", "#experience h3");
   checkExperiencePill("education", 0.5);
+  for (const [width, height] of [
+    [1440, 900],
+    [390, 900],
+  ]) {
+    browser("open", new URL("/?experience=education", previewUrl).href);
+    browser("wait", "#experience h3");
+    browser("set", "viewport", String(width), String(height));
+    browser(
+      "eval",
+      `if (getComputedStyle(document.documentElement).scrollBehavior !== 'smooth') {
+        throw new Error('Navigation regression requires normal smooth scrolling');
+      }`,
+    );
+    checkSmoothAnchor("skills");
+    checkSmoothAnchor("skills");
+    browser("eval", "window.scrollTo({ top: 0, behavior: 'instant' })");
+    checkActive("hero");
+    checkSmoothAnchor("skills");
+    browser(
+      "eval",
+      "window.scrollTo({ top: Math.max(0, window.scrollY - 100), behavior: 'instant' })",
+    );
+    checkActive("story");
+    browser(
+      "eval",
+      "window.scrollTo({ top: document.documentElement.scrollHeight, behavior: 'instant' })",
+    );
+    checkActive("contact");
+    checkSmoothAnchor("contact");
+    checkSmoothAnchor("story");
+    browser(
+      "eval",
+      "window.scrollTo({ top: Math.max(0, window.scrollY - 100), behavior: 'instant' })",
+    );
+    checkActive("story");
+    browser(
+      "eval",
+      "window.scrollTo({ top: document.documentElement.scrollHeight, behavior: 'instant' })",
+    );
+    checkActive("contact");
+  }
+  browser("set", "media", "dark", "reduced-motion");
+  browser("open", new URL("/?experience=education", previewUrl).href);
+  browser("wait", "#experience h3");
+  checkSmoothAnchor("skills");
+  browser("set", "media", "dark");
   for (const [width, height] of [
     [1280, 720],
     [375, 667],
