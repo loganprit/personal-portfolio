@@ -6,10 +6,12 @@ import { parseExperienceSearch } from "@/lib/experience";
 
 interface ExperienceTabsFromSearchProps {
   timelines: Record<ExperienceView, ExperienceTimeline>;
+  className?: string;
 }
 
 export function ExperienceTabsFromSearch({
   timelines,
+  className,
 }: ExperienceTabsFromSearchProps) {
   const router = useRouter();
   const initialExperience = useRouterState({
@@ -29,7 +31,7 @@ export function ExperienceTabsFromSearch({
     <ExperienceTabs
       timeline={timelines[experience]}
       id="experience"
-      className="pt-8 pb-10 sm:pb-14"
+      className={className ?? "pt-8 pb-10 sm:pb-14"}
     />
   );
 }

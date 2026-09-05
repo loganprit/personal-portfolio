@@ -1,4 +1,4 @@
-import { motion, AnimatePresence } from "framer-motion";
+import { motion, AnimatePresence, useReducedMotion } from "framer-motion";
 import { MapPin, Briefcase, GraduationCap } from "lucide-react";
 import { Link } from "@tanstack/react-router";
 import { TechBadge } from "./TechBadge";
@@ -46,7 +46,7 @@ function WorkRoleBody({ entry }: { entry: WorkEntry }) {
 
       {entry.achievements.length > 0 && (
         <ul className="mt-3 space-y-1.5">
-          {entry.achievements.map((achievement) => (
+          {entry.achievements.slice(0, 3).map((achievement) => (
             <li
               key={achievement}
               className="text-sm text-muted-foreground flex gap-2"
@@ -59,12 +59,6 @@ function WorkRoleBody({ entry }: { entry: WorkEntry }) {
           ))}
         </ul>
       )}
-
-      <div className="flex flex-wrap gap-1.5 mt-4">
-        {entry.technologies.map((tech) => (
-          <TechBadge key={tech} name={tech} />
-        ))}
-      </div>
     </>
   );
 }
@@ -172,6 +166,10 @@ export function ExperienceTabs({
   className,
 }: ExperienceTabsProps) {
   const activeTab = timeline.experience;
+  const prefersReducedMotion = useReducedMotion() ?? false;
+  const motionInitial = prefersReducedMotion ? false : "initial";
+  const motionAnimate = prefersReducedMotion ? undefined : "animate";
+  const motionExit = prefersReducedMotion ? undefined : "exit";
   const workGroups =
     timeline.experience === "work"
       ? groupConsecutiveWorkEntries([
@@ -185,6 +183,7 @@ export function ExperienceTabs({
 
   return (
     <section id={id} className={cn("", className)}>
+      <h2 className="sr-only">Experience</h2>
       <div className="max-w-3xl mx-auto px-4 sm:px-6">
         {/* Sliding pill toggle */}
         <div className="flex rounded-full bg-muted p-1 mb-6">
@@ -196,7 +195,7 @@ export function ExperienceTabs({
               replace
               resetScroll={false}
               className={cn(
-                "relative flex-1 rounded-full py-2 text-center text-sm font-medium z-10 transition-colors",
+                "relative flex min-h-11 flex-1 items-center justify-center rounded-full px-2 text-center text-sm font-medium z-10 transition-colors",
                 activeTab === tab
                   ? "text-foreground"
                   : "text-muted-foreground hover:text-foreground",
@@ -208,7 +207,11 @@ export function ExperienceTabs({
                   layoutId="section-pill"
                   className="absolute inset-0 rounded-full bg-card border border-border shadow-xs"
                   style={{ zIndex: -1 }}
-                  transition={{ type: "spring", bounce: 0.2, duration: 0.5 }}
+                  transition={
+                    prefersReducedMotion
+                      ? { duration: 0 }
+                      : { type: "spring", bounce: 0, duration: 0.5 }
+                  }
                 />
               )}
             </Link>
@@ -216,33 +219,38 @@ export function ExperienceTabs({
         </div>
 
         {/* Tab content */}
-        <AnimatePresence mode="wait">
+        <AnimatePresence initial={false} mode="wait">
           {timeline.experience === "work" ? (
             <motion.div
               key="work"
               variants={tabContent}
-              initial="initial"
-              animate="animate"
-              exit="exit"
+              initial={motionInitial}
+              animate={motionAnimate}
+              exit={motionExit}
             >
               <motion.div
                 variants={staggerContainer}
-                initial="initial"
-                whileInView="animate"
+                initial={motionInitial}
+                whileInView={motionAnimate}
                 viewport={{ once: true }}
                 className="relative ml-6"
               >
                 <motion.div
                   aria-hidden="true"
                   variants={timelineLine}
-                  initial="initial"
-                  whileInView="animate"
+                  initial={motionInitial}
+                  whileInView={motionAnimate}
                   viewport={{ once: true }}
                   className="pointer-events-none absolute inset-y-0 bg-border origin-top"
                   style={TIMELINE_LINE_STYLE}
                 />
                 {workGroups.map((group) => {
                   const [primaryRole, ...previousRoles] = group.roles;
+                  const technologies = [
+                    ...new Set(
+                      group.roles.flatMap((role) => role.technologies),
+                    ),
+                  ];
 
                   return (
                     <motion.div
@@ -256,9 +264,9 @@ export function ExperienceTabs({
                         logoFill={group.logoFill}
                       />
 
-                      <h4 className="text-lg font-bold text-foreground">
+                      <h3 className="text-lg font-bold text-foreground">
                         {primaryRole.title}
-                      </h4>
+                      </h3>
 
                       <div className="flex flex-wrap items-center gap-x-4 gap-y-1 mt-1 text-sm text-muted-foreground">
                         <span className="inline-flex items-center gap-1">
@@ -278,9 +286,9 @@ export function ExperienceTabs({
                         <div className="mt-8 space-y-6">
                           {previousRoles.map((entry) => (
                             <div key={`${entry.title}-${entry.period}`}>
-                              <h5 className="text-lg font-bold text-foreground">
+                              <h4 className="text-lg font-bold text-foreground">
                                 {entry.title}
-                              </h5>
+                              </h4>
 
                               <div className="mt-1 text-sm text-muted-foreground">
                                 {entry.period}
@@ -291,6 +299,12 @@ export function ExperienceTabs({
                           ))}
                         </div>
                       )}
+
+                      <div className="flex flex-wrap gap-1.5 mt-4">
+                        {technologies.map((tech) => (
+                          <TechBadge key={tech} name={tech} />
+                        ))}
+                      </div>
                     </motion.div>
                   );
                 })}
@@ -300,22 +314,22 @@ export function ExperienceTabs({
             <motion.div
               key="education"
               variants={tabContent}
-              initial="initial"
-              animate="animate"
-              exit="exit"
+              initial={motionInitial}
+              animate={motionAnimate}
+              exit={motionExit}
             >
               <motion.div
                 variants={staggerContainer}
-                initial="initial"
-                whileInView="animate"
+                initial={motionInitial}
+                whileInView={motionAnimate}
                 viewport={{ once: true }}
                 className="relative ml-6"
               >
                 <motion.div
                   aria-hidden="true"
                   variants={timelineLine}
-                  initial="initial"
-                  whileInView="animate"
+                  initial={motionInitial}
+                  whileInView={motionAnimate}
                   viewport={{ once: true }}
                   className="pointer-events-none absolute inset-y-0 bg-border origin-top"
                   style={TIMELINE_LINE_STYLE}
@@ -332,9 +346,10 @@ export function ExperienceTabs({
                       logoFill={edu.logoFill}
                     />
 
-                    <h4 className="text-lg font-bold text-foreground">
-                      {edu.degree} — {edu.field}
-                    </h4>
+                    <h3 className="text-lg font-bold text-foreground">
+                      {edu.degree}
+                      {edu.field && ` — ${edu.field}`}
+                    </h3>
                     <div className="flex flex-wrap items-center gap-x-4 gap-y-1 mt-1 text-sm text-muted-foreground">
                       <span className="inline-flex items-center gap-1">
                         <GraduationCap className="h-3.5 w-3.5" />

@@ -56,14 +56,15 @@ export function ThemeToggle({ className }: { className?: string }) {
     };
   }, [theme]);
 
+  const nextTheme =
+    theme === "light" ? "dark" : theme === "dark" ? "system" : "light";
+
   const cycle = () => {
-    const next =
-      theme === "light" ? "dark" : theme === "dark" ? "system" : "light";
     try {
-      localStorage.setItem("theme", next);
+      localStorage.setItem("theme", nextTheme);
     } catch {}
-    setTheme(next);
-    applyTheme(next);
+    setTheme(nextTheme);
+    applyTheme(nextTheme);
   };
 
   return (
@@ -71,12 +72,10 @@ export function ThemeToggle({ className }: { className?: string }) {
       type="button"
       onClick={cycle}
       className={cn(
-        "h-9 w-9 rounded-lg p-2 transition-colors hover:bg-muted",
+        "h-11 w-11 rounded-lg p-3 transition-colors hover:bg-muted",
         className,
       )}
-      aria-label={
-        mounted ? `Current theme: ${theme}. Click to switch.` : "Switch theme"
-      }
+      aria-label={mounted ? `Switch to ${nextTheme} theme` : "Switch theme"}
     >
       {mounted && theme === "light" && <Sun className="h-5 w-5" />}
       {mounted && theme === "dark" && <Moon className="h-5 w-5" />}

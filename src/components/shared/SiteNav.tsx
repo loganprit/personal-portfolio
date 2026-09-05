@@ -1,41 +1,77 @@
+import { useEffect, useState } from "react";
 import { Link, useRouterState } from "@tanstack/react-router";
 import { ThemeToggle } from "@/components/theme/ThemeToggle";
-import { cn } from "@/lib/cn";
 
-const SECTIONS = [
-  { label: "Home", id: "home", href: "/" },
-  { label: "Contact", id: "contact", href: "/contact" },
+const HOME_SECTIONS = [
+  { id: "experience", label: "Work" },
+  { id: "story", label: "Story" },
+  { id: "skills", label: "Skills" },
+  { id: "contact", label: "Contact" },
 ] as const;
 
 export function SiteNav() {
+  const [activeSection, setActiveSection] = useState("hero");
   const pathname = useRouterState({
     select: (state) => state.location.pathname,
   });
-  const activeSection = pathname === "/contact" ? "contact" : "home";
+
+  useEffect(() => {
+    if (pathname !== "/") return;
+
+    const observer = new IntersectionObserver(
+      (entries) => {
+        const visible = entries.find((entry) => entry.isIntersecting);
+        if (visible) setActiveSection(visible.target.id);
+      },
+      { rootMargin: "-20% 0px -70%" },
+    );
+
+    ["hero", ...HOME_SECTIONS.map(({ id }) => id)].forEach((id) => {
+      const section = document.getElementById(id);
+      if (section) observer.observe(section);
+    });
+
+    return () => observer.disconnect();
+  }, [pathname]);
+
+  if (pathname === "/") {
+    return (
+      <nav className="manual-spine" aria-label="Field manual index">
+        <a
+          href="#hero"
+          className="manual-mark"
+          aria-label="Back to top"
+          aria-current={activeSection === "hero" ? "location" : undefined}
+        >
+          <img src="/favicon-source.svg" alt="" width={42} height={42} />
+        </a>
+        <p>Cobalt field manual</p>
+        <div className="manual-spine-links">
+          {HOME_SECTIONS.map((section) => (
+            <a
+              key={section.id}
+              href={`#${section.id}`}
+              aria-current={
+                activeSection === section.id ? "location" : undefined
+              }
+            >
+              {section.label}
+            </a>
+          ))}
+        </div>
+        <span className="manual-edition">LP—01</span>
+        <ThemeToggle className="manual-theme-toggle" />
+      </nav>
+    );
+  }
 
   return (
-    <nav className="fixed top-0 left-0 right-0 z-40">
-      <div className="max-w-3xl mx-auto">
-        <div className="bg-card/80 backdrop-blur-xl border border-border rounded-full mx-4 mt-6 px-6 py-3 flex items-center justify-between">
-          <div className="flex items-center gap-8 overflow-x-auto scrollbar-hide">
-            {SECTIONS.map((section) => (
-              <Link
-                key={section.id}
-                to={section.href}
-                className={cn(
-                  "px-3 py-1.5 text-sm font-medium rounded-full transition-colors whitespace-nowrap",
-                  activeSection === section.id
-                    ? "text-accent dark:text-accent-light bg-accent/10"
-                    : "text-muted-foreground hover:text-foreground",
-                )}
-              >
-                {section.label}
-              </Link>
-            ))}
-          </div>
-          <ThemeToggle className="ml-2 shrink-0" />
-        </div>
-      </div>
+    <nav className="site-nav" aria-label="Primary navigation">
+      <Link to="/" search={{ experience: "work" }}>
+        Home
+      </Link>
+      <span>Contact</span>
+      <ThemeToggle />
     </nav>
   );
 }
