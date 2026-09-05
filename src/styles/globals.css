@@ -849,9 +849,9 @@ body {
   .manual-name {
     grid-column: 1;
     grid-row: 1;
-    align-self: start;
+    align-self: center;
     margin-top: 0;
-    font-size: clamp(2.375rem, 10.5vw, 2.5rem);
+    font-size: clamp(2rem, calc(22vw - 2.5rem), 4rem);
   }
 
   .manual-role,
@@ -957,12 +957,6 @@ body {
 @media (max-width: 360px) {
   .manual-sheet {
     grid-template-columns: minmax(0, 1fr) 90px;
-  }
-
-  .manual-name {
-    grid-row: 1;
-    font-size: 2rem;
-    align-self: center;
   }
 
   .manual-portrait {
