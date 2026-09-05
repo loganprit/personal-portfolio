@@ -1,7 +1,10 @@
 import { createFileRoute } from "@tanstack/react-router";
+import { personal } from "@/data/personal";
 
 const GOOGLE_DRIVE_URL =
   "https://docs.google.com/uc?export=download&id=1moEKcpXt_1K86KUhq8jJZMQgSDrhZoUe";
+
+const RESUME_ERROR = `Unable to load the resume. Refresh to try again, or email ${personal.email} for a copy.`;
 
 export const Route = createFileRoute("/api/resume")({
   server: {
@@ -11,7 +14,7 @@ export const Route = createFileRoute("/api/resume")({
           const response = await fetch(GOOGLE_DRIVE_URL);
 
           if (!response.ok || !response.body) {
-            return new Response("Failed to fetch resume from upstream source", {
+            return new Response(RESUME_ERROR, {
               status: 502,
             });
           }
@@ -29,7 +32,7 @@ export const Route = createFileRoute("/api/resume")({
           });
         } catch (error) {
           console.error("Failed to fetch resume:", error);
-          return new Response("Failed to fetch resume", { status: 502 });
+          return new Response(RESUME_ERROR, { status: 502 });
         }
       },
     },

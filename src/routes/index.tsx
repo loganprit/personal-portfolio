@@ -30,7 +30,7 @@ function Home() {
 
   return (
     <div className="field-manual min-h-screen">
-      <main>
+      <main id="main-content" tabIndex={-1}>
         <section id="hero" className="manual-hero" aria-labelledby="name">
           <div className="manual-sheet">
             <div className="manual-paper" aria-hidden="true" />

@@ -149,6 +149,25 @@ body {
   color: white;
 }
 
+.dark .field-manual ::selection {
+  color: var(--manual-navy);
+}
+
+.skip-link {
+  position: fixed;
+  top: 0.75rem;
+  left: 0.75rem;
+  z-index: 60;
+  padding: 0.75rem 1rem;
+  background: var(--color-background);
+  color: var(--color-foreground);
+  transform: translateY(calc(-100% - 1rem));
+}
+
+.skip-link:focus {
+  transform: none;
+}
+
 .manual-spine :focus-visible,
 .manual-footer :focus-visible {
   outline: 3px solid #8fb8ff;
@@ -572,6 +591,7 @@ body {
 .contact-sheet h2 {
   margin: 0;
   max-width: 19ch;
+  text-wrap: balance;
   color: var(--manual-ink);
   font-size: clamp(2rem, 3vw, 2.75rem);
   font-weight: 520;
