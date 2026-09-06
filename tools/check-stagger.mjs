@@ -67,6 +67,9 @@ try {
   browser(
     "eval",
     `(() => {
+    const heroRule = [...document.styleSheets].flatMap(sheet => [...sheet.cssRules])
+      .find(rule => rule instanceof CSSMediaRule && rule.cssText.includes('hero-stagger'));
+    if (!heroRule?.conditionText.includes('screen')) throw Error('Hero animation must be screen-only');
     window.dispatchEvent(new Event('beforeprint'));
     for (const target of document.querySelectorAll('#story article, #skills li, #contact .contact-sheet > div')) {
       if (getComputedStyle(target).opacity !== '1') throw Error('Print content remains hidden');
