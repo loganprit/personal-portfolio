@@ -19,9 +19,8 @@ This is a TanStack Start portfolio. Keep this file limited to stable constraints
   `src/routes/__root.tsx` as sensitive theme boot code. Preserve the pre-hydration
   theme script, `suppressHydrationWarning`, and mobile `--vh` handling unless an
   equivalent no-FOUC replacement is included.
-- Keep resume links pointed at `/api/resume`. The API route owns the upstream
-  Google Drive URL plus download/cache headers so there is one canonical resume
-  flow.
+- Keep resume links pointed at `/api/resume`; it redirects to the hosted
+  `/resume.pdf`.
 - Treat `tmp/` as scratch/vendor material, not production source, unless a task
   explicitly says otherwise.
 
