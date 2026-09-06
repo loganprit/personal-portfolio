@@ -64,7 +64,9 @@ export function PageStagger() {
     preference.addEventListener("change", stop);
     return () => {
       preference.removeEventListener("change", stop);
-      stop();
+      observer.disconnect();
+      animations.forEach((animation) => animation.cancel());
+      animations.clear();
     };
   }, []);
 
