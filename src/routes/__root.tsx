@@ -11,9 +11,10 @@ import { PageTransition } from "@/components/shared/PageTransition";
 import { SiteNav } from "@/components/shared/SiteNav";
 import { ThemeProvider } from "@/components/theme/ThemeProvider";
 import { themeScript } from "@/lib/theme-script";
-import "@fontsource/caveat/latin-400.css";
-import "@fontsource/caveat/latin-700.css";
-import "../styles/globals.css";
+import sansFontUrl from "../styles/fonts/SpaceGroteskLatin.woff2?url";
+import courierPrimeLatin400Url from "@fontsource/courier-prime/latin-400.css?url";
+import courierPrimeLatin700Url from "@fontsource/courier-prime/latin-700.css?url";
+import globalsCssUrl from "../styles/globals.css?url";
 
 export const Route = createRootRoute({
   ssr: true,
@@ -22,8 +23,7 @@ export const Route = createRootRoute({
       { charSet: "utf-8" },
       {
         name: "viewport",
-        content:
-          "width=device-width, initial-scale=1.0, viewport-fit=cover, maximum-scale=1",
+        content: "width=device-width, initial-scale=1.0, viewport-fit=cover",
       },
       { name: "darkreader-lock", content: "" },
       { name: "color-scheme", content: "light dark" },
@@ -35,8 +35,16 @@ export const Route = createRootRoute({
     ],
     links: [
       { rel: "icon", href: "/favicon.ico" },
-      { rel: "preconnect", href: "https://docs.google.com" },
-      { rel: "dns-prefetch", href: "https://docs.google.com" },
+      {
+        rel: "preload",
+        href: sansFontUrl,
+        as: "font",
+        type: "font/woff2",
+        crossOrigin: "anonymous",
+      },
+      { rel: "stylesheet", href: courierPrimeLatin400Url },
+      { rel: "stylesheet", href: courierPrimeLatin700Url },
+      { rel: "stylesheet", href: globalsCssUrl },
     ],
   }),
   component: RootLayout,

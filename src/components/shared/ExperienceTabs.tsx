@@ -1,15 +1,8 @@
-import { motion, AnimatePresence } from "framer-motion";
 import { MapPin, Briefcase, GraduationCap } from "lucide-react";
 import { Link } from "@tanstack/react-router";
 import { TechBadge } from "./TechBadge";
 import { cn } from "@/lib/cn";
 import type { ExperienceTimeline } from "@/lib/experience";
-import {
-  tabContent,
-  timelineLine,
-  staggerContainer,
-  staggerItem,
-} from "@/lib/animations";
 
 const TIMELINE_MARKER_SIZE_PX = 53;
 const TIMELINE_MARKER_OFFSET_PX = -27.5;
@@ -46,7 +39,7 @@ function WorkRoleBody({ entry }: { entry: WorkEntry }) {
 
       {entry.achievements.length > 0 && (
         <ul className="mt-3 space-y-1.5">
-          {entry.achievements.map((achievement) => (
+          {entry.achievements.slice(0, 3).map((achievement) => (
             <li
               key={achievement}
               className="text-sm text-muted-foreground flex gap-2"
@@ -59,9 +52,43 @@ function WorkRoleBody({ entry }: { entry: WorkEntry }) {
           ))}
         </ul>
       )}
+    </>
+  );
+}
+
+function WorkGroupContent({
+  primaryRole,
+  previousRoles,
+  technologies,
+}: {
+  primaryRole: WorkEntry;
+  previousRoles: WorkEntry[];
+  technologies: string[];
+}) {
+  return (
+    <>
+      <WorkRoleBody entry={primaryRole} />
+
+      {previousRoles.length > 0 && (
+        <div className="mt-8 space-y-6">
+          {previousRoles.map((entry) => (
+            <div key={`${entry.title}-${entry.period}`}>
+              <h4 className="text-lg font-bold text-foreground">
+                {entry.title}
+              </h4>
+
+              <div className="manual-experience-meta mt-1 text-sm text-muted-foreground">
+                {entry.period}
+              </div>
+
+              <WorkRoleBody entry={entry} />
+            </div>
+          ))}
+        </div>
+      )}
 
       <div className="flex flex-wrap gap-1.5 mt-4">
-        {entry.technologies.map((tech) => (
+        {technologies.map((tech) => (
           <TechBadge key={tech} name={tech} />
         ))}
       </div>
@@ -111,6 +138,8 @@ function groupConsecutiveWorkEntries(entries: WorkEntry[]): WorkGroup[] {
 const TIMELINE_LINE_STYLE = {
   left: `${TIMELINE_LINE_OFFSET_PX}px`,
   width: `${TIMELINE_LINE_WIDTH_PX}px`,
+  top: `${TIMELINE_MARKER_SIZE_PX / 2}px`,
+  bottom: `${-TIMELINE_MARKER_SIZE_PX / 2}px`,
 };
 
 interface TimelineLogoMarkerProps {
@@ -125,38 +154,45 @@ function TimelineLogoMarker({
   logoFill,
 }: TimelineLogoMarkerProps) {
   return (
-    <div
-      className={cn(
-        "absolute top-0 rounded-full flex items-center justify-center overflow-hidden",
-        logo
-          ? logoFill
-            ? ""
-            : "bg-white"
-          : "bg-accent/10 border-2 border-accent dark:border-accent-light text-sm font-bold text-accent dark:text-accent-light",
-      )}
-      style={{
-        left: `${TIMELINE_MARKER_OFFSET_PX}px`,
-        width: `${TIMELINE_MARKER_SIZE_PX}px`,
-        height: `${TIMELINE_MARKER_SIZE_PX}px`,
-      }}
-    >
-      {logo ? (
-        <img
-          src={logo}
-          alt={`${label} logo`}
-          width={TIMELINE_MARKER_SIZE_PX}
-          height={TIMELINE_MARKER_SIZE_PX}
-          loading="lazy"
-          decoding="async"
-          className={cn(
-            "h-full w-full",
-            logoFill ? "object-cover" : "object-contain p-1",
-          )}
-        />
-      ) : (
-        getInitials(label)
-      )}
-    </div>
+    <>
+      <div
+        className={cn(
+          "absolute top-0 z-10 rounded-full flex items-center justify-center overflow-hidden",
+          logo
+            ? logoFill
+              ? ""
+              : "bg-white"
+            : "bg-accent/10 border-2 border-accent dark:border-accent-light text-sm font-bold text-accent dark:text-accent-light",
+        )}
+        style={{
+          left: `${TIMELINE_MARKER_OFFSET_PX}px`,
+          width: `${TIMELINE_MARKER_SIZE_PX}px`,
+          height: `${TIMELINE_MARKER_SIZE_PX}px`,
+        }}
+      >
+        {logo ? (
+          <img
+            src={logo}
+            alt={`${label} logo`}
+            width={TIMELINE_MARKER_SIZE_PX}
+            height={TIMELINE_MARKER_SIZE_PX}
+            loading="lazy"
+            decoding="async"
+            className={cn(
+              "h-full w-full",
+              logoFill ? "object-cover" : "object-contain p-1",
+            )}
+          />
+        ) : (
+          getInitials(label)
+        )}
+      </div>
+      <div
+        aria-hidden="true"
+        className="manual-experience-rail pointer-events-none absolute bg-border"
+        style={TIMELINE_LINE_STYLE}
+      />
+    </>
   );
 }
 
@@ -185,9 +221,17 @@ export function ExperienceTabs({
 
   return (
     <section id={id} className={cn("", className)}>
+      <h2 className="manual-experience-heading">Experience</h2>
       <div className="max-w-3xl mx-auto px-4 sm:px-6">
         {/* Sliding pill toggle */}
-        <div className="flex rounded-full bg-muted p-1 mb-6">
+        <div
+          className="experience-tabs relative flex rounded-full bg-muted p-1 mb-6"
+          data-active-tab={activeTab}
+        >
+          <span
+            aria-hidden="true"
+            className="experience-tabs-pill absolute rounded-full bg-card border border-border shadow-xs"
+          />
           {(["work", "education"] as const).map((tab) => (
             <Link
               key={tab}
@@ -196,188 +240,161 @@ export function ExperienceTabs({
               replace
               resetScroll={false}
               className={cn(
-                "relative flex-1 rounded-full py-2 text-center text-sm font-medium z-10 transition-colors",
+                "relative flex min-h-11 flex-1 items-center justify-center rounded-full px-2 text-center text-sm font-medium z-10 transition-colors",
                 activeTab === tab
                   ? "text-foreground"
                   : "text-muted-foreground hover:text-foreground",
               )}
+              activeOptions={{ exact: true }}
+              data-active={activeTab === tab ? "true" : undefined}
             >
               {tab === "work" ? "Work" : "Education"}
-              {activeTab === tab && (
-                <motion.div
-                  layoutId="section-pill"
-                  className="absolute inset-0 rounded-full bg-card border border-border shadow-xs"
-                  style={{ zIndex: -1 }}
-                  transition={{ type: "spring", bounce: 0.2, duration: 0.5 }}
-                />
-              )}
             </Link>
           ))}
         </div>
 
         {/* Tab content */}
-        <AnimatePresence mode="wait">
-          {timeline.experience === "work" ? (
-            <motion.div
-              key="work"
-              variants={tabContent}
-              initial="initial"
-              animate="animate"
-              exit="exit"
-            >
-              <motion.div
-                variants={staggerContainer}
-                initial="initial"
-                whileInView="animate"
-                viewport={{ once: true }}
-                className="relative ml-6"
-              >
-                <motion.div
-                  aria-hidden="true"
-                  variants={timelineLine}
-                  initial="initial"
-                  whileInView="animate"
-                  viewport={{ once: true }}
-                  className="pointer-events-none absolute inset-y-0 bg-border origin-top"
-                  style={TIMELINE_LINE_STYLE}
-                />
-                {workGroups.map((group) => {
-                  const [primaryRole, ...previousRoles] = group.roles;
+        {timeline.experience === "work" ? (
+          <div key="work">
+            <div className="manual-experience-list relative ml-6">
+              {workGroups.map((group, groupIndex) => {
+                const [primaryRole, ...previousRoles] = group.roles;
+                const technologies = [
+                  ...new Set(group.roles.flatMap((role) => role.technologies)),
+                ];
+                const isCurrentRoleGroup = groupIndex === 0;
 
-                  return (
-                    <motion.div
-                      key={`${group.company}-${group.location}-${primaryRole.period}`}
-                      variants={staggerItem}
-                      className="relative z-10 pl-10 pb-8 last:pb-0"
-                    >
-                      <TimelineLogoMarker
-                        label={group.company}
-                        logo={group.logo}
-                        logoFill={group.logoFill}
-                      />
-
-                      <h4 className="text-lg font-bold text-foreground">
-                        {primaryRole.title}
-                      </h4>
-
-                      <div className="flex flex-wrap items-center gap-x-4 gap-y-1 mt-1 text-sm text-muted-foreground">
-                        <span className="inline-flex items-center gap-1">
-                          <Briefcase className="h-3.5 w-3.5" />
-                          {group.company}
-                        </span>
-                        <span className="inline-flex items-center gap-1">
-                          <MapPin className="h-3.5 w-3.5" />
-                          {group.location}
-                        </span>
-                        <span>{primaryRole.period}</span>
-                      </div>
-
-                      <WorkRoleBody entry={primaryRole} />
-
-                      {previousRoles.length > 0 && (
-                        <div className="mt-8 space-y-6">
-                          {previousRoles.map((entry) => (
-                            <div key={`${entry.title}-${entry.period}`}>
-                              <h5 className="text-lg font-bold text-foreground">
-                                {entry.title}
-                              </h5>
-
-                              <div className="mt-1 text-sm text-muted-foreground">
-                                {entry.period}
-                              </div>
-
-                              <WorkRoleBody entry={entry} />
-                            </div>
-                          ))}
-                        </div>
-                      )}
-                    </motion.div>
-                  );
-                })}
-              </motion.div>
-            </motion.div>
-          ) : (
-            <motion.div
-              key="education"
-              variants={tabContent}
-              initial="initial"
-              animate="animate"
-              exit="exit"
-            >
-              <motion.div
-                variants={staggerContainer}
-                initial="initial"
-                whileInView="animate"
-                viewport={{ once: true }}
-                className="relative ml-6"
-              >
-                <motion.div
-                  aria-hidden="true"
-                  variants={timelineLine}
-                  initial="initial"
-                  whileInView="animate"
-                  viewport={{ once: true }}
-                  className="pointer-events-none absolute inset-y-0 bg-border origin-top"
-                  style={TIMELINE_LINE_STYLE}
-                />
-                {timeline.entries.map((edu) => (
-                  <motion.div
-                    key={`${edu.institution}-${edu.period}`}
-                    variants={staggerItem}
-                    className="relative z-10 pl-10 pb-8 last:pb-0"
+                return (
+                  <div
+                    key={`${group.company}-${group.location}-${primaryRole.period}`}
+                    className={cn(
+                      "manual-experience-item relative z-10 pl-10 pb-8 last:pb-0",
+                      isCurrentRoleGroup
+                        ? "manual-experience-current"
+                        : "manual-experience-earlier",
+                    )}
                   >
                     <TimelineLogoMarker
-                      label={edu.institution}
-                      logo={edu.logo}
-                      logoFill={edu.logoFill}
+                      label={group.company}
+                      logo={group.logo}
+                      logoFill={group.logoFill}
                     />
 
-                    <h4 className="text-lg font-bold text-foreground">
-                      {edu.degree} — {edu.field}
-                    </h4>
-                    <div className="flex flex-wrap items-center gap-x-4 gap-y-1 mt-1 text-sm text-muted-foreground">
-                      <span className="inline-flex items-center gap-1">
-                        <GraduationCap className="h-3.5 w-3.5" />
-                        {edu.institution}
-                      </span>
-                      <span className="inline-flex items-center gap-1">
-                        <MapPin className="h-3.5 w-3.5" />
-                        {edu.location}
-                      </span>
-                      <span>{edu.period}</span>
-                    </div>
+                    {isCurrentRoleGroup ? (
+                      <>
+                        <h3 className="text-lg font-bold text-foreground">
+                          {primaryRole.title}
+                        </h3>
 
-                    <p className="mt-3 text-muted-foreground">
-                      {edu.description}
-                    </p>
+                        <div className="manual-experience-meta flex flex-wrap items-center gap-x-4 gap-y-1 mt-1 text-sm text-muted-foreground">
+                          <span className="inline-flex items-center gap-1">
+                            <Briefcase className="h-3.5 w-3.5" />
+                            {group.company}
+                          </span>
+                          <span className="inline-flex items-center gap-1">
+                            <MapPin className="h-3.5 w-3.5" />
+                            {group.location}
+                          </span>
+                          <span>{primaryRole.period}</span>
+                        </div>
 
-                    {edu.achievements.length > 0 && (
-                      <ul className="mt-3 space-y-1.5">
-                        {edu.achievements.map((achievement) => (
-                          <li
-                            key={achievement}
-                            className="text-sm text-muted-foreground flex gap-2"
-                          >
-                            <span className="text-accent dark:text-accent-light shrink-0">
-                              &bull;
+                        <WorkGroupContent
+                          primaryRole={primaryRole}
+                          previousRoles={previousRoles}
+                          technologies={technologies}
+                        />
+                      </>
+                    ) : (
+                      <details className="manual-experience-earlier-details">
+                        <summary className="manual-experience-earlier-summary min-h-11">
+                          <span className="manual-experience-earlier-title text-lg font-bold text-foreground">
+                            {primaryRole.title}
+                          </span>
+
+                          <span className="manual-experience-meta flex flex-wrap items-center gap-x-4 gap-y-1 mt-1 text-sm text-muted-foreground">
+                            <span className="inline-flex items-center gap-1">
+                              <Briefcase className="h-3.5 w-3.5" />
+                              {group.company}
                             </span>
-                            {achievement}
-                          </li>
-                        ))}
-                      </ul>
-                    )}
+                            <span className="inline-flex items-center gap-1">
+                              <MapPin className="h-3.5 w-3.5" />
+                              {group.location}
+                            </span>
+                            <span>{primaryRole.period}</span>
+                          </span>
+                        </summary>
 
-                    <div className="flex flex-wrap gap-1.5 mt-4">
-                      {edu.technologies.map((tech) => (
-                        <TechBadge key={tech} name={tech} />
+                        <WorkGroupContent
+                          primaryRole={primaryRole}
+                          previousRoles={previousRoles}
+                          technologies={technologies}
+                        />
+                      </details>
+                    )}
+                  </div>
+                );
+              })}
+            </div>
+          </div>
+        ) : (
+          <div key="education">
+            <div className="manual-experience-list relative ml-6">
+              {timeline.entries.map((edu) => (
+                <div
+                  key={`${edu.institution}-${edu.period}`}
+                  className="manual-experience-item relative z-10 pl-10 pb-8 last:pb-0"
+                >
+                  <TimelineLogoMarker
+                    label={edu.institution}
+                    logo={edu.logo}
+                    logoFill={edu.logoFill}
+                  />
+
+                  <h3 className="text-lg font-bold text-foreground">
+                    {edu.degree}
+                    {edu.field && ` — ${edu.field}`}
+                  </h3>
+                  <div className="flex flex-wrap items-center gap-x-4 gap-y-1 mt-1 text-sm text-muted-foreground">
+                    <span className="inline-flex items-center gap-1">
+                      <GraduationCap className="h-3.5 w-3.5" />
+                      {edu.institution}
+                    </span>
+                    <span className="inline-flex items-center gap-1">
+                      <MapPin className="h-3.5 w-3.5" />
+                      {edu.location}
+                    </span>
+                    <span>{edu.period}</span>
+                  </div>
+
+                  <p className="mt-3 text-muted-foreground">
+                    {edu.description}
+                  </p>
+
+                  {edu.achievements.length > 0 && (
+                    <ul className="mt-3 space-y-1.5">
+                      {edu.achievements.map((achievement) => (
+                        <li
+                          key={achievement}
+                          className="text-sm text-muted-foreground flex gap-2"
+                        >
+                          <span className="text-accent dark:text-accent-light shrink-0">
+                            &bull;
+                          </span>
+                          {achievement}
+                        </li>
                       ))}
-                    </div>
-                  </motion.div>
-                ))}
-              </motion.div>
-            </motion.div>
-          )}
-        </AnimatePresence>
+                    </ul>
+                  )}
+                  <div className="flex flex-wrap gap-1.5 mt-4">
+                    {edu.technologies.map((tech) => (
+                      <TechBadge key={tech} name={tech} />
+                    ))}
+                  </div>
+                </div>
+              ))}
+            </div>
+          </div>
+        )}
       </div>
     </section>
   );

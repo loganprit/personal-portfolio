@@ -3,12 +3,17 @@ import {
   createFileRoute,
   stripSearchParams,
 } from "@tanstack/react-router";
+import { ArrowRight, FileText, Github } from "lucide-react";
 import { ExperienceTabsFromSearch } from "@/components/shared/ExperienceTabsFromSearch";
-import { FlipCard } from "@/components/shared/FlipCard";
 import { SiteFooter } from "@/components/shared/SiteFooter";
-import { SplitHero } from "@/components/shared/SplitHero";
+import { currentRole } from "@/data/current-role";
 import { getExperienceTimelines } from "@/data/experience.functions";
 import { personal } from "@/data/personal";
+import { selectedFloqastOutcomes } from "@/data/work-history";
+import {
+  PageStagger,
+  ExperienceStagger,
+} from "@/components/shared/PageStagger";
 import { parseExperienceSearch } from "@/lib/experience";
 
 export const Route = createFileRoute("/")({
@@ -19,64 +24,143 @@ export const Route = createFileRoute("/")({
   ssr: true,
   staleTime: Infinity,
   loader: () => {
-    const today = new Date();
-    today.setHours(0, 0, 0, 0);
-    const birthDate = new Date(2001, 0, 21);
-
-    return {
-      age:
-        today.getFullYear() -
-        birthDate.getFullYear() -
-        Number(
-          today <
-            new Date(
-              today.getFullYear(),
-              birthDate.getMonth(),
-              birthDate.getDate(),
-            ),
-        ),
-      timelines: getExperienceTimelines(),
-    };
+    return { timelines: getExperienceTimelines() };
   },
   component: Home,
 });
 
 function Home() {
-  const { age, timelines } = Route.useLoaderData();
+  const { timelines } = Route.useLoaderData();
 
   return (
-    <div className="min-h-screen bg-background text-foreground">
-      <main className="overflow-hidden">
-        <SplitHero age={age} id="hero">
-          <FlipCard />
-        </SplitHero>
-
-        <Await promise={timelines} fallback={<ExperienceFallback />}>
-          {(data) => <ExperienceTabsFromSearch timelines={data} />}
-        </Await>
-
-        <section id="skills" className="py-10 sm:py-14">
-          <div className="max-w-3xl mx-auto px-4 sm:px-6">
-            <h2 className="text-2xl font-bold text-foreground mb-6">
-              Skills &amp; Technologies
-            </h2>
-            <div className="flex flex-wrap gap-2.5">
-              {personal.skills.map((skill) => (
-                <span
-                  key={skill}
-                  className="rounded-full border border-border bg-card px-4 py-2 text-sm font-medium text-foreground"
+    <div className="field-manual min-h-screen">
+      <main id="main-content" tabIndex={-1}>
+        <section id="hero" className="manual-hero" aria-labelledby="name">
+          <div className="manual-sheet">
+            <div className="manual-paper" aria-hidden="true" />
+            <div className="manual-copy">
+              <h1 id="name" className="manual-name">
+                <span>Logan</span>
+                <span>Pritchett</span>
+              </h1>
+              <p className="manual-role">
+                {currentRole.title} · {currentRole.company} · Orange, Texas
+              </p>
+              <p className="manual-thesis">{personal.shortBio}</p>
+              <nav
+                className="manual-routes"
+                aria-label="Get in touch and view work"
+              >
+                <a className="manual-route-primary" href={personal.resumeUrl}>
+                  <FileText aria-hidden="true" />
+                  View resume
+                </a>
+                <a href={`mailto:${personal.email}`}>
+                  Email Logan
+                  <ArrowRight aria-hidden="true" />
+                </a>
+                <a
+                  href={
+                    personal.socials.find(({ name }) => name === "GitHub")?.url
+                  }
                 >
-                  {skill}
-                </span>
-              ))}
+                  <Github aria-hidden="true" />
+                  GitHub
+                </a>
+              </nav>
+              <p className="manual-evidence-label">At FloQast</p>
+              <ul
+                className="manual-evidence"
+                aria-label="Selected FloQast results"
+              >
+                {selectedFloqastOutcomes.map((achievement) => (
+                  <li key={achievement}>
+                    <span>
+                      {achievement
+                        .split(/(40×|91%)/)
+                        .map((part) =>
+                          part === "40×" || part === "91%" ? (
+                            <strong key={part}>{part}</strong>
+                          ) : (
+                            part
+                          ),
+                        )}
+                    </span>
+                  </li>
+                ))}
+              </ul>
             </div>
+
+            <figure className="manual-portrait">
+              <img
+                src={personal.avatar}
+                alt="Logan Pritchett smiling in a blue-lit room"
+                width={953}
+                height={953}
+                fetchPriority="high"
+              />
+            </figure>
           </div>
         </section>
 
-        <div className="max-w-3xl mx-auto px-4 pb-16 pt-10 sm:px-6 sm:pt-14">
-          <SiteFooter />
+        <div className="manual-sections">
+          <Await promise={timelines} fallback={<ExperienceFallback />}>
+            {(data) => (
+              <>
+                <ExperienceTabsFromSearch
+                  timelines={data}
+                  className="manual-timeline"
+                />
+                <ExperienceStagger />
+              </>
+            )}
+          </Await>
+
+          <section id="story" className="manual-section story-sheet">
+            <header className="manual-section-heading">
+              <h2>The route here wasn’t linear.</h2>
+            </header>
+            <div className="story-ledger">
+              {personal.bio.map((item) => (
+                <article key={item.label}>
+                  <h3>{item.label}</h3>
+                  <p>{item.description}</p>
+                </article>
+              ))}
+            </div>
+          </section>
+
+          <section id="skills" className="manual-section skills-sheet">
+            <header className="manual-section-heading">
+              <h2>Tools I reach for.</h2>
+            </header>
+            <ul className="manual-skills">
+              {personal.skills.map((skill) => (
+                <li key={skill}>{skill}</li>
+              ))}
+            </ul>
+          </section>
+
+          <section id="contact" className="manual-section contact-sheet">
+            <div>
+              <h2>Have a hard problem worth solving?</h2>
+              <p>
+                I’m always interested in thoughtful engineering work, useful
+                tools, and the people building them.
+              </p>
+            </div>
+            <div className="manual-contact-actions">
+              <a href={`mailto:${personal.email}`}>
+                Email Logan
+                <ArrowRight aria-hidden="true" />
+              </a>
+            </div>
+          </section>
+
+          <SiteFooter className="manual-footer" />
         </div>
       </main>
+      <PageStagger />
     </div>
   );
 }
@@ -87,12 +171,9 @@ function ExperienceFallback() {
       id="experience"
       aria-busy="true"
       aria-label="Loading experience"
-      className="pt-8 pb-10 sm:pb-14"
+      className="manual-section manual-loading"
     >
-      <div className="max-w-3xl mx-auto px-4 sm:px-6">
-        <div className="h-11 animate-pulse rounded-full bg-muted motion-reduce:animate-none" />
-        <div className="mt-6 h-72 animate-pulse rounded-2xl bg-muted motion-reduce:animate-none" />
-      </div>
+      <p>Opening work plates…</p>
     </section>
   );
 }

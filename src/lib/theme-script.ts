@@ -29,7 +29,7 @@ export const themeScript = `
     try {
       const storedTheme = localStorage.getItem("theme");
       const systemTheme = window.matchMedia("(prefers-color-scheme: dark)").matches ? "dark" : "light";
-      const theme = storedTheme === "system" || !storedTheme ? systemTheme : storedTheme;
+      const theme = storedTheme === "light" || storedTheme === "dark" ? storedTheme : systemTheme;
       
       // Remove any existing theme classes and data attributes
       document.documentElement.classList.remove("light", "dark");

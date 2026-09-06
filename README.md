@@ -11,7 +11,7 @@ Tailwind CSS.
 - File-based, type-safe routing and validated search parameters
 - Responsive light and dark themes without a flash on page load
 - Framer Motion page and timeline animations
-- Cached PDF resume proxy at `/api/resume`
+- Hosted PDF resume at `/resume.pdf`, with `/api/resume` retained as a stable redirect
 - Vercel Analytics and Speed Insights
 
 ## Development
@@ -27,6 +27,9 @@ bun run lint
 bun run typecheck
 bun run build
 ```
+
+Replace `public/resume.pdf` with the current resume PDF and redeploy. The
+`/api/resume` URL remains available and redirects to the hosted file.
 
 ## Project structure
 

@@ -5,10 +5,10 @@ export const personal: PersonalInfo = {
   title: "Software Engineer",
   headline: "software engineer based in Orange, Texas",
   location: "Remote",
-  email: "logan.pritchett01@gmail.com",
+  email: "contact@loganpritchett.me",
   avatar: "/images/profile.jpg",
   shortBio:
-    "Full-stack with a bias toward backend by profession, macOS and terminal applications by passion. I'm also playing around with building agents.",
+    "Full-stack engineer with a bias toward backend systems. I build macOS apps, terminal tools, and agents for fun.",
   resumeUrl: "/api/resume",
   socials: [
     {
@@ -18,12 +18,12 @@ export const personal: PersonalInfo = {
     },
     {
       name: "LinkedIn",
-      url: "https://linkedin.com/in/loganpritchett",
+      url: "https://www.linkedin.com/in/logan-pritchett/",
       icon: "linkedin",
     },
     {
       name: "Email",
-      url: "mailto:logan.pritchett01@gmail.com",
+      url: "mailto:contact@loganpritchett.me",
       icon: "mail",
     },
   ],
@@ -48,16 +48,10 @@ export const personal: PersonalInfo = {
     "TypeScript",
     "JavaScript",
     "React",
-    "Next.js",
     "Node.js",
     "Express.js",
-    "Tailwind CSS",
     "PostgreSQL",
     "MongoDB",
     "Docker",
-    "Git",
-    "Framer Motion",
-    "HTML/CSS",
-    "Jest",
   ],
 };
