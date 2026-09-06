@@ -71,18 +71,10 @@ function useSectionStagger(
       animations.clear();
     };
     preference.addEventListener("change", stop);
-    const beforePrint = () => {
-      stop();
-      document
-        .querySelectorAll<HTMLElement>(".manual-copy > *, .manual-portrait")
-        .forEach((element) => {
-          element.style.animation = "none";
-        });
-    };
-    window.addEventListener("beforeprint", beforePrint);
+    window.addEventListener("beforeprint", stop);
     return () => {
       preference.removeEventListener("change", stop);
-      window.removeEventListener("beforeprint", beforePrint);
+      window.removeEventListener("beforeprint", stop);
       observer.disconnect();
       pending.clear();
       animations.forEach((animation) => animation.cancel());
@@ -92,6 +84,17 @@ function useSectionStagger(
 }
 
 export function PageStagger() {
+  useEffect(() => {
+    const settleHero = () => {
+      document
+        .querySelectorAll<HTMLElement>(".manual-copy > *, .manual-portrait")
+        .forEach((element) => {
+          element.style.animation = "none";
+        });
+    };
+    window.addEventListener("beforeprint", settleHero);
+    return () => window.removeEventListener("beforeprint", settleHero);
+  }, []);
   useSectionStagger(pageTargets);
   return null;
 }

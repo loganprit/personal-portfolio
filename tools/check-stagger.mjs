@@ -55,7 +55,17 @@ try {
     })()`,
     );
   }
+  // Keep the reduced-motion mount while changing preference, then print.
   browser("set", "media", "light", "no-preference");
+  browser(
+    "eval",
+    `(() => {
+    window.dispatchEvent(new Event('beforeprint'));
+    for (const hero of document.querySelectorAll('.manual-copy > *, .manual-portrait')) {
+      if (hero.style.animationName !== 'none') throw Error('Print settling missing after motion preference change');
+    }
+  })()`,
+  );
   browser("open", url);
   browser("eval", "window.scrollTo({top: 0, behavior: 'instant'})");
   browser("reload");
