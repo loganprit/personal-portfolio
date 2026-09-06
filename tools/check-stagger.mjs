@@ -71,6 +71,10 @@ try {
       .find(rule => rule instanceof CSSMediaRule && rule.cssText.includes('hero-stagger'));
     if (!heroRule?.conditionText.includes('screen')) throw Error('Hero animation must be screen-only');
     window.dispatchEvent(new Event('beforeprint'));
+    window.dispatchEvent(new Event('afterprint'));
+    for (const hero of document.querySelectorAll('.manual-copy > *, .manual-portrait')) {
+      if (hero.style.animationName !== 'none' || getComputedStyle(hero).opacity !== '1') throw Error('Hero must stay settled after printing');
+    }
     for (const target of document.querySelectorAll('#story article, #skills li, #contact .contact-sheet > div')) {
       if (getComputedStyle(target).opacity !== '1') throw Error('Print content remains hidden');
     }

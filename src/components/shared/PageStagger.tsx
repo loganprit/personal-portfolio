@@ -71,10 +71,18 @@ function useSectionStagger(
       animations.clear();
     };
     preference.addEventListener("change", stop);
-    window.addEventListener("beforeprint", stop);
+    const beforePrint = () => {
+      stop();
+      document
+        .querySelectorAll<HTMLElement>(".manual-copy > *, .manual-portrait")
+        .forEach((element) => {
+          element.style.animation = "none";
+        });
+    };
+    window.addEventListener("beforeprint", beforePrint);
     return () => {
       preference.removeEventListener("change", stop);
-      window.removeEventListener("beforeprint", stop);
+      window.removeEventListener("beforeprint", beforePrint);
       observer.disconnect();
       pending.clear();
       animations.forEach((animation) => animation.cancel());
