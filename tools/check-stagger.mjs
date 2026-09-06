@@ -55,8 +55,27 @@ try {
     })()`,
     );
   }
+  browser("set", "media", "light", "no-preference");
+  browser("open", url);
+  browser("eval", "window.scrollTo({top: 0, behavior: 'instant'})");
+  browser("reload");
+  browser(
+    "wait",
+    "--fn",
+    "document.getAnimations().some(a => a.playState === 'paused')",
+  );
+  browser(
+    "eval",
+    `(() => {
+    window.dispatchEvent(new Event('beforeprint'));
+    for (const target of document.querySelectorAll('#story article, #skills li, #contact .contact-sheet > div')) {
+      if (getComputedStyle(target).opacity !== '1') throw Error('Print content remains hidden');
+    }
+    if (document.getAnimations().some(a => a.playState === 'paused')) throw Error('Print left pending entrances');
+  })()`,
+  );
   console.log(
-    "Section stagger, one-shot scrolling, cleanup, and reduced motion pass.",
+    "Section stagger, one-shot scrolling, cleanup, reduced motion, and print visibility pass.",
   );
 } finally {
   browser("close");

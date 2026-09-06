@@ -71,8 +71,10 @@ function useSectionStagger(
       animations.clear();
     };
     preference.addEventListener("change", stop);
+    window.addEventListener("beforeprint", stop);
     return () => {
       preference.removeEventListener("change", stop);
+      window.removeEventListener("beforeprint", stop);
       observer.disconnect();
       pending.clear();
       animations.forEach((animation) => animation.cancel());
