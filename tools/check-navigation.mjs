@@ -54,6 +54,17 @@ const checkSmoothAnchor = (id) => {
   );
   checkActive(id);
 };
+const checkManualSection = (id) => {
+  browser(
+    "eval",
+    `(() => {
+      const section = document.getElementById('${id}');
+      const target = scrollY + section.getBoundingClientRect().top - innerHeight * 0.3 + 1;
+      window.scrollTo({ top: Math.max(0, target), behavior: 'instant' });
+    })()`,
+  );
+  checkActive(id);
+};
 const checkExperiencePill = (view, expectedDuration) => {
   browser(
     "wait",
@@ -151,6 +162,7 @@ try {
   browser("eval", "document.documentElement.style.scrollBehavior = 'auto'");
   for (const [width, height] of [
     [1203, 1198],
+    [1514, 1116],
     [320, 568],
   ]) {
     browser("set", "viewport", String(width), String(height));
@@ -167,6 +179,32 @@ try {
         "window.scrollTo(0, document.documentElement.scrollHeight)",
       );
       checkActive("contact");
+    }
+    if (width === 1514) {
+      browser(
+        "eval",
+        `(async () => {
+          const settle = () => new Promise(done => requestAnimationFrame(() => requestAnimationFrame(done)));
+          const maxScrollY = document.documentElement.scrollHeight - innerHeight;
+          const sweep = async reverse => {
+            const seen = [];
+            for (let offset = 0; offset <= maxScrollY + 25; offset += 25) {
+              const y = Math.min(offset, maxScrollY);
+              scrollTo({ top: reverse ? maxScrollY - y : y, behavior: 'instant' });
+              await settle();
+              const id = document.querySelector('.manual-spine [aria-current]')?.getAttribute('href');
+              if (seen.at(-1) !== id) seen.push(id);
+            }
+            return seen;
+          };
+          const down = await sweep(false);
+          const up = await sweep(true);
+          const expected = ['#hero', '#experience', '#story', '#skills', '#contact'];
+          if (JSON.stringify(down) !== JSON.stringify(expected) || JSON.stringify(up) !== JSON.stringify(expected.slice().reverse())) {
+            throw new Error('Tall viewport must select every section in order: ' + JSON.stringify({ down, up }));
+          }
+        })()`,
+      );
     }
     // Manual scrolling must update selection independently of the URL hash.
     browser(
@@ -255,11 +293,7 @@ try {
     browser("eval", "window.scrollTo({ top: 0, behavior: 'instant' })");
     checkActive("hero");
     checkSmoothAnchor("skills");
-    browser(
-      "eval",
-      "window.scrollTo({ top: Math.max(0, window.scrollY - 100), behavior: 'instant' })",
-    );
-    checkActive("story");
+    checkManualSection("story");
     browser(
       "eval",
       "window.scrollTo({ top: document.documentElement.scrollHeight, behavior: 'instant' })",
@@ -267,11 +301,7 @@ try {
     checkActive("contact");
     checkSmoothAnchor("contact");
     checkSmoothAnchor("story");
-    browser(
-      "eval",
-      "window.scrollTo({ top: Math.max(0, window.scrollY - 100), behavior: 'instant' })",
-    );
-    checkActive("story");
+    checkManualSection("story");
     browser(
       "eval",
       "window.scrollTo({ top: document.documentElement.scrollHeight, behavior: 'instant' })",

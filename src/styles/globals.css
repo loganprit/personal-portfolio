@@ -663,15 +663,17 @@ body {
 }
 
 .manual-skills {
-  display: flex;
-  flex-wrap: wrap;
-  gap: 0.5rem 1.5rem;
-  margin: 1rem 0 0;
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  column-gap: 1.5rem;
+  margin: 1.5rem 0 0;
   padding: 0;
   list-style: none;
 }
 
 .manual-skills li {
+  padding-block: 1.5rem;
+  border-bottom: 1px solid rgb(12 33 78 / 18%);
   color: var(--manual-ink);
   font-size: 1rem;
 }
