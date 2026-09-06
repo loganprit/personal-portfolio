@@ -10,6 +10,10 @@ import { currentRole } from "@/data/current-role";
 import { getExperienceTimelines } from "@/data/experience.functions";
 import { personal } from "@/data/personal";
 import { selectedFloqastOutcomes } from "@/data/work-history";
+import {
+  PageStagger,
+  ExperienceStagger,
+} from "@/components/shared/PageStagger";
 import { parseExperienceSearch } from "@/lib/experience";
 
 export const Route = createFileRoute("/")({
@@ -102,10 +106,13 @@ function Home() {
         <div className="manual-sections">
           <Await promise={timelines} fallback={<ExperienceFallback />}>
             {(data) => (
-              <ExperienceTabsFromSearch
-                timelines={data}
-                className="manual-timeline"
-              />
+              <>
+                <ExperienceTabsFromSearch
+                  timelines={data}
+                  className="manual-timeline"
+                />
+                <ExperienceStagger />
+              </>
             )}
           </Await>
 
@@ -153,6 +160,7 @@ function Home() {
           <SiteFooter className="manual-footer" />
         </div>
       </main>
+      <PageStagger />
     </div>
   );
 }
