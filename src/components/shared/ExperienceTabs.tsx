@@ -1,4 +1,5 @@
 import { MapPin, Briefcase, GraduationCap } from "lucide-react";
+import { captureEvent } from "@/lib/analytics";
 import { Link } from "@tanstack/react-router";
 import { TechBadge } from "./TechBadge";
 import { cn } from "@/lib/cn";
@@ -247,6 +248,13 @@ export function ExperienceTabs({
               )}
               activeOptions={{ exact: true }}
               data-active={activeTab === tab ? "true" : undefined}
+              onClick={() => {
+                if (tab !== activeTab) {
+                  captureEvent("experience_view_changed", {
+                    experience_view: tab,
+                  });
+                }
+              }}
             >
               {tab === "work" ? "Work" : "Education"}
             </Link>

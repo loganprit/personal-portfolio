@@ -4,6 +4,7 @@ import {
   stripSearchParams,
 } from "@tanstack/react-router";
 import { ArrowRight, FileText, Github } from "lucide-react";
+import { captureEvent } from "@/lib/analytics";
 import { ExperienceTabsFromSearch } from "@/components/shared/ExperienceTabsFromSearch";
 import { SiteFooter } from "@/components/shared/SiteFooter";
 import { currentRole } from "@/data/current-role";
@@ -51,17 +52,36 @@ function Home() {
                 className="manual-routes"
                 aria-label="Get in touch and view work"
               >
-                <a className="manual-route-primary" href={personal.resumeUrl}>
+                <a
+                  className="manual-route-primary"
+                  href={personal.resumeUrl}
+                  onClick={() =>
+                    captureEvent("resume_requested", { placement: "hero" })
+                  }
+                >
                   <FileText aria-hidden="true" />
                   View resume
                 </a>
-                <a href={`mailto:${personal.email}`}>
+                <a
+                  href={`mailto:${personal.email}`}
+                  onClick={() =>
+                    captureEvent("email_contact_requested", {
+                      placement: "hero",
+                    })
+                  }
+                >
                   Email Logan
                   <ArrowRight aria-hidden="true" />
                 </a>
                 <a
                   href={
                     personal.socials.find(({ name }) => name === "GitHub")?.url
+                  }
+                  onClick={() =>
+                    captureEvent("social_link_opened", {
+                      destination: "github",
+                      placement: "hero",
+                    })
                   }
                 >
                   <Github aria-hidden="true" />
@@ -150,7 +170,14 @@ function Home() {
               </p>
             </div>
             <div className="manual-contact-actions">
-              <a href={`mailto:${personal.email}`}>
+              <a
+                href={`mailto:${personal.email}`}
+                onClick={() =>
+                  captureEvent("email_contact_requested", {
+                    placement: "contact_section",
+                  })
+                }
+              >
                 Email Logan
                 <ArrowRight aria-hidden="true" />
               </a>
