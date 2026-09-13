@@ -761,7 +761,7 @@ body {
 .not-found {
   display: grid;
   align-items: center;
-  padding: 8rem 1.5rem 4rem;
+  padding: 3rem 1.5rem 5rem;
 }
 
 .not-found-sheet {
@@ -785,6 +785,7 @@ body {
   font-weight: 600;
   letter-spacing: -0.035em;
   line-height: 1.15;
+  text-wrap: balance;
 }
 
 .not-found-description {
@@ -793,6 +794,7 @@ body {
   color: var(--manual-graphite);
   font-size: 1.125rem;
   line-height: 1.6;
+  text-wrap: pretty;
 }
 
 .not-found-home {
