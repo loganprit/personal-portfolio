@@ -17,6 +17,11 @@ import {
 } from "@/components/shared/PageStagger";
 import { parseExperienceSearch } from "@/lib/experience";
 
+const siteUrl = "https://loganpritchett.me/";
+const pageTitle = `${personal.name} - ${personal.title}`;
+const shareImage = `${siteUrl}og-image.png`;
+const shareImageAlt = "Logan Pritchett, Software Engineer. loganpritchett.me";
+
 export const Route = createFileRoute("/")({
   validateSearch: parseExperienceSearch,
   search: {
@@ -27,6 +32,28 @@ export const Route = createFileRoute("/")({
   loader: () => {
     return { timelines: getExperienceTimelines() };
   },
+  head: () => ({
+    meta: [
+      { title: pageTitle },
+      { name: "description", content: personal.shortBio },
+      { property: "og:type", content: "website" },
+      { property: "og:site_name", content: personal.name },
+      { property: "og:title", content: pageTitle },
+      { property: "og:description", content: personal.shortBio },
+      { property: "og:url", content: siteUrl },
+      { property: "og:image", content: shareImage },
+      { property: "og:image:type", content: "image/png" },
+      { property: "og:image:width", content: "1200" },
+      { property: "og:image:height", content: "630" },
+      { property: "og:image:alt", content: shareImageAlt },
+      { name: "twitter:card", content: "summary_large_image" },
+      { name: "twitter:title", content: pageTitle },
+      { name: "twitter:description", content: personal.shortBio },
+      { name: "twitter:image", content: shareImage },
+      { name: "twitter:image:alt", content: shareImageAlt },
+    ],
+    links: [{ rel: "canonical", href: siteUrl }],
+  }),
   component: Home,
 });
 

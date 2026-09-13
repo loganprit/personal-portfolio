@@ -1,0 +1,217 @@
+<!doctype html>
+<!-- Render: chromium --headless --no-sandbox --disable-gpu --hide-scrollbars --screenshot=public/og-image.png --window-size=1200,630 "file://$PWD/tools/og-image.html" -->
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <style>
+      @font-face {
+        font-family: "Space Grotesk";
+        src: url("../src/styles/fonts/SpaceGroteskLatin.woff2") format("woff2");
+        font-weight: 400 700;
+      }
+
+      * {
+        box-sizing: border-box;
+      }
+      html,
+      body {
+        margin: 0;
+        width: 1200px;
+        height: 630px;
+      }
+      body {
+        background: #e3eaf3;
+        color: #0c214e;
+        font-family: "Space Grotesk", Arial, sans-serif;
+        overflow: hidden;
+      }
+
+      .card {
+        position: relative;
+        width: 1200px;
+        height: 630px;
+        padding: 34px 42px 34px 50px;
+        background:
+          radial-gradient(
+              circle at 1px 1px,
+              rgb(12 33 78 / 9%) 0.65px,
+              transparent 0.8px
+            )
+            0 0 / 7px 9px,
+          #e3eaf3;
+      }
+      .spine {
+        position: absolute;
+        inset: 0 auto 0 0;
+        width: 18px;
+        background: #061630;
+      }
+      .spine::after {
+        content: "";
+        position: absolute;
+        top: 42px;
+        left: 6px;
+        width: 6px;
+        height: 132px;
+        background: #146cff;
+      }
+      .paper {
+        position: relative;
+        width: 1108px;
+        height: 562px;
+        padding: 42px 48px;
+        display: grid;
+        grid-template-columns: 1fr 310px;
+        column-gap: 50px;
+        align-items: center;
+        background:
+          radial-gradient(
+              circle at 1px 1px,
+              rgb(12 33 78 / 9%) 0.65px,
+              transparent 0.8px
+            )
+            0 0 / 7px 9px,
+          #f8fafc;
+        box-shadow: 0 18px 54px rgb(0 5 18 / 32%);
+      }
+      .copy {
+        min-width: 0;
+      }
+      .eyebrow,
+      .kicker,
+      .url {
+        color: #0757dc;
+        font-size: 15px;
+        font-weight: 700;
+        letter-spacing: 0.12em;
+        line-height: 1.2;
+        text-transform: uppercase;
+      }
+      .eyebrow {
+        display: flex;
+        align-items: center;
+        gap: 12px;
+        margin: 0 0 24px;
+      }
+      .eyebrow::before {
+        content: "";
+        width: 34px;
+        height: 3px;
+        background: #0757dc;
+      }
+      h1 {
+        margin: 0;
+        color: #0c214e;
+        font-size: 78px;
+        font-weight: 520;
+        letter-spacing: -0.065em;
+        line-height: 0.89;
+      }
+      h1 span {
+        display: block;
+      }
+      .role {
+        width: 520px;
+        margin: 24px 0 0;
+        padding: 0 0 13px;
+        border-bottom: 3px solid #0757dc;
+        color: #0757dc;
+        font-size: 29px;
+        font-weight: 650;
+        letter-spacing: -0.025em;
+      }
+      .thesis {
+        max-width: 590px;
+        margin: 22px 0 0;
+        color: #17294e;
+        font-size: 21px;
+        line-height: 1.38;
+      }
+      .rule {
+        width: 100%;
+        height: 1px;
+        margin: 30px 0 18px;
+        background: #cbd6e5;
+      }
+      .kicker {
+        margin: 0 0 8px;
+        font-size: 13px;
+      }
+      .url {
+        margin: 0;
+        color: #0c214e;
+        font-size: 18px;
+        letter-spacing: 0.08em;
+        text-transform: none;
+      }
+      .portrait-wrap {
+        position: relative;
+        width: 310px;
+        height: 310px;
+        padding: 12px;
+        background: #0757dc;
+        box-shadow: 0 13px 28px rgb(3 14 36 / 30%);
+      }
+      .portrait-wrap::before,
+      .portrait-wrap::after {
+        content: "";
+        position: absolute;
+        background: #f8fafc;
+      }
+      .portrait-wrap::before {
+        top: -17px;
+        right: 22px;
+        width: 3px;
+        height: 38px;
+      }
+      .portrait-wrap::after {
+        right: -17px;
+        bottom: 24px;
+        width: 38px;
+        height: 3px;
+      }
+      .portrait {
+        width: 286px;
+        height: 286px;
+        object-fit: cover;
+        object-position: 54% center;
+        filter: saturate(1.08) contrast(1.03);
+      }
+      .stamp {
+        position: absolute;
+        right: 48px;
+        bottom: 28px;
+        padding: 8px 12px;
+        border: 1px solid #8fa0b9;
+        color: #46546b;
+        font-size: 12px;
+        font-weight: 700;
+        letter-spacing: 0.1em;
+        text-transform: uppercase;
+      }
+    </style>
+  </head>
+  <body>
+    <main class="card" aria-label="Logan Pritchett, Software Engineer">
+      <div class="spine"></div>
+      <section class="paper">
+        <div class="copy">
+          <p class="eyebrow">Field manual / software engineering</p>
+          <h1><span>Logan</span><span>Pritchett</span></h1>
+          <p class="role">Software Engineer</p>
+          <p class="thesis">
+            Full-stack engineer with a bias toward backend systems. I build
+            macOS apps, terminal tools, and agents for fun.
+          </p>
+          <div class="rule"></div>
+          <p class="kicker">Portfolio &amp; projects</p>
+          <p class="url">loganpritchett.me</p>
+        </div>
+        <div class="portrait-wrap">
+          <img class="portrait" src="../public/images/profile.jpg" alt="" />
+        </div>
+        <p class="stamp">Orange, Texas · Remote</p>
+      </section>
+    </main>
+  </body>
+</html>
