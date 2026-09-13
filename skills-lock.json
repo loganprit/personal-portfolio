@@ -7,6 +7,12 @@
       "skillPath": "skills/animate/SKILL.md",
       "computedHash": "609e30351bf518b21a8cfe87cd1111554855527075d6563605bafe61963252f7"
     },
+    "before-and-after": {
+      "source": "vercel-labs/before-and-after",
+      "sourceType": "github",
+      "skillPath": "skill/SKILL.md",
+      "computedHash": "d3e059a03864cd72392d24e2b218ea825b3533383418b5dc1f947a9b084e3742"
+    },
     "better-accessibility": {
       "source": "jakubkrehel/skills",
       "sourceType": "github",

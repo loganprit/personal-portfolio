@@ -41,6 +41,9 @@ This is a TanStack Start portfolio. Keep this file limited to stable constraints
 - For UI changes, inspect the rendered result at affected desktop/mobile sizes,
   themes, and interaction states. Verify from a fresh reload after styling changes;
   an error page or stale preview is not a passing check.
+- For visual PRs, use `before-and-after` to attach comparison screenshots or a
+  preview for new pages. If missing, install it with
+  `npx skills add vercel-labs/before-and-after --skill before-and-after --agent codex --yes`.
 - Reviewers are read-only: preserve source, lockfiles, and shared dependencies.
   If Bun or dependencies are unavailable, report that to the orchestrator, who
   owns dependency setup; do not substitute another package manager.
