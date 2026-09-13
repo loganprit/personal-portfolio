@@ -1,11 +1,11 @@
-import type { ReactNode } from "react";
+import { useEffect, type ReactNode } from "react";
 import {
   HeadContent,
   Outlet,
   Scripts,
   createRootRoute,
 } from "@tanstack/react-router";
-import { Analytics } from "@vercel/analytics/react";
+import { initializeAnalytics } from "@/lib/analytics";
 import { SpeedInsights } from "@vercel/speed-insights/react";
 import { PageTransition } from "@/components/shared/PageTransition";
 import { NotFound } from "@/components/shared/NotFound";
@@ -54,18 +54,17 @@ export const Route = createRootRoute({
 });
 
 function RootLayout() {
+  useEffect(() => {
+    void initializeAnalytics();
+  }, []);
+
   return (
     <ThemeProvider>
       <SiteNav />
       <PageTransition>
         <Outlet />
       </PageTransition>
-      {import.meta.env.PROD && (
-        <>
-          <Analytics />
-          <SpeedInsights />
-        </>
-      )}
+      {import.meta.env.PROD && <SpeedInsights />}
     </ThemeProvider>
   );
 }

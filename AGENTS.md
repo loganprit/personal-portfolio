@@ -12,6 +12,11 @@ This is a TanStack Start portfolio. Keep this file limited to stable constraints
 - Use the reachable Tailnet URL for browser validation and report it to Logan.
   Prefer the available `agent-browser` skill; use another browser tool when it
   cannot perform the required check.
+- If `agent-browser` is unavailable, discover the T3 Code `preview_*` tools and
+  open the intended dev server's reachable Tailnet URL with `preview_open` or
+  `preview_navigate`. Use `preview_resize`, `preview_snapshot`, and
+  `preview_evaluate` for viewport, visual, and DOM checks before declaring
+  browser verification unavailable.
 
 ## Portfolio Landmines
 

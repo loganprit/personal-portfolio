@@ -12,6 +12,7 @@
 
 # env files
 .env*
+!.env.example
 
 # typescript
 *.tsbuildinfo
@@ -26,3 +27,4 @@
 
 # local scratch files
 /tmp/
+/.posthog-wizard-cache/

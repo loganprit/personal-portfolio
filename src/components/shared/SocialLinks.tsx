@@ -1,4 +1,5 @@
 import { Github, Linkedin, Mail } from "lucide-react";
+import { captureEvent } from "@/lib/analytics";
 import { personal } from "@/data/personal";
 import { cn } from "@/lib/cn";
 
@@ -30,6 +31,19 @@ export function SocialLinks({
             rel="noopener noreferrer"
             className="grid min-h-11 min-w-11 place-items-center rounded-lg text-muted-foreground transition-colors hover:text-foreground hover:bg-muted"
             aria-label={link.name}
+            onClick={() => {
+              if (link.url.startsWith("mailto:")) {
+                captureEvent("email_contact_requested", {
+                  placement: "social_links",
+                });
+                return;
+              }
+
+              captureEvent("social_link_opened", {
+                destination: link.name.toLowerCase(),
+                placement: "social_links",
+              });
+            }}
           >
             <Icon className={iconSize} />
           </a>
