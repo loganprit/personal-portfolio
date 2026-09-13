@@ -8,6 +8,7 @@ import {
 import { Analytics } from "@vercel/analytics/react";
 import { SpeedInsights } from "@vercel/speed-insights/react";
 import { PageTransition } from "@/components/shared/PageTransition";
+import { NotFound } from "@/components/shared/NotFound";
 import { SiteNav } from "@/components/shared/SiteNav";
 import { ThemeProvider } from "@/components/theme/ThemeProvider";
 import { themeScript } from "@/lib/theme-script";
@@ -48,6 +49,7 @@ export const Route = createRootRoute({
     ],
   }),
   component: RootLayout,
+  notFoundComponent: NotFound,
   shellComponent: RootDocument,
 });
 

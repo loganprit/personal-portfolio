@@ -155,7 +155,14 @@ export function SiteNav() {
           <Link to="/" search={{ experience: "work" }}>
             Home
           </Link>
-          <span>Contact</span>
+          <Link
+            to="/"
+            search={{ experience: "work" }}
+            hash="contact"
+            className="ml-auto"
+          >
+            Contact
+          </Link>
           <ThemeToggle />
         </nav>
       )}
