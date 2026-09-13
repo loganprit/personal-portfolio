@@ -23,6 +23,15 @@ const shareImage = `${siteUrl}og-image.png`;
 const shareImageAlt = "Logan Pritchett, Software Engineer. loganpritchett.me";
 
 export const Route = createFileRoute("/")({
+  validateSearch: parseExperienceSearch,
+  search: {
+    middlewares: [stripSearchParams({ experience: "work" })],
+  },
+  ssr: true,
+  staleTime: Infinity,
+  loader: () => {
+    return { timelines: getExperienceTimelines() };
+  },
   head: () => ({
     meta: [
       { title: pageTitle },
@@ -45,15 +54,6 @@ export const Route = createFileRoute("/")({
     ],
     links: [{ rel: "canonical", href: siteUrl }],
   }),
-  validateSearch: parseExperienceSearch,
-  search: {
-    middlewares: [stripSearchParams({ experience: "work" })],
-  },
-  ssr: true,
-  staleTime: Infinity,
-  loader: () => {
-    return { timelines: getExperienceTimelines() };
-  },
   component: Home,
 });
 
