@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react";
-import { Link, useRouterState } from "@tanstack/react-router";
+import { useRouterState } from "@tanstack/react-router";
 import { ThemeToggle } from "@/components/theme/ThemeToggle";
 
 const HOME_SECTIONS = [
@@ -120,52 +120,37 @@ export function SiteNav() {
     };
   }, [pathname]);
 
+  if (pathname !== "/") return null;
+
   return (
     <>
       <a className="skip-link" href="#main-content">
         Skip to content
       </a>
-      {pathname === "/" ? (
-        <nav className="manual-spine" aria-label="Field manual index">
-          <a
-            href="#hero"
-            className="manual-mark"
-            aria-label="Back to top"
-            aria-current={activeSection === "hero" ? "location" : undefined}
-          >
-            <img src="/favicon-source.svg" alt="" width={42} height={42} />
-          </a>
-          <div className="manual-spine-links">
-            {HOME_SECTIONS.map((section) => (
-              <a
-                key={section.id}
-                href={`#${section.id}`}
-                aria-current={
-                  activeSection === section.id ? "location" : undefined
-                }
-              >
-                {section.label}
-              </a>
-            ))}
-          </div>
-          <ThemeToggle className="manual-theme-toggle" />
-        </nav>
-      ) : (
-        <nav className="site-nav" aria-label="Primary navigation">
-          <Link to="/" search={{ experience: "work" }}>
-            Home
-          </Link>
-          <Link
-            to="/"
-            search={{ experience: "work" }}
-            hash="contact"
-            className="ml-auto"
-          >
-            Contact
-          </Link>
-          <ThemeToggle />
-        </nav>
-      )}
+      <nav className="manual-spine" aria-label="Field manual index">
+        <a
+          href="#hero"
+          className="manual-mark"
+          aria-label="Back to top"
+          aria-current={activeSection === "hero" ? "location" : undefined}
+        >
+          <img src="/favicon-source.svg" alt="" width={42} height={42} />
+        </a>
+        <div className="manual-spine-links">
+          {HOME_SECTIONS.map((section) => (
+            <a
+              key={section.id}
+              href={`#${section.id}`}
+              aria-current={
+                activeSection === section.id ? "location" : undefined
+              }
+            >
+              {section.label}
+            </a>
+          ))}
+        </div>
+        <ThemeToggle className="manual-theme-toggle" />
+      </nav>
     </>
   );
 }
