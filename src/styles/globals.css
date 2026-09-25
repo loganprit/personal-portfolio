@@ -197,7 +197,9 @@ body {
   box-shadow: 0 8px 24px rgb(0 8 24 / 24%);
 }
 
+/* Keep each control in its track when a browser hides a sibling. */
 .manual-mark {
+  grid-area: 1 / 1;
   display: grid;
   min-height: 4.25rem;
   place-items: center;
@@ -209,6 +211,7 @@ body {
 }
 
 .manual-spine-links {
+  grid-area: 1 / 2;
   display: grid;
   grid-template-columns: repeat(4, minmax(0, 1fr));
 }
@@ -252,6 +255,7 @@ body {
 }
 
 .manual-theme-toggle {
+  grid-area: 1 / 3;
   width: 100%;
   height: 100%;
   min-height: 4.25rem;
