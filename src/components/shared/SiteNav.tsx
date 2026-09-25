@@ -131,7 +131,7 @@ export function SiteNav() {
         <a
           href="#hero"
           className="manual-mark"
-          aria-label="Back to top"
+          aria-label="Logan Pritchett, introduction"
           aria-current={activeSection === "hero" ? "location" : undefined}
         >
           <img src="/favicon-source.svg" alt="" width={42} height={42} />
